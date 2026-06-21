@@ -1,6 +1,6 @@
-import fs from 'fs/promises';
-import path from 'path';
-import { fileURLToPath } from 'url';
+import fs from 'node:fs/promises';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 
 /**
  * Rewrites relative `.js` imports to `.ts` when the TypeScript source exists.
@@ -17,7 +17,7 @@ export function resolveTsImportsPlugin(rootDir) {
 
       const filePath = path.join(rootDir, context.path.replace(/^\//, ''));
       const fileDir = path.dirname(filePath);
-      const tsSource = source.slice(0, -3) + '.ts';
+      const tsSource = `${source.slice(0, -3)}.ts`;
       const importedTsPath = path.join(fileDir, tsSource);
 
       try {

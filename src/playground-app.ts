@@ -1,6 +1,6 @@
-import { LitElement, css, html, nothing } from 'lit';
+import { css, html, LitElement, nothing } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
-import { componentRegistry, type ComponentEntry } from './registry.js';
+import { type ComponentEntry, componentRegistry } from './registry.js';
 import { applyTheme, type Palette, type ThemeMode } from './theme.js';
 
 @customElement('playground-app')
@@ -316,23 +316,29 @@ export class PlaygroundApp extends LitElement {
         </aside>
 
         <main>
-          ${selected
-            ? html`
+          ${
+            selected
+              ? html`
                 <div class="preview-panel">
                   <h2>${selected.label}</h2>
-                  ${selected.description
-                    ? html`<p class="description">${selected.description}</p>`
-                    : nothing}
+                  ${
+                    selected.description
+                      ? html`<p class="description">${selected.description}</p>`
+                      : nothing
+                  }
                   <div class="preview-box">
                     ${this.renderPreview(selected)}
-                    ${selected.tag === 'nui-button'
-                      ? html`<nui-button label="Secondary" variant="secondary"></nui-button>`
-                      : nothing}
+                    ${
+                      selected.tag === 'nui-button'
+                        ? html`<nui-button label="Secondary" variant="secondary"></nui-button>`
+                        : nothing
+                    }
                   </div>
                   ${this.renderUsage(selected)}
                 </div>
               `
-            : html`<p class="empty">No components in the registry.</p>`}
+              : html`<p class="empty">No components in the registry.</p>`
+          }
         </main>
       </div>
     `;

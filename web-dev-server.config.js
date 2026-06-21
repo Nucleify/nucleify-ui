@@ -1,5 +1,5 @@
+import { fileURLToPath } from 'node:url';
 import { esbuildPlugin } from '@web/dev-server-esbuild';
-import { fileURLToPath } from 'url';
 import { resolveTsImportsPlugin } from './resolve-ts-imports-plugin.js';
 
 export default {
