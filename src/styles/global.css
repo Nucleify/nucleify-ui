@@ -1,0 +1,15 @@
+@import './variables.css';
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, sans-serif;
+  background: var(--nuc-bg-dark-color, #0f1117);
+  color: var(--nuc-white-text-color, #e4e4e7);
+  min-height: 100vh;
+}
