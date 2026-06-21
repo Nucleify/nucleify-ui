@@ -1,0 +1,52 @@
+---
+description: Design tokens, motywy i CSS variables
+globs: src/styles/**/*,src/components/**/styles.css
+alwaysApply: false
+---
+
+# Design tokens
+
+## Pliki
+
+- `src/styles/variables.css` — font/spacing/border/transition, severity, palety, motywy
+- `src/styles/global.css` — `@import variables`, style `body`
+- `src/components/*/styles.css` — selektory komponentów z `var(--nui-*)`
+
+## Prefiks `--nui-*`
+
+Severity (`:root`): `--nui-success-color`, `--nui-danger-color`, …
+
+Paleta (`body`): `--nui-primary-color`, `--nui-primary-hover-color`, …
+
+Layout/UI: `--nui-bg-dark-color`, `--nui-card-border`, `--nui-white-text-color`, …
+
+## Motywy na `body`
+
+```
+nui-primary-palette-{nuxt|next}
+nui-theme-{light|dark}-{nuxt|next}
+```
+
+Przełączanie: `applyTheme()` w `theme.ts` (playground header).
+
+## Stylowanie komponentów
+
+Tokeny dziedziczą do Shadow DOM. Selektory po atrybutach:
+
+```css
+.nui-button:not([severity]),
+.nui-button[severity="primary"] { background: var(--nui-primary-color); }
+
+.nui-button[severity="success"] { background: var(--nui-success-color); }
+
+.nui-button[variant="outlined"][severity="success"] {
+  color: var(--nui-success-color);
+  border-color: var(--nui-success-color);
+}
+```
+
+Brak `severity` = primary solid. Brak `variant` = solid.
+
+## Uwaga
+
+`--nui-danger-color` używa `var(--invalid-color)`, które jest zdefiniowane tylko na `.invalid`. Przenieś `--invalid-color` na `:root` albo ustaw literalny kolor danger.

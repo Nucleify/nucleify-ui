@@ -1,0 +1,53 @@
+---
+description: Playground — definitions, controls, registry
+globs: src/playground/**/*
+alwaysApply: false
+---
+
+# Playground
+
+Wzorce referencyjne: `definitions/nui-button.ts`, `definitions/nui-icon.ts`.
+
+## Checklist
+
+1. `src/playground/definitions/nui-{name}.ts`:
+   - `NUI_{NAME}_DEFAULTS` — wartości początkowe panelu
+   - `CONTROLS` — sekcje: Content, Appearance, Modifiers, State, Layout, HTML
+   - `ATTRIBUTE_NAMES` — camelCase → kebab-case (`nuiType: 'nui-type'`)
+   - `renderPreview` — live preview
+   - export `nui{Name}Playground: PlaygroundDefinition`
+
+2. Wpis w `playgroundRegistry` (`registry.ts`)
+
+## renderPreview
+
+Importuj z `../types.js`: `whenString`, `whenBoolean`, `whenStringNotDefault`.
+
+```typescript
+function renderPreview(props: PlaygroundProps): TemplateResult {
+  return html`
+    <nui-icon
+      icon=${String(props.icon)}
+      width=${whenStringNotDefault(props.width, '1em')}
+      nui-type=${whenString(props.nuiType)}
+      ?disabled=${whenBoolean(props.disabled)}
+    ></nui-icon>
+  `;
+}
+```
+
+- Wymagane pola (np. `icon`): `String(props.icon)`
+- Opcjonalne / puste: `whenString`
+- Domyślne komponentu: `whenStringNotDefault(value, '1em')`
+- W szablonie używaj nazw HTML (`icon-pos=`), nie camelCase
+
+## formatUsage
+
+```typescript
+formatUsage: (props) =>
+  formatUsageFromDefaults('nui-icon', props, NUI_ICON_DEFAULTS, ATTRIBUTE_NAMES),
+```
+
+## Opcjonalnie
+
+`getPreviewClass: (props) => props.fluid ? 'is-fluid' : ''` — klasa na `.preview-box`

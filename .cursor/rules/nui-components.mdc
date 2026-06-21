@@ -1,0 +1,59 @@
+---
+description: Dodawanie i edycja komponentów nui-*
+globs: src/components/**/*
+alwaysApply: false
+---
+
+# Komponenty nui-*
+
+## Checklist
+
+1. Folder `src/components/nui-{name}/` + pliki `nui-{name}.ts`, `styles.css`
+2. Style dynamiczne:
+
+```typescript
+const styles = createComponentStyles(
+  () => import('./styles.css', { with: { type: 'css' } }),
+);
+
+protected firstUpdated() {
+  void styles.sync(this.renderRoot); // { unstyled } gdy komponent ma unstyled
+}
+
+protected updated(changed: PropertyValues) {
+  syncStylesWhen(changed, 'unstyled', () =>
+    styles.sync(this.renderRoot, { unstyled: this.unstyled }),
+  );
+}
+```
+
+3. `@nuiTypeProperty` z `src/types/nui-type.js` — gdy komponent wspiera `nui-type`
+4. `declare global { interface HTMLElementTagNameMap { 'nui-{name}': Nui{Name} } }`
+5. Import w `src/main.ts`
+6. Playground definition + `registry.ts`
+
+## Prosty vs złożony
+
+- **Prosty** (np. `nui-icon`): render w `nui-*.ts`, bez `logic.ts`
+- **Złożony** (np. `nui-button`): `logic.ts` + opcjonalnie `types.ts`; shell implementuje interfejs stanu
+
+## Atrybuty w renderze (logic.ts)
+
+- Props hosta → atrybuty wewnętrznego elementu (`nui-type`, `severity`, `variant`)
+- `variant` prop ≠ atrybut `variant`: użyj `resolveVisualVariant()` → `solid|outlined|text|link`
+- `severity` prop: użyj `resolveSeverity()`; pomiń atrybut gdy domyślny primary
+- Pomijaj puste: `attr=${value || nothing}`, booleany: `?flag=${value || nothing}`
+
+## @property
+
+- `@property({ type: String, attribute: 'kebab-name' })` dla kebab-case w HTML
+- Typy union wymagają adnotacji TS (`variant: ButtonVariant = 'primary'`)
+- `@property({ type: Boolean })` — bez refleksji; `false` nie dodaje atrybutu
+
+## Ikony w komponentach
+
+```typescript
+html`<nui-icon class="nui-button-icon" icon=${icon} aria-hidden="true"></nui-icon>`
+```
+
+Domyślny spinner: `svg-spinners:90-ring-with-bg`

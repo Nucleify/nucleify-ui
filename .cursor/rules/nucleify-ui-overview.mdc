@@ -1,0 +1,42 @@
+---
+description: Nucleify UI — struktura projektu i stack
+alwaysApply: true
+---
+
+# Nucleify UI
+
+Lit 3 + TypeScript. Komendy: `npm run start` (port 8000), `npm run check`, `npm run write`, `npm run build`.
+
+## Struktura
+
+```
+src/
+  main.ts                    # import komponentów + playground-app
+  theme.ts                   # applyTheme(palette, mode) → klasy na body
+  css.d.ts                   # import *.css → CSSStyleSheet
+  types/nui-type.ts          # NuiType + nuiTypeProperty
+  utils/sync-stylesheet.ts   # createComponentStyles, syncStylesWhen
+  styles/variables.css       # tokeny --nui-*, palety, motywy
+  styles/global.css
+  components/nui-{name}/
+    nui-{name}.ts            # @customElement, props, render
+    styles.css               # adoptedStyleSheets
+    logic.ts                 # opcjonalnie (render > ~30 linii)
+    types.ts                 # opcjonalnie
+  playground/
+    registry.ts
+    definitions/nui-*.ts
+    playground-app.ts        # static styles (inny wzorzec niż komponenty)
+    views/
+```
+
+Build: esbuild (`@web/dev-server-esbuild`) + `resolve-ts-imports-plugin.js` (`.js` → `.ts`).
+
+## Konwencje
+
+- Tagi: `nui-*`. Importy lokalne z sufiksem `.js`.
+- Ikony: `nui-icon` + Iconify (`mdi:check`, `lucide:heart`). Zależność: `iconify-icon`.
+- Tokeny: `--nui-*`. Body: `nui-primary-palette-{nuxt|next}` + `nui-theme-{light|dark}-{nuxt|next}`.
+- Stylowanie: atrybuty na elemencie w Shadow DOM (`severity`, `variant`), nie klasy `is-*`.
+- Puste atrybuty: `nothing` w logic, `whenString` / `whenBoolean` w playground.
+- Props hosta (`severity`, `nui-type`) przekazuj na wewnętrzny element interaktywny w `logic.ts`.
