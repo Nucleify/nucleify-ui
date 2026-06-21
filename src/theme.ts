@@ -2,18 +2,18 @@ export type Palette = 'nuxt' | 'next';
 export type ThemeMode = 'light' | 'dark';
 
 const THEME_CLASSES = [
-  'nuc-primary-palette-nuxt',
-  'nuc-primary-palette-next',
-  'nuc-theme-light-nuxt',
-  'nuc-theme-light-next',
-  'nuc-theme-dark-nuxt',
-  'nuc-theme-dark-next',
+  'nui-primary-palette-nuxt',
+  'nui-primary-palette-next',
+  'nui-theme-light-nuxt',
+  'nui-theme-light-next',
+  'nui-theme-dark-nuxt',
+  'nui-theme-dark-next',
 ] as const;
 
 export function applyTheme(palette: Palette, mode: ThemeMode) {
   document.body.classList.remove(...THEME_CLASSES);
   document.body.classList.add(
-    `nuc-primary-palette-${palette}`,
-    `nuc-theme-${mode}-${palette}`,
+    `nui-primary-palette-${palette}`,
+    `nui-theme-${mode}-${palette}`,
   );
 }

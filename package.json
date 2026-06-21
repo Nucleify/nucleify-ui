@@ -7,10 +7,11 @@
     "start": "web-dev-server",
     "build": "tsc",
     "check": "biome check .",
-    "write": "biome format --write .",
+    "write": "biome check --write .",
     "prepare": "husky"
   },
   "dependencies": {
+    "iconify-icon": "^3.0.2",
     "lit": "^3.3.0"
   },
   "devDependencies": {

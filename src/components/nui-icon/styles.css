@@ -1,0 +1,9 @@
+:host {
+  display: inline-flex;
+  line-height: 0;
+}
+
+iconify-icon {
+  width: var(--nui-icon-width, 1em);
+  height: var(--nui-icon-height, 1em);
+}
