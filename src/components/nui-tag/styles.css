@@ -1,0 +1,75 @@
+:host {
+  display: inline-flex;
+  vertical-align: middle;
+}
+
+.nui-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-2xs);
+  padding: var(--spacing-2xs) var(--spacing-sm);
+  border-radius: var(--border-radius-sm);
+  font-size: var(--font-size-2xs);
+  font-weight: var(--font-weight-semibold);
+  line-height: 1.25;
+  white-space: nowrap;
+  box-sizing: border-box;
+}
+
+.nui-tag[rounded] {
+  border-radius: 9999px;
+}
+
+.nui-tag-icon {
+  display: inline-flex;
+  flex-shrink: 0;
+  width: 1em;
+  height: 1em;
+  --nui-icon-width: 1em;
+  --nui-icon-height: 1em;
+}
+
+.nui-tag-label {
+  line-height: inherit;
+}
+
+.nui-tag:not([severity]),
+.nui-tag[severity="primary"] {
+  background: var(--nui-primary-color);
+  color: var(--nui-primary-white-text-color);
+}
+
+.nui-tag[severity="secondary"] {
+  background: var(--nui-primary-secondary-color);
+  color: var(--nui-primary-text-color);
+}
+
+.nui-tag[severity="success"] {
+  background: var(--nui-success-color);
+  color: #fff;
+}
+
+.nui-tag[severity="info"] {
+  background: var(--nui-info-color);
+  color: #fff;
+}
+
+.nui-tag[severity="warn"] {
+  background: var(--nui-warn-color);
+  color: #fff;
+}
+
+.nui-tag[severity="help"] {
+  background: var(--nui-help-color);
+  color: #fff;
+}
+
+.nui-tag[severity="danger"] {
+  background: var(--nui-danger-color);
+  color: #fff;
+}
+
+.nui-tag[severity="contrast"] {
+  background: var(--nui-contrast-color);
+  color: var(--nui-contrast-text-color);
+}
