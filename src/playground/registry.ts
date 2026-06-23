@@ -3,6 +3,7 @@ import { nuiButtonPlayground } from './definitions/nui-button.js';
 import { nuiCheckboxPlayground } from './definitions/nui-checkbox.js';
 import { nuiDividerPlayground } from './definitions/nui-divider.js';
 import { nuiIconPlayground } from './definitions/nui-icon.js';
+import { nuiInputMaskPlayground } from './definitions/nui-input-mask.js';
 import { nuiTagPlayground } from './definitions/nui-tag.js';
 import type { PlaygroundDefinition, PlaygroundProps } from './types.js';
 
@@ -12,6 +13,7 @@ export const playgroundRegistry: PlaygroundDefinition[] = [
   nuiCheckboxPlayground,
   nuiDividerPlayground,
   nuiIconPlayground,
+  nuiInputMaskPlayground,
   nuiTagPlayground,
 ];
 
