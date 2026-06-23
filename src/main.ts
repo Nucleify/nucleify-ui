@@ -1,3 +1,4 @@
+import './components/nui-avatar/nui-avatar.js';
 import './components/nui-badge/nui-badge.js';
 import './components/nui-button/nui-button.js';
 import './components/nui-checkbox/nui-checkbox.js';

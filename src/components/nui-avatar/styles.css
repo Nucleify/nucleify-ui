@@ -1,0 +1,72 @@
+:host {
+  display: inline-flex;
+  vertical-align: middle;
+}
+
+.nui-avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 2rem;
+  height: 2rem;
+  overflow: hidden;
+  background: var(--nui-primary-secondary-color);
+  color: var(--nui-primary-color);
+  font-size: 1rem;
+  font-weight: var(--font-weight-medium);
+  line-height: 1;
+  border-radius: var(--border-radius-sm);
+}
+
+.nui-avatar[shape="circle"] {
+  border-radius: 50%;
+}
+
+.nui-avatar[size="large"] {
+  width: 3rem;
+  height: 3rem;
+  font-size: 1.5rem;
+}
+
+.nui-avatar[size="xlarge"] {
+  width: 4rem;
+  height: 4rem;
+  font-size: 2rem;
+}
+
+.nui-avatar-label {
+  user-select: none;
+}
+
+.nui-avatar-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  line-height: 0;
+  width: 1rem;
+  height: 1rem;
+  --nui-icon-width: 1rem;
+  --nui-icon-height: 1rem;
+}
+
+.nui-avatar[size="large"] .nui-avatar-icon {
+  width: 1.5rem;
+  height: 1.5rem;
+  --nui-icon-width: 1.5rem;
+  --nui-icon-height: 1.5rem;
+}
+
+.nui-avatar[size="xlarge"] .nui-avatar-icon {
+  width: 2rem;
+  height: 2rem;
+  --nui-icon-width: 2rem;
+  --nui-icon-height: 2rem;
+}
+
+.nui-avatar-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}

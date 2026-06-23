@@ -1,3 +1,4 @@
+import { nuiAvatarPlayground } from './definitions/nui-avatar.js';
 import { nuiBadgePlayground } from './definitions/nui-badge.js';
 import { nuiButtonPlayground } from './definitions/nui-button.js';
 import { nuiCheckboxPlayground } from './definitions/nui-checkbox.js';
@@ -11,6 +12,7 @@ import { nuiTagPlayground } from './definitions/nui-tag.js';
 import type { PlaygroundDefinition, PlaygroundProps } from './types.js';
 
 export const playgroundRegistry: PlaygroundDefinition[] = [
+  nuiAvatarPlayground,
   nuiBadgePlayground,
   nuiButtonPlayground,
   nuiCheckboxPlayground,
