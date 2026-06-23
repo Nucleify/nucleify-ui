@@ -1,0 +1,75 @@
+:host {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+:host([fluid]) {
+  display: block;
+  width: 100%;
+}
+
+.nui-input-text-input {
+  display: block;
+  width: 100%;
+  min-height: 2.5625rem;
+  margin: 0;
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border: var(--border-width) solid var(--nui-card-border);
+  border-radius: var(--border-radius-sm);
+  background: var(--nui-card-background);
+  color: var(--nui-white-text-color);
+  font: inherit;
+  line-height: 1.25;
+  box-sizing: border-box;
+  box-shadow: 0 0 0 0.5rem transparent;
+  transition:
+    border-color var(--transition-fast) ease,
+    box-shadow var(--transition-fast) ease;
+}
+
+.nui-input-text-input::placeholder {
+  color: var(--nui-secondary-text-color);
+}
+
+.nui-input-text-input:hover:not(:disabled):not(:read-only) {
+  border-color: var(--nui-primary-focus-color);
+}
+
+.nui-input-text-input:focus,
+.nui-input-text-input:focus-visible {
+  outline: 0;
+  outline-offset: 0;
+  box-shadow: 0 0 0.5em var(--nui-primary-focus-color);
+  border-color: var(--nui-primary-color);
+}
+
+:host([invalid]) .nui-input-text-input {
+  border-color: var(--nui-danger-color);
+}
+
+:host([invalid]) .nui-input-text-input:focus,
+:host([invalid]) .nui-input-text-input:focus-visible {
+  outline: 0;
+  outline-offset: 0;
+  box-shadow: 0 0 0.5em var(--nui-danger-color);
+  border-color: var(--nui-danger-color);
+}
+
+:host([disabled]) .nui-input-text-input {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+:host([variant="filled"]) .nui-input-text-input {
+  background: var(--nui-content-background);
+}
+
+:host([size="small"]) .nui-input-text-input {
+  min-height: 2rem;
+  font-size: 0.875rem;
+}
+
+:host([size="large"]) .nui-input-text-input {
+  min-height: 3rem;
+  font-size: 1.125rem;
+}

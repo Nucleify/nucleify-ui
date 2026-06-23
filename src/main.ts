@@ -5,5 +5,6 @@ import './components/nui-divider/nui-divider.js';
 import './components/nui-icon/nui-icon.js';
 import './components/nui-image/nui-image.js';
 import './components/nui-input-mask/nui-input-mask.js';
+import './components/nui-input-text/nui-input-text.js';
 import './components/nui-tag/nui-tag.js';
 import './playground/playground-app.js';
