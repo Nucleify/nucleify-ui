@@ -1,0 +1,120 @@
+:host {
+  display: inline-block;
+  max-width: 100%;
+  overflow: visible;
+}
+
+.nui-image {
+  position: relative;
+  display: inline-block;
+  max-width: 100%;
+  line-height: 0;
+}
+
+.nui-image-img {
+  display: block;
+  max-width: 100%;
+  border-radius: var(--border-radius-sm);
+}
+
+.nui-image-img:not([sized]) {
+  height: auto;
+}
+
+.nui-image-img[fit="cover"] {
+  object-fit: cover;
+}
+
+.nui-image-img[fit="contain"] {
+  object-fit: contain;
+}
+
+.nui-image-img[fit="fill"] {
+  object-fit: fill;
+}
+
+.nui-image-img[fit="none"] {
+  object-fit: none;
+}
+
+.nui-image-img[fit="scale-down"] {
+  object-fit: scale-down;
+}
+
+.nui-image[preview] .nui-image-img {
+  cursor: zoom-in;
+}
+
+.nui-image-preview-trigger {
+  position: absolute;
+  inset: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  padding: 0;
+  background: rgb(0 0 0 / 45%);
+  color: #fff;
+  opacity: 0;
+  cursor: pointer;
+  transition: opacity var(--transition-fast) ease;
+}
+
+.nui-image:hover .nui-image-preview-trigger,
+.nui-image-preview-trigger:focus-visible {
+  opacity: 1;
+}
+
+.nui-image-preview-icon {
+  --nui-icon-width: 1.25em;
+  --nui-icon-height: 1.25em;
+}
+
+.nui-image-mask {
+  position: fixed;
+  inset: 0;
+  width: auto;
+  max-width: none;
+  height: auto;
+  max-height: none;
+  margin: 0;
+  padding: var(--spacing-xl);
+  border: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgb(0 0 0 / 72%);
+  box-sizing: border-box;
+}
+
+.nui-image-mask::backdrop {
+  background: transparent;
+}
+
+.nui-image-preview {
+  max-width: min(100%, 72rem);
+  max-height: 100%;
+  object-fit: contain;
+  border-radius: var(--border-radius-sm);
+}
+
+.nui-image-close {
+  position: fixed;
+  top: var(--spacing-md);
+  right: var(--spacing-md);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border: 0;
+  border-radius: 9999px;
+  background: var(--nui-card-background);
+  color: var(--nui-white-text-color);
+  cursor: pointer;
+}
+
+.nui-image-close:focus-visible {
+  outline: var(--border-width-focus) solid var(--nui-primary-focus-color);
+  outline-offset: var(--outline-offset);
+}
