@@ -1,6 +1,7 @@
 import { nuiBadgePlayground } from './definitions/nui-badge.js';
 import { nuiButtonPlayground } from './definitions/nui-button.js';
 import { nuiCheckboxPlayground } from './definitions/nui-checkbox.js';
+import { nuiDividerPlayground } from './definitions/nui-divider.js';
 import { nuiIconPlayground } from './definitions/nui-icon.js';
 import { nuiTagPlayground } from './definitions/nui-tag.js';
 import type { PlaygroundDefinition, PlaygroundProps } from './types.js';
@@ -9,6 +10,7 @@ export const playgroundRegistry: PlaygroundDefinition[] = [
   nuiBadgePlayground,
   nuiButtonPlayground,
   nuiCheckboxPlayground,
+  nuiDividerPlayground,
   nuiIconPlayground,
   nuiTagPlayground,
 ];
