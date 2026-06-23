@@ -1,0 +1,31 @@
+:host {
+  display: block;
+}
+
+.nui-skeleton {
+  display: block;
+  overflow: hidden;
+  position: relative;
+  background: var(--nui-card-border);
+  border-radius: var(--border-radius-sm);
+}
+
+.nui-skeleton[animation="wave"]::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  transform: translateX(-100%);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgb(255 255 255 / 24%),
+    transparent
+  );
+  animation: nui-skeleton-wave 1.2s ease-in-out infinite;
+}
+
+@keyframes nui-skeleton-wave {
+  100% {
+    transform: translateX(100%);
+  }
+}
