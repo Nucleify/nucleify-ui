@@ -6,6 +6,7 @@ import { nuiDividerPlayground } from './definitions/nui-divider.js';
 import { nuiIconPlayground } from './definitions/nui-icon.js';
 import { nuiImagePlayground } from './definitions/nui-image.js';
 import { nuiInputMaskPlayground } from './definitions/nui-input-mask.js';
+import { nuiInputNumberPlayground } from './definitions/nui-input-number.js';
 import { nuiInputTextPlayground } from './definitions/nui-input-text.js';
 import { nuiSkeletonPlayground } from './definitions/nui-skeleton.js';
 import { nuiSliderPlayground } from './definitions/nui-slider.js';
@@ -22,6 +23,7 @@ export const playgroundRegistry: PlaygroundDefinition[] = [
   nuiIconPlayground,
   nuiImagePlayground,
   nuiInputMaskPlayground,
+  nuiInputNumberPlayground,
   nuiInputTextPlayground,
   nuiSkeletonPlayground,
   nuiSliderPlayground,

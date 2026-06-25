@@ -1,0 +1,199 @@
+:host {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+:host([fluid]) {
+  display: block;
+  width: 100%;
+}
+
+.nui-input-number {
+  display: inline-flex;
+  position: relative;
+  align-items: stretch;
+}
+
+:host([fluid]) .nui-input-number {
+  width: 100%;
+}
+
+.nui-input-number-input {
+  display: block;
+  width: 100%;
+  min-height: 2.5625rem;
+  margin: 0;
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border: var(--border-width) solid var(--nui-card-border);
+  border-radius: var(--border-radius-sm);
+  background: var(--nui-card-background);
+  color: var(--nui-white-text-color);
+  font: inherit;
+  line-height: 1.25;
+  box-sizing: border-box;
+  box-shadow: 0 0 0 0.5rem transparent;
+  transition:
+    border-color var(--transition-fast) ease,
+    box-shadow var(--transition-fast) ease;
+}
+
+.nui-input-number-input::placeholder {
+  color: var(--nui-secondary-text-color);
+}
+
+.nui-input-number-input:hover:not(:disabled):not(:read-only) {
+  border-color: var(--nui-primary-focus-color);
+}
+
+.nui-input-number-input:focus,
+.nui-input-number-input:focus-visible,
+:host(:focus-within) .nui-input-number-input:not(:disabled):not(:read-only) {
+  outline: 0;
+  outline-offset: 0;
+  box-shadow: 0 0 0.5em var(--nui-primary-focus-color);
+  border-color: var(--nui-primary-color);
+}
+
+:host([invalid]) .nui-input-number-input {
+  border-color: var(--nui-danger-color);
+}
+
+:host([invalid]) .nui-input-number-input:focus,
+:host([invalid]) .nui-input-number-input:focus-visible,
+:host([invalid]:focus-within)
+  .nui-input-number-input:not(:disabled):not(:read-only) {
+  outline: 0;
+  outline-offset: 0;
+  box-shadow: 0 0 0.5em var(--nui-danger-color);
+  border-color: var(--nui-danger-color);
+}
+
+:host([variant="filled"]) .nui-input-number-input {
+  background: var(--nui-content-background);
+}
+
+:host([size="small"]) .nui-input-number-input {
+  min-height: 2rem;
+  font-size: 0.875rem;
+}
+
+:host([size="large"]) .nui-input-number-input {
+  min-height: 3rem;
+  font-size: 1.125rem;
+}
+
+.nui-input-number-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  width: 2.5rem;
+  margin: 0;
+  padding: 0;
+  border: var(--border-width) solid var(--nui-card-border);
+  border-radius: var(--border-radius-sm);
+  background: transparent;
+  color: var(--nui-secondary-text-color);
+  cursor: pointer;
+  transition:
+    background var(--transition-fast) ease,
+    color var(--transition-fast) ease,
+    border-color var(--transition-fast) ease;
+  --nui-icon-width: 0.875rem;
+  --nui-icon-height: 0.875rem;
+}
+
+.nui-input-number-button:not(:disabled):hover {
+  background: var(--nui-content-background);
+  color: var(--nui-primary-text-color);
+}
+
+.nui-input-number-button:not(:disabled):active {
+  background: var(--nui-primary-highlight-color);
+  color: var(--nui-primary-color);
+}
+
+.nui-input-number-stacked .nui-input-number-input {
+  padding-inline-end: calc(2.5rem + var(--spacing-sm));
+}
+
+.nui-input-number-stacked .nui-input-number-button-group {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  inset-block-start: 1px;
+  inset-inline-end: 1px;
+  height: calc(100% - 2px);
+  z-index: 1;
+  pointer-events: none;
+}
+
+.nui-input-number-stacked .nui-input-number-button {
+  flex: 1 1 auto;
+  width: 2.5rem;
+  border: 0;
+  border-radius: 0;
+  pointer-events: auto;
+}
+
+.nui-input-number-stacked .nui-input-number-increment-button {
+  border-start-end-radius: calc(var(--border-radius-sm) - 1px);
+}
+
+.nui-input-number-stacked .nui-input-number-decrement-button {
+  border-end-end-radius: calc(var(--border-radius-sm) - 1px);
+}
+
+.nui-input-number-horizontal .nui-input-number-input {
+  flex: 1 1 auto;
+  width: 1%;
+  border-radius: 0;
+}
+
+.nui-input-number-horizontal .nui-input-number-decrement-button {
+  border-start-end-radius: 0;
+  border-end-end-radius: 0;
+  border-inline-end: 0;
+}
+
+.nui-input-number-horizontal .nui-input-number-increment-button {
+  border-start-start-radius: 0;
+  border-end-start-radius: 0;
+  border-inline-start: 0;
+}
+
+.nui-input-number-vertical {
+  flex-direction: column;
+}
+
+.nui-input-number-vertical .nui-input-number-input {
+  width: 100%;
+  border-radius: 0;
+  text-align: center;
+}
+
+.nui-input-number-vertical .nui-input-number-button {
+  width: 100%;
+}
+
+.nui-input-number-vertical .nui-input-number-increment-button {
+  border-end-start-radius: 0;
+  border-end-end-radius: 0;
+  border-block-end: 0;
+}
+
+.nui-input-number-vertical .nui-input-number-decrement-button {
+  border-start-start-radius: 0;
+  border-start-end-radius: 0;
+  border-block-start: 0;
+}
+
+.nui-input-number-input {
+  flex: 1 1 auto;
+}
+
+:host([disabled]) .nui-input-number-input,
+:host([disabled]) .nui-input-number-button {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
