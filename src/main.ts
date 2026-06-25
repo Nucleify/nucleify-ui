@@ -8,6 +8,7 @@ import './components/nui-image/nui-image.js';
 import './components/nui-input-mask/nui-input-mask.js';
 import './components/nui-input-text/nui-input-text.js';
 import './components/nui-skeleton/nui-skeleton.js';
+import './components/nui-slider/nui-slider.js';
 import './components/nui-tag/nui-tag.js';
 import './components/nui-textarea/nui-textarea.js';
 import './playground/playground-app.js';

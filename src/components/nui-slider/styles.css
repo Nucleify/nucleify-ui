@@ -1,0 +1,122 @@
+:host {
+  display: block;
+  width: 100%;
+}
+
+:host([orientation="vertical"]) {
+  display: inline-block;
+  width: auto;
+  min-height: 6.25rem;
+  height: 6.25rem;
+}
+
+.nui-slider {
+  display: block;
+  padding: var(--spacing-sm) 0;
+  touch-action: none;
+}
+
+:host([orientation="vertical"]) .nui-slider {
+  height: 100%;
+  padding: 0 var(--spacing-sm);
+}
+
+:host([disabled]) .nui-slider {
+  opacity: 0.65;
+  pointer-events: none;
+}
+
+.nui-slider-track {
+  position: relative;
+  height: 0.1875rem;
+  border-radius: var(--border-radius-sm);
+  background: var(--nui-card-border);
+  cursor: pointer;
+}
+
+:host([orientation="vertical"]) .nui-slider-track {
+  width: 0.1875rem;
+  height: 100%;
+}
+
+.nui-slider-range {
+  position: absolute;
+  inset-block-start: 0;
+  inset-inline-start: 0;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--nui-primary-color);
+  pointer-events: none;
+}
+
+:host([orientation="vertical"]) .nui-slider-range {
+  inset-block-start: auto;
+  inset-block-end: 0;
+  inset-inline-start: 0;
+  width: 100%;
+}
+
+.nui-slider-handle {
+  position: absolute;
+  z-index: 1;
+  top: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.25rem;
+  height: 1.25rem;
+  margin-block-start: -0.625rem;
+  margin-inline-start: -0.625rem;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: var(--nui-card-border);
+  color: inherit;
+  font: inherit;
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+  box-sizing: border-box;
+  transition: background var(--transition-fast) ease;
+}
+
+.nui-slider-handle::before {
+  content: "";
+  display: block;
+  width: 1rem;
+  height: 1rem;
+  border-radius: 50%;
+  background: var(--nui-card-background);
+  box-shadow:
+    0 0.5px 0 0 rgb(0 0 0 / 8%),
+    0 1px 1px 0 rgb(0 0 0 / 14%);
+  transition: background var(--transition-fast) ease;
+}
+
+.nui-slider-handle::after {
+  content: "";
+  position: absolute;
+  inset: -0.625rem;
+}
+
+:host(:not([disabled])) .nui-slider-handle:hover::before {
+  background: var(--nui-bg-dark-color);
+}
+
+:host([orientation="vertical"]) .nui-slider-handle {
+  top: auto;
+  inset-inline-start: 50%;
+  margin-block-start: 0;
+  margin-block-end: -0.625rem;
+  margin-inline-start: -0.625rem;
+}
+
+.nui-slider-handle:focus-visible {
+  outline: var(--border-width-focus) solid var(--nui-primary-focus-color);
+  outline-offset: var(--outline-offset);
+}
+
+.nui-slider-handle:active,
+.nui-slider[data-sliding] .nui-slider-handle {
+  cursor: grabbing;
+}

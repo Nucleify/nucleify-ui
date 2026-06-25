@@ -9,7 +9,7 @@ export function renderWorkspace(
   onReset: () => void,
 ): TemplateResult {
   const previewClass = definition.getPreviewClass?.(props) ?? '';
-  const preview = definition.renderPreview(props);
+  const preview = definition.renderPreview(props, { onPropChange });
 
   return html`
     <div class="preview-panel">

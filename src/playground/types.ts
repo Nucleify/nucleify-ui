@@ -14,6 +14,10 @@ export interface PlaygroundControl {
 
 export type PlaygroundProps = Record<string, string | boolean>;
 
+export interface PlaygroundPreviewHandlers {
+  onPropChange: (key: string, value: string | boolean) => void;
+}
+
 export interface PlaygroundDefinition {
   tag: string;
   label: string;
@@ -21,7 +25,10 @@ export interface PlaygroundDefinition {
   defaults: PlaygroundProps;
   controls: PlaygroundControl[];
   formatUsage: (props: PlaygroundProps) => string;
-  renderPreview: (props: PlaygroundProps) => TemplateResult | HTMLElement;
+  renderPreview: (
+    props: PlaygroundProps,
+    handlers?: PlaygroundPreviewHandlers,
+  ) => TemplateResult | HTMLElement;
   getPreviewClass?: (props: PlaygroundProps) => string;
 }
 
