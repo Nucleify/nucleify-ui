@@ -9,6 +9,7 @@ import './components/nui-input-mask/nui-input-mask.js';
 import './components/nui-input-number/nui-input-number.js';
 import './components/nui-input-otp/nui-input-otp.js';
 import './components/nui-input-text/nui-input-text.js';
+import './components/nui-knob/nui-knob.js';
 import './components/nui-skeleton/nui-skeleton.js';
 import './components/nui-slider/nui-slider.js';
 import './components/nui-tag/nui-tag.js';

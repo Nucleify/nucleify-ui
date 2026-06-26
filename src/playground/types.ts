@@ -104,7 +104,11 @@ export function formatUsageFromDefaults(
 
     if (typeof value === 'boolean') {
       if (value) {
-        parts.push(attr);
+        if (defaultValue === false) {
+          parts.push(attr);
+        }
+      } else if (defaultValue === true) {
+        parts.push(`${attr}="false"`);
       }
       continue;
     }

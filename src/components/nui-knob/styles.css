@@ -1,0 +1,65 @@
+:host {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.nui-knob {
+  position: relative;
+  display: inline-block;
+  line-height: 0;
+}
+
+.nui-knob-svg {
+  display: block;
+  border-radius: 50%;
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+  outline-color: transparent;
+  transition:
+    background var(--transition-fast) ease,
+    box-shadow var(--transition-fast) ease,
+    outline-color var(--transition-fast) ease;
+}
+
+.nui-knob-svg:focus-visible {
+  outline: var(--border-width-focus) solid var(--nui-primary-focus-color);
+  outline-offset: var(--outline-offset);
+}
+
+:host([disabled]) .nui-knob-svg,
+:host([readonly]) .nui-knob-svg {
+  cursor: not-allowed;
+}
+
+.nui-knob-range {
+  fill: none;
+  transition: stroke var(--transition-fast) ease-in;
+}
+
+.nui-knob-value {
+  fill: none;
+}
+
+.nui-knob-text {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+  line-height: 1;
+  color: var(--nui-white-text-color);
+  pointer-events: none;
+  user-select: none;
+}
+
+:host([disabled]) .nui-knob,
+:host([readonly]) .nui-knob {
+  opacity: 0.65;
+}
+
+:host([data-sliding]) .nui-knob-svg,
+.nui-knob-svg[data-sliding] {
+  cursor: grabbing;
+}
