@@ -1,7 +1,7 @@
 import type { TemplateResult } from 'lit';
 import { nothing } from 'lit';
 
-export type PlaygroundControlType = 'text' | 'boolean' | 'select';
+export type PlaygroundControlType = 'text' | 'textarea' | 'boolean' | 'select';
 
 export interface PlaygroundControl {
   key: string;
@@ -9,6 +9,8 @@ export interface PlaygroundControl {
   type: PlaygroundControlType;
   section: string;
   placeholder?: string;
+  rows?: number;
+  fullWidth?: boolean;
   options?: { value: string; label: string }[];
 }
 

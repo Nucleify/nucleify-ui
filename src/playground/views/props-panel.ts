@@ -67,6 +67,22 @@ function renderControlField(
     `;
   }
 
+  if (control.type === 'textarea') {
+    return html`
+      <div class="prop-field${control.fullWidth ? ' prop-field--full' : ''}">
+        <label for=${control.key}>${control.label}</label>
+        <textarea
+          id=${control.key}
+          rows=${control.rows ?? 4}
+          .value=${String(value ?? '')}
+          placeholder=${control.placeholder ?? ''}
+          @input=${(event: Event) =>
+            onChange(control.key, (event.target as HTMLTextAreaElement).value)}
+        ></textarea>
+      </div>
+    `;
+  }
+
   return html`
     <div class="prop-field">
       <label for=${control.key}>${control.label}</label>

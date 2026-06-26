@@ -1,0 +1,135 @@
+:host {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+:host([fluid]) {
+  display: block;
+  width: 100%;
+}
+
+.nui-listbox {
+  display: inline-flex;
+  flex-direction: column;
+  min-width: 12rem;
+  border: var(--border-width) solid var(--nui-card-border);
+  border-radius: var(--border-radius-sm);
+  background: var(--nui-card-background);
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+:host([fluid]) .nui-listbox {
+  display: flex;
+  width: 100%;
+}
+
+:host([invalid]) .nui-listbox {
+  border-color: var(--nui-danger-color);
+}
+
+:host([disabled]) .nui-listbox {
+  opacity: 0.65;
+}
+
+.nui-listbox-filter {
+  position: relative;
+  border-bottom: var(--border-width) solid var(--nui-card-border);
+}
+
+.nui-listbox-filter-input {
+  display: block;
+  width: 100%;
+  margin: 0;
+  padding: var(--spacing-xs) calc(var(--spacing-sm) + 1.25em) var(--spacing-xs)
+    var(--spacing-sm);
+  border: 0;
+  background: transparent;
+  color: var(--nui-white-text-color);
+  font: inherit;
+  line-height: 1.25;
+  box-sizing: border-box;
+}
+
+.nui-listbox-filter-input::placeholder {
+  color: var(--nui-secondary-text-color);
+}
+
+.nui-listbox-filter-input:focus,
+.nui-listbox-filter-input:focus-visible {
+  outline: 0;
+}
+
+.nui-listbox-filter-icon {
+  position: absolute;
+  top: 50%;
+  right: var(--spacing-sm);
+  transform: translateY(-50%);
+  color: var(--nui-secondary-text-color);
+  pointer-events: none;
+}
+
+.nui-listbox-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  overflow-y: auto;
+  max-height: 14rem;
+}
+
+.nui-listbox-option {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  padding: var(--spacing-xs) var(--spacing-sm);
+  color: var(--nui-white-text-color);
+  cursor: pointer;
+  transition: background var(--transition-fast) ease;
+}
+
+.nui-listbox[striped] .nui-listbox-option:nth-child(even):not([selected]) {
+  background: var(--nui-primary-highlight-color);
+}
+
+.nui-listbox-option:hover:not([disabled]):not([selected]) {
+  background: var(--nui-primary-highlight-color);
+}
+
+.nui-listbox[highlight] .nui-listbox-option[focused]:not([disabled]) {
+  background: var(--nui-primary-highlight-color);
+}
+
+.nui-listbox-option[selected] {
+  background: var(--nui-primary-selected-color);
+  color: var(--nui-primary-color);
+}
+
+.nui-listbox-option[disabled] {
+  cursor: not-allowed;
+  opacity: 0.65;
+}
+
+.nui-listbox-check {
+  display: inline-flex;
+  flex: 0 0 1em;
+  width: 1em;
+  align-items: center;
+  justify-content: center;
+  color: currentColor;
+}
+
+.nui-listbox-option-label {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.nui-listbox-empty {
+  padding: var(--spacing-sm);
+  color: var(--nui-secondary-text-color);
+  text-align: center;
+}
+
+.nui-listbox-list:focus-visible {
+  outline: var(--border-width-focus) solid var(--nui-primary-focus-color);
+  outline-offset: calc(-1 * var(--border-width-focus));
+}
