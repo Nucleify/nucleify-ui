@@ -50,6 +50,7 @@
   --nui-warn-hover-color: #d97706;
   --nui-help-color: #a855f7;
   --nui-help-hover-color: #9333ea;
+  --invalid-color: #ef4444;
   --nui-danger-color: var(--invalid-color);
   --nui-danger-hover-color: #dc2626;
   --nui-contrast-color: #18181b;
