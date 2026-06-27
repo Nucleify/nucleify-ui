@@ -16,6 +16,7 @@ import './components/nui-listbox/nui-listbox.js';
 import './components/nui-logo/nui-logo.js';
 import './components/nui-paragraph/nui-paragraph.js';
 import './components/nui-progress-bar/nui-progress-bar.js';
+import './components/nui-progress-spinner/nui-progress-spinner.js';
 import './components/nui-skeleton/nui-skeleton.js';
 import './components/nui-slider/nui-slider.js';
 import './components/nui-tag/nui-tag.js';

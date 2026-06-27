@@ -1,0 +1,81 @@
+:host {
+  display: inline-block;
+  width: 100px;
+  height: 100px;
+}
+
+.nui-progress-spinner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: inline-block;
+}
+
+.nui-progress-spinner::before {
+  content: "";
+  display: block;
+  padding-top: 100%;
+}
+
+.nui-progress-spinner-spin {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: auto;
+  transform-origin: center center;
+  animation: nui-progress-spinner-rotate 2s linear infinite;
+}
+
+.nui-progress-spinner-circle {
+  stroke-dasharray: 89, 200;
+  stroke-dashoffset: 0;
+  stroke: var(--nui-progress-spinner-color-one, #ec4899);
+  stroke-linecap: round;
+  animation:
+    nui-progress-spinner-dash 1.5s ease-in-out infinite,
+    nui-progress-spinner-color 6s ease-in-out infinite;
+}
+
+@keyframes nui-progress-spinner-rotate {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes nui-progress-spinner-dash {
+  0% {
+    stroke-dasharray: 1, 200;
+    stroke-dashoffset: 0;
+  }
+
+  50% {
+    stroke-dasharray: 89, 200;
+    stroke-dashoffset: -35px;
+  }
+
+  100% {
+    stroke-dasharray: 89, 200;
+    stroke-dashoffset: -124px;
+  }
+}
+
+@keyframes nui-progress-spinner-color {
+  0%,
+  100% {
+    stroke: var(--nui-progress-spinner-color-one, #ec4899);
+  }
+
+  40% {
+    stroke: var(--nui-progress-spinner-color-two, #0ea5e9);
+  }
+
+  66% {
+    stroke: var(--nui-progress-spinner-color-three, #10b981);
+  }
+
+  80%,
+  90% {
+    stroke: var(--nui-progress-spinner-color-four, #f59e0b);
+  }
+}
