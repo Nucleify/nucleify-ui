@@ -1,0 +1,160 @@
+:host {
+  display: contents;
+}
+
+.nui-dialog {
+  position: fixed;
+  inset: 0;
+  width: auto;
+  max-width: none;
+  height: auto;
+  max-height: none;
+  margin: 0;
+  padding: var(--spacing-md);
+  border: 0;
+  background: transparent;
+  color: var(--nui-white-text-color);
+  box-sizing: border-box;
+}
+
+.nui-dialog:not([open]) {
+  display: none;
+}
+
+.nui-dialog[open] {
+  display: flex;
+}
+
+.nui-dialog::backdrop {
+  background: rgb(0 0 0 / 55%);
+}
+
+.nui-dialog[position="center"] {
+  align-items: center;
+  justify-content: center;
+}
+
+.nui-dialog[position="top"] {
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.nui-dialog[position="bottom"] {
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.nui-dialog[position="left"] {
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.nui-dialog[position="right"] {
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.nui-dialog[position="topleft"] {
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+.nui-dialog[position="topright"] {
+  align-items: flex-end;
+  justify-content: flex-start;
+}
+
+.nui-dialog[position="bottomleft"] {
+  align-items: flex-start;
+  justify-content: flex-end;
+}
+
+.nui-dialog[position="bottomright"] {
+  align-items: flex-end;
+  justify-content: flex-end;
+}
+
+.nui-dialog-panel {
+  display: flex;
+  flex-direction: column;
+  width: min(var(--nui-dialog-width, 32rem), 100%);
+  max-height: calc(100vh - 2 * var(--spacing-md));
+  overflow: hidden;
+  border: var(--border-width) solid var(--nui-card-border);
+  border-radius: var(--border-radius-sm);
+  background: var(--nui-bg-dark-color);
+  box-shadow: 0 8px 24px rgb(0 0 0 / 28%);
+  box-sizing: border-box;
+}
+
+.nui-dialog-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-md);
+  border-bottom: var(--border-width) solid var(--nui-card-border);
+}
+
+.nui-dialog-title {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.nui-dialog-title-text {
+  margin: 0;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--nui-white-text-color);
+}
+
+.nui-dialog-close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
+  border: var(--border-width) solid transparent;
+  border-radius: var(--border-radius-sm);
+  background: transparent;
+  color: var(--nui-secondary-text-color);
+  cursor: pointer;
+  transition:
+    border-color var(--transition-fast) ease,
+    background var(--transition-fast) ease,
+    color var(--transition-fast) ease;
+}
+
+.nui-dialog-close:hover {
+  border-color: var(--nui-card-border);
+  background: var(--nui-primary-highlight-color);
+  color: var(--nui-white-text-color);
+}
+
+.nui-dialog-content {
+  flex: 1 1 auto;
+  min-height: 0;
+  padding: var(--spacing-md);
+  overflow: auto;
+  color: var(--nui-primary-text-color);
+  font-size: var(--font-size-xs);
+  line-height: 1.5;
+}
+
+.nui-dialog-footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--spacing-xs);
+  padding: var(--spacing-md);
+  border-top: var(--border-width) solid var(--nui-card-border);
+}
+
+.nui-dialog-footer ::slotted(*) {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+}
