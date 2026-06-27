@@ -1,5 +1,6 @@
 import { nuiAccordionPlayground } from './definitions/nui-accordion.js';
 import { nuiAnchorPlayground } from './definitions/nui-anchor.js';
+import { nuiAutoCompletePlayground } from './definitions/nui-auto-complete.js';
 import { nuiAvatarPlayground } from './definitions/nui-avatar.js';
 import { nuiBadgePlayground } from './definitions/nui-badge.js';
 import { nuiButtonPlayground } from './definitions/nui-button.js';
@@ -34,6 +35,7 @@ import type { PlaygroundDefinition, PlaygroundProps } from './types.js';
 
 export const playgroundRegistry: PlaygroundDefinition[] = [
   nuiAccordionPlayground,
+  nuiAutoCompletePlayground,
   nuiAnchorPlayground,
   nuiAvatarPlayground,
   nuiBadgePlayground,
