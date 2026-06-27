@@ -7,6 +7,7 @@ import './components/nui-button/nui-button.js';
 import './components/nui-card/nui-card.js';
 import './components/nui-chart/nui-chart.js';
 import './components/nui-checkbox/nui-checkbox.js';
+import './components/nui-color-picker/nui-color-picker.js';
 import './components/nui-divider/nui-divider.js';
 import './components/nui-float-label/nui-float-label.js';
 import './components/nui-heading/nui-heading.js';

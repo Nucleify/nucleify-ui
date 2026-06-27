@@ -7,6 +7,7 @@ import { nuiButtonPlayground } from './definitions/nui-button.js';
 import { nuiCardPlayground } from './definitions/nui-card.js';
 import { nuiChartPlayground } from './definitions/nui-chart.js';
 import { nuiCheckboxPlayground } from './definitions/nui-checkbox.js';
+import { nuiColorPickerPlayground } from './definitions/nui-color-picker.js';
 import { nuiDividerPlayground } from './definitions/nui-divider.js';
 import { nuiFloatLabelPlayground } from './definitions/nui-float-label.js';
 import { nuiHeadingPlayground } from './definitions/nui-heading.js';
@@ -45,6 +46,7 @@ export const playgroundRegistry: PlaygroundDefinition[] = [
   nuiCardPlayground,
   nuiChartPlayground,
   nuiCheckboxPlayground,
+  nuiColorPickerPlayground,
   nuiDividerPlayground,
   nuiFloatLabelPlayground,
   nuiHeadingPlayground,
