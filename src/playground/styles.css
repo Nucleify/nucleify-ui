@@ -203,6 +203,11 @@ main {
   flex-shrink: 0;
 }
 
+.card-preview {
+  width: min(100%, 25rem);
+  flex-shrink: 0;
+}
+
 .scroll-top-demo {
   position: relative;
   width: min(100%, 28rem);

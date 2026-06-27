@@ -4,6 +4,7 @@ import './components/nui-auto-complete/nui-auto-complete.js';
 import './components/nui-avatar/nui-avatar.js';
 import './components/nui-badge/nui-badge.js';
 import './components/nui-button/nui-button.js';
+import './components/nui-card/nui-card.js';
 import './components/nui-checkbox/nui-checkbox.js';
 import './components/nui-divider/nui-divider.js';
 import './components/nui-float-label/nui-float-label.js';

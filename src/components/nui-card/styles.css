@@ -1,0 +1,122 @@
+:host {
+  display: block;
+}
+
+.nui-card {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: var(--border-width) solid var(--nui-card-border);
+  border-radius: var(--border-radius-sm);
+  background: var(--nui-bg-dark-color);
+  box-shadow: 0 1px 3px var(--nui-card-box-shadow);
+  color: var(--nui-white-text-color);
+  box-sizing: border-box;
+}
+
+.nui-card-header {
+  display: block;
+  overflow: hidden;
+  height: 9rem;
+  background: var(--nui-bg-dark-color);
+}
+
+.nui-card-header ::slotted(*) {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 0;
+}
+
+.nui-card-header ::slotted(img) {
+  object-fit: cover;
+  object-position: center;
+}
+
+.nui-card-body {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-md);
+}
+
+.nui-card-caption {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2xs);
+}
+
+.nui-card-title,
+.nui-card-subtitle {
+  display: block;
+}
+
+.nui-card-title-text {
+  margin: 0;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--nui-white-text-color);
+}
+
+.nui-card-subtitle-text {
+  margin: 0;
+  font-size: var(--font-size-xs);
+  color: var(--nui-secondary-text-color);
+}
+
+.nui-card-content {
+  display: block;
+  color: var(--nui-primary-text-color);
+  font-size: var(--font-size-xs);
+  line-height: 1.5;
+}
+
+.nui-card-footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--spacing-xs);
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-top: var(--border-width) solid var(--nui-card-border);
+  background: var(--nui-bg-dark-color);
+}
+
+.nui-card-footer ::slotted(*) {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+}
+
+.nui-card-footer ::slotted(.nui-card-cancel) {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-xs) var(--spacing-md);
+  border: var(--border-width) solid transparent;
+  border-radius: var(--border-radius-sm);
+  background: transparent;
+  color: var(--nui-primary-text-color);
+  font: inherit;
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+  line-height: 1.25;
+  cursor: pointer;
+  transition: background var(--transition-fast) ease;
+}
+
+.nui-card-footer ::slotted(.nui-card-cancel:hover) {
+  background: var(--nui-primary-highlight-color);
+}
+
+.nui-card-footer ::slotted(.nui-card-cancel:focus-visible) {
+  outline: var(--border-width-focus) solid var(--nui-primary-focus-color);
+  outline-offset: var(--outline-offset);
+}
+
+.nui-card-header[hidden],
+.nui-card-caption[hidden],
+.nui-card-footer[hidden] {
+  display: none;
+}
