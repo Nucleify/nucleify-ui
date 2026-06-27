@@ -10,6 +10,7 @@ import { nuiCheckboxPlayground } from './definitions/nui-checkbox.js';
 import { nuiColorPickerPlayground } from './definitions/nui-color-picker.js';
 import { nuiDataTablePlayground } from './definitions/nui-data-table.js';
 import { nuiDatePickerPlayground } from './definitions/nui-date-picker.js';
+import { nuiDeferredContentPlayground } from './definitions/nui-deferred-content.js';
 import { nuiDividerPlayground } from './definitions/nui-divider.js';
 import { nuiFloatLabelPlayground } from './definitions/nui-float-label.js';
 import { nuiHeadingPlayground } from './definitions/nui-heading.js';
@@ -51,6 +52,7 @@ export const playgroundRegistry: PlaygroundDefinition[] = [
   nuiColorPickerPlayground,
   nuiDataTablePlayground,
   nuiDatePickerPlayground,
+  nuiDeferredContentPlayground,
   nuiDividerPlayground,
   nuiFloatLabelPlayground,
   nuiHeadingPlayground,

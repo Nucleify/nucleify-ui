@@ -229,6 +229,42 @@ main {
   flex-shrink: 0;
 }
 
+.deferred-content-demo {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+  width: min(100%, 36rem);
+  flex-shrink: 0;
+}
+
+.deferred-content-status {
+  margin: 0;
+  color: var(--nui-secondary-text-color);
+  font-size: var(--font-size-2xs);
+}
+
+.deferred-content-viewport {
+  max-height: 16rem;
+  overflow: auto;
+  border: var(--border-width) solid var(--nui-card-border);
+  border-radius: var(--border-radius-sm);
+  background: var(--nui-content-background);
+}
+
+.deferred-content-spacer {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+  min-height: 14rem;
+  padding: var(--spacing-md);
+  color: var(--nui-secondary-text-color);
+  font-size: var(--font-size-2xs);
+}
+
+.deferred-content-spacer p {
+  margin: 0;
+}
+
 .scroll-top-demo {
   position: relative;
   width: min(100%, 28rem);

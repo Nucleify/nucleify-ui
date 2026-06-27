@@ -1,0 +1,25 @@
+:host {
+  display: block;
+}
+
+.nui-deferred-content {
+  min-height: 1px;
+}
+
+.nui-deferred-content:not([loaded]) {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 10rem;
+  padding: var(--spacing-md);
+  border: var(--border-width) dashed var(--nui-card-border);
+  border-radius: var(--border-radius-sm);
+  background: var(--nui-content-background);
+  color: var(--nui-secondary-text-color);
+  font-size: var(--font-size-2xs);
+  text-align: center;
+}
+
+.nui-deferred-content:not([loaded])::before {
+  content: "Scroll into view to load content";
+}

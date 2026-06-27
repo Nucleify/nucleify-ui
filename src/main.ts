@@ -10,6 +10,7 @@ import './components/nui-checkbox/nui-checkbox.js';
 import './components/nui-color-picker/nui-color-picker.js';
 import './components/nui-data-table/nui-data-table.js';
 import './components/nui-date-picker/nui-date-picker.js';
+import './components/nui-deferred-content/nui-deferred-content.js';
 import './components/nui-divider/nui-divider.js';
 import './components/nui-float-label/nui-float-label.js';
 import './components/nui-heading/nui-heading.js';
