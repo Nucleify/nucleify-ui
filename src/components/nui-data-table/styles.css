@@ -1,0 +1,130 @@
+:host {
+  display: block;
+  width: 100%;
+}
+
+.nui-data-table {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+  min-height: 12rem;
+}
+
+.nui-data-table-wrapper {
+  overflow: auto;
+  border: var(--border-width) solid var(--nui-card-border);
+  border-radius: var(--border-radius-sm);
+}
+
+.nui-data-table-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--nui-bg-dark-color);
+}
+
+.nui-data-table-table th,
+.nui-data-table-table td {
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-bottom: var(--border-width) solid var(--nui-card-border);
+  color: var(--nui-white-text-color);
+  font-size: var(--font-size-2xs);
+  text-align: left;
+  vertical-align: middle;
+}
+
+.nui-data-table-table th {
+  background: var(--nui-bg-black-color);
+  color: var(--nui-primary-text-color);
+  font-weight: var(--font-weight-semibold);
+}
+
+.nui-data-table-table th[sortable] {
+  cursor: pointer;
+}
+
+.nui-data-table-table th[sortable]:hover {
+  color: var(--nui-white-text-color);
+}
+
+.nui-data-table-header-content {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-2xs);
+}
+
+.nui-data-table-sort-icon {
+  font-size: 0.75em;
+  color: var(--nui-primary-color);
+}
+
+.nui-data-table[striped-rows] tbody tr:nth-child(even) {
+  background: var(--nui-primary-highlight-color);
+}
+
+.nui-data-table[striped-rows] tbody tr:nth-child(odd) {
+  background: transparent;
+}
+
+.nui-data-table[row-hover] tbody tr.nui-data-table-row:hover {
+  background: var(--nui-primary-selected-color);
+}
+
+.nui-data-table-row {
+  cursor: pointer;
+}
+
+.nui-data-table-empty,
+.nui-data-table-empty-state,
+.nui-data-table-loading {
+  padding: var(--spacing-md);
+  color: var(--nui-secondary-text-color);
+  font-size: var(--font-size-2xs);
+  text-align: center;
+}
+
+.nui-data-table-paginator {
+  display: flex;
+  justify-content: center;
+  padding: var(--spacing-xs) 0;
+}
+
+.nui-data-table-paginator-content {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+}
+
+.nui-data-table-paginator-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 2rem;
+  min-height: 2rem;
+  padding: 0 var(--spacing-xs);
+  border: var(--border-width) solid var(--nui-card-border);
+  border-radius: var(--border-radius-sm);
+  background: var(--nui-card-background);
+  color: var(--nui-white-text-color);
+  font: inherit;
+  cursor: pointer;
+  transition:
+    border-color var(--transition-fast) ease,
+    background var(--transition-fast) ease;
+}
+
+.nui-data-table-paginator-button:hover:not(:disabled) {
+  border-color: var(--nui-primary-focus-color);
+  background: var(--nui-primary-highlight-color);
+}
+
+.nui-data-table-paginator-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.nui-data-table-paginator-current {
+  min-width: 4.5rem;
+  color: var(--nui-primary-text-color);
+  font-size: var(--font-size-2xs);
+  text-align: center;
+}
