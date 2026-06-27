@@ -49,18 +49,24 @@ function renderControlField(
   }
 
   if (control.type === 'select') {
+    const current = String(value ?? '');
+
     return html`
       <div class="prop-field">
         <label for=${control.key}>${control.label}</label>
         <select
           id=${control.key}
-          .value=${String(value ?? '')}
           @change=${(event: Event) =>
             onChange(control.key, (event.target as HTMLSelectElement).value)}
         >
           ${control.options?.map(
             (option) =>
-              html`<option value=${option.value}>${option.label}</option>`,
+              html`<option
+                value=${option.value}
+                ?selected=${option.value === current}
+              >
+                ${option.label}
+              </option>`,
           )}
         </select>
       </div>

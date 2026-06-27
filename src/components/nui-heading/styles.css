@@ -1,0 +1,34 @@
+:host {
+  display: block;
+}
+
+.nui-heading {
+  margin: 0;
+  font-weight: var(--font-weight-semibold);
+  line-height: 1.2;
+  color: var(--nui-white-text-color);
+}
+
+h1.nui-heading {
+  font-size: var(--font-size-2xl);
+}
+
+h2.nui-heading {
+  font-size: var(--font-size-xl);
+}
+
+h3.nui-heading {
+  font-size: var(--font-size-lg);
+}
+
+h4.nui-heading {
+  font-size: var(--font-size-md);
+}
+
+h5.nui-heading {
+  font-size: var(--font-size-sm);
+}
+
+h6.nui-heading {
+  font-size: var(--font-size-xs);
+}

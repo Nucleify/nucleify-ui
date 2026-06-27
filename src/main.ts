@@ -3,6 +3,7 @@ import './components/nui-badge/nui-badge.js';
 import './components/nui-button/nui-button.js';
 import './components/nui-checkbox/nui-checkbox.js';
 import './components/nui-divider/nui-divider.js';
+import './components/nui-heading/nui-heading.js';
 import './components/nui-icon/nui-icon.js';
 import './components/nui-image/nui-image.js';
 import './components/nui-input-mask/nui-input-mask.js';
