@@ -1,0 +1,75 @@
+:host {
+  display: inline-block;
+  position: relative;
+  vertical-align: middle;
+}
+
+:host([fluid]) {
+  display: block;
+  width: 100%;
+}
+
+.nui-float-label {
+  display: block;
+  position: relative;
+}
+
+::slotted(nui-input-text),
+::slotted(nui-textarea),
+::slotted(nui-input-number),
+::slotted(nui-input-mask) {
+  display: block;
+  width: 100%;
+}
+
+::slotted(nui-label) {
+  position: absolute;
+  left: calc(var(--spacing-sm) + var(--border-width));
+  top: 50%;
+  margin: 0;
+  transform: translateY(-50%);
+  transform-origin: left center;
+  transition:
+    top 0.15s ease,
+    transform 0.15s ease,
+    color 0.15s ease;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.nui-float-label[focused] ::slotted(nui-label),
+.nui-float-label[filled] ::slotted(nui-label) {
+  top: 0;
+  transform: translateY(-50%) scale(0.85);
+  color: var(--nui-primary-color);
+}
+
+.nui-float-label[variant="in"] ::slotted(nui-label) {
+  top: 50%;
+}
+
+.nui-float-label[variant="in"][focused] ::slotted(nui-label),
+.nui-float-label[variant="in"][filled] ::slotted(nui-label) {
+  top: var(--spacing-2xs);
+  transform: scale(0.85);
+}
+
+.nui-float-label[variant="on"] ::slotted(nui-label) {
+  top: 0;
+  transform: translateY(-50%);
+  padding: 0 var(--spacing-2xs);
+  background: var(--nui-card-background);
+}
+
+.nui-float-label[variant="on"][focused] ::slotted(nui-label),
+.nui-float-label[variant="on"][filled] ::slotted(nui-label) {
+  color: var(--nui-primary-color);
+}
+
+:host([invalid]) ::slotted(nui-label) {
+  color: var(--nui-danger-color);
+}
+
+:host([disabled]) ::slotted(nui-label) {
+  opacity: 0.65;
+}
