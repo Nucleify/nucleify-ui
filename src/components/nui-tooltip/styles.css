@@ -1,0 +1,80 @@
+:host {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.nui-tooltip-trigger {
+  display: inline-flex;
+  vertical-align: inherit;
+}
+
+.nui-tooltip {
+  position: fixed;
+  z-index: 1100;
+  max-width: 18rem;
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border: var(--border-width) solid var(--nui-card-border);
+  border-radius: var(--border-radius-sm);
+  background: var(--nui-card-background);
+  color: var(--nui-primary-text-color);
+  font-size: var(--font-size-2xs);
+  line-height: 1.4;
+  box-shadow: 0 4px 12px rgb(0 0 0 / 15%);
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity 0.15s ease,
+    visibility 0.15s ease;
+  box-sizing: border-box;
+}
+
+.nui-tooltip[visible] {
+  opacity: 1;
+  visibility: visible;
+}
+
+.nui-tooltip-text {
+  display: block;
+}
+
+.nui-tooltip-arrow {
+  position: absolute;
+  width: 0.5rem;
+  height: 0.5rem;
+  background: var(--nui-card-background);
+  border: var(--border-width) solid var(--nui-card-border);
+  transform: rotate(45deg);
+}
+
+.nui-tooltip[position="right"] .nui-tooltip-arrow {
+  top: 50%;
+  left: -0.3rem;
+  margin-top: -0.25rem;
+  border-top: 0;
+  border-right: 0;
+}
+
+.nui-tooltip[position="left"] .nui-tooltip-arrow {
+  top: 50%;
+  right: -0.3rem;
+  margin-top: -0.25rem;
+  border-bottom: 0;
+  border-left: 0;
+}
+
+.nui-tooltip[position="top"] .nui-tooltip-arrow {
+  bottom: -0.3rem;
+  left: 50%;
+  margin-left: -0.25rem;
+  border-top: 0;
+  border-left: 0;
+}
+
+.nui-tooltip[position="bottom"] .nui-tooltip-arrow {
+  top: -0.3rem;
+  left: 50%;
+  margin-left: -0.25rem;
+  border-right: 0;
+  border-bottom: 0;
+}

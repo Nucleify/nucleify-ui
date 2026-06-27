@@ -25,6 +25,7 @@ import { nuiSkeletonPlayground } from './definitions/nui-skeleton.js';
 import { nuiSliderPlayground } from './definitions/nui-slider.js';
 import { nuiTagPlayground } from './definitions/nui-tag.js';
 import { nuiTextareaPlayground } from './definitions/nui-textarea.js';
+import { nuiTooltipPlayground } from './definitions/nui-tooltip.js';
 import type { PlaygroundDefinition, PlaygroundProps } from './types.js';
 
 export const playgroundRegistry: PlaygroundDefinition[] = [
@@ -55,6 +56,7 @@ export const playgroundRegistry: PlaygroundDefinition[] = [
   nuiSliderPlayground,
   nuiTagPlayground,
   nuiTextareaPlayground,
+  nuiTooltipPlayground,
 ];
 
 export function getPlaygroundDefinition(
