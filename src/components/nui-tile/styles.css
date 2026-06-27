@@ -1,0 +1,118 @@
+:host {
+  display: block;
+  width: 100%;
+  max-width: 15.625rem;
+}
+
+.nui-tile {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+  min-width: 9.375rem;
+  min-height: 8em;
+  padding: var(--spacing-md);
+  border: var(--border-width) solid var(--nui-card-border);
+  border-radius: var(--border-radius-sm);
+  background: var(--nui-card-background);
+  color: inherit;
+  text-decoration: none;
+  box-sizing: border-box;
+  transition:
+    border-color var(--transition-fast) ease,
+    box-shadow var(--transition-fast) ease,
+    color var(--transition-fast) ease;
+}
+
+.nui-tile:hover {
+  background: var(--nui-primary-selected-color);
+  border-color: var(--nui-primary-color);
+  color: inherit;
+}
+
+.nui-tile:focus-visible {
+  outline: var(--border-width-focus) solid var(--nui-primary-focus-color);
+  outline-offset: var(--outline-offset);
+}
+
+.nui-tile-general {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--spacing-lg);
+}
+
+.nui-tile-info {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.nui-tile-header {
+  margin: 0;
+  font-size: var(--font-size-xs);
+  color: var(--nui-primary-white-text-color);
+}
+
+.nui-tile-count {
+  margin: 0;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--nui-primary-white-text-color);
+}
+
+.nui-tile-icon-container {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 2.2em;
+  height: 2.2em;
+  border-radius: var(--border-radius-sm);
+  background: var(--nui-primary-selected-color);
+}
+
+.nui-tile-icon {
+  --nui-icon-width: 1.5em;
+  --nui-icon-height: 1.5em;
+}
+
+.nui-tile:hover .nui-tile-icon {
+  color: var(--nui-primary-color);
+}
+
+.nui-tile-secondary {
+  display: flex;
+  gap: var(--spacing-2xs);
+  margin-top: var(--spacing-sm);
+}
+
+.nui-tile-count-secondary {
+  margin: 0;
+  font-size: var(--font-size-2xs);
+  color: var(--nui-primary-color);
+}
+
+.nui-tile-text-secondary {
+  margin: 0;
+  font-size: var(--font-size-2xs);
+  color: var(--nui-primary-white-text-color);
+}
+
+@media (min-width: 360px) {
+  .nui-tile-count-secondary,
+  .nui-tile-text-secondary {
+    font-size: var(--font-size-xs);
+  }
+}
+
+@media (min-width: 768px) {
+  .nui-tile {
+    min-height: 8.5em;
+  }
+}
+
+@media (min-width: 1200px) {
+  .nui-tile {
+    min-height: 9em;
+  }
+}
