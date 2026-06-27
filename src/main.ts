@@ -13,6 +13,7 @@ import './components/nui-input-text/nui-input-text.js';
 import './components/nui-knob/nui-knob.js';
 import './components/nui-label/nui-label.js';
 import './components/nui-listbox/nui-listbox.js';
+import './components/nui-logo/nui-logo.js';
 import './components/nui-skeleton/nui-skeleton.js';
 import './components/nui-slider/nui-slider.js';
 import './components/nui-tag/nui-tag.js';

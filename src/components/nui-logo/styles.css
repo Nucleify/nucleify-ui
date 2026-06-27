@@ -1,0 +1,17 @@
+:host {
+  display: inline-block;
+  vertical-align: middle;
+  line-height: 0;
+}
+
+.nui-logo {
+  display: block;
+}
+
+.nui-logo-lighter {
+  fill: var(--logo-lighter-color, #10b981);
+}
+
+.nui-logo-darker {
+  fill: var(--logo-darker-color, #125148);
+}
