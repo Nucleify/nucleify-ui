@@ -198,6 +198,37 @@ main {
   width: min(100%, 20rem);
 }
 
+.scroll-top-demo {
+  position: relative;
+  width: min(100%, 28rem);
+  height: 14rem;
+  max-height: 14rem;
+  min-height: 0;
+  flex-shrink: 0;
+  overflow: hidden;
+  border-radius: var(--border-radius-md);
+  border: 1px solid var(--nui-card-border);
+  background: var(--nui-content-background);
+}
+
+.scroll-top-demo-viewport {
+  height: 100%;
+  min-height: 0;
+  overflow-y: auto;
+}
+
+.scroll-top-demo-content {
+  min-height: calc(14rem + 520px);
+  padding: 1rem 1.25rem 1rem;
+  color: var(--nui-secondary-text-color);
+  font-size: 0.875rem;
+  line-height: 1.6;
+}
+
+.scroll-top-demo-content p {
+  margin: 0 0 0.75rem;
+}
+
 .props-panel {
   margin-top: 1.5rem;
   padding: 1rem;

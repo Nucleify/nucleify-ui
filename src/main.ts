@@ -18,7 +18,7 @@ import './components/nui-paragraph/nui-paragraph.js';
 import './components/nui-progress-bar/nui-progress-bar.js';
 import './components/nui-progress-spinner/nui-progress-spinner.js';
 import './components/nui-radio-button/nui-radio-button.js';
-import './components/nui-rating/nui-rating.js';
+import './components/nui-scroll-top/nui-scroll-top.js';
 import './components/nui-skeleton/nui-skeleton.js';
 import './components/nui-slider/nui-slider.js';
 import './components/nui-tag/nui-tag.js';

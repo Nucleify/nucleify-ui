@@ -1,0 +1,70 @@
+:host {
+  display: block;
+  pointer-events: none;
+}
+
+:host([target="parent"]) {
+  position: absolute;
+  right: 1rem;
+  bottom: 1rem;
+  z-index: 2;
+}
+
+:host([target="window"]) {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  z-index: 1000;
+}
+
+.nui-scroll-top {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  padding: 0;
+  border: var(--border-width) solid transparent;
+  border-radius: var(--border-radius-sm);
+  background: var(--nui-primary-color);
+  color: var(--nui-primary-white-text-color);
+  cursor: pointer;
+  pointer-events: auto;
+  box-shadow: 0 2px 8px rgb(0 0 0 / 20%);
+  transition:
+    opacity 0.15s ease,
+    background var(--transition-fast) ease,
+    border-color var(--transition-fast) ease,
+    color var(--transition-fast) ease;
+  animation: nui-scroll-top-fade-in 0.15s ease;
+}
+
+.nui-scroll-top[rounded] {
+  border-radius: 9999px;
+}
+
+.nui-scroll-top:hover {
+  background: var(--nui-primary-hover-color);
+}
+
+.nui-scroll-top:focus-visible {
+  outline: var(--border-width-focus) solid var(--nui-primary-focus-color);
+  outline-offset: var(--outline-offset);
+}
+
+.nui-scroll-top-icon {
+  display: inline-flex;
+  line-height: 0;
+  --nui-icon-width: 1.25rem;
+  --nui-icon-height: 1.25rem;
+}
+
+@keyframes nui-scroll-top-fade-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
