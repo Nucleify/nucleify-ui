@@ -20,6 +20,7 @@ import { nuiProgressSpinnerPlayground } from './definitions/nui-progress-spinner
 import { nuiRadioButtonPlayground } from './definitions/nui-radio-button.js';
 import { nuiRatingPlayground } from './definitions/nui-rating.js';
 import { nuiScrollTopPlayground } from './definitions/nui-scroll-top.js';
+import { nuiSelectButtonPlayground } from './definitions/nui-select-button.js';
 import { nuiSkeletonPlayground } from './definitions/nui-skeleton.js';
 import { nuiSliderPlayground } from './definitions/nui-slider.js';
 import { nuiTagPlayground } from './definitions/nui-tag.js';
@@ -49,6 +50,7 @@ export const playgroundRegistry: PlaygroundDefinition[] = [
   nuiRadioButtonPlayground,
   nuiRatingPlayground,
   nuiScrollTopPlayground,
+  nuiSelectButtonPlayground,
   nuiSkeletonPlayground,
   nuiSliderPlayground,
   nuiTagPlayground,
