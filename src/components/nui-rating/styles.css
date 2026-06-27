@@ -1,0 +1,74 @@
+:host {
+  display: inline-flex;
+  vertical-align: middle;
+}
+
+.nui-rating {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.nui-rating[disabled] {
+  opacity: 0.65;
+  pointer-events: none;
+}
+
+.nui-rating[readonly] {
+  opacity: 0.65;
+}
+
+.nui-rating-option {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border-radius: 50%;
+  outline-color: transparent;
+  transition: color var(--transition-fast) ease;
+}
+
+.nui-rating[readonly] .nui-rating-option,
+.nui-rating[disabled] .nui-rating-option {
+  cursor: default;
+}
+
+.nui-rating-hidden-input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+.nui-rating-icon {
+  display: inline-flex;
+  color: var(--nui-secondary-text-color);
+  transition: color var(--transition-fast) ease;
+  --nui-icon-width: 1.25rem;
+  --nui-icon-height: 1.25rem;
+}
+
+.nui-rating:not([disabled]):not([readonly])
+  .nui-rating-option:hover
+  .nui-rating-icon {
+  color: var(--nui-primary-color);
+}
+
+.nui-rating-option[active] .nui-rating-icon {
+  color: var(--nui-primary-color);
+}
+
+.nui-rating[invalid] .nui-rating-icon {
+  color: var(--nui-danger-color);
+}
+
+.nui-rating-hidden-input:has(input:focus-visible) + .nui-rating-icon {
+  outline: var(--border-width-focus) solid var(--nui-primary-focus-color);
+  outline-offset: var(--outline-offset);
+  border-radius: var(--border-radius-sm);
+}
