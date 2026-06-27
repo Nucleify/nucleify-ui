@@ -1,0 +1,27 @@
+:host {
+  display: block;
+  width: 100%;
+}
+
+.nui-chart {
+  position: relative;
+  width: 100%;
+  min-height: 18.75rem;
+}
+
+.nui-chart-content {
+  position: relative;
+  width: 100%;
+  min-height: inherit;
+  height: 18.75rem;
+}
+
+.nui-chart canvas {
+  display: block;
+  max-width: 100%;
+}
+
+.nui-chart canvas:not([sized]) {
+  width: 100%;
+  height: 100%;
+}

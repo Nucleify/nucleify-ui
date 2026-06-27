@@ -208,6 +208,12 @@ main {
   flex-shrink: 0;
 }
 
+.chart-preview {
+  width: min(100%, 32rem);
+  min-height: 20rem;
+  flex-shrink: 0;
+}
+
 .scroll-top-demo {
   position: relative;
   width: min(100%, 28rem);
