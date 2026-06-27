@@ -1,0 +1,102 @@
+:host {
+  display: inline-flex;
+  vertical-align: middle;
+}
+
+.nui-radio-button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+  user-select: none;
+}
+
+.nui-radio-button[disabled] {
+  cursor: not-allowed;
+}
+
+.nui-radio-button-input {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  opacity: 0;
+  cursor: inherit;
+  z-index: 1;
+}
+
+.nui-radio-button-box {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 1.5rem;
+  height: 1.5rem;
+  border: var(--border-width) solid var(--nui-card-border);
+  border-radius: 50%;
+  background: transparent;
+  transition:
+    background var(--transition-fast) ease,
+    border-color var(--transition-fast) ease;
+  box-sizing: border-box;
+  pointer-events: none;
+}
+
+.nui-radio-button[size="small"] .nui-radio-button-box {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+.nui-radio-button[size="large"] .nui-radio-button-box {
+  width: 1.75rem;
+  height: 1.75rem;
+}
+
+.nui-radio-button[variant="filled"] .nui-radio-button-box:not([checked]) {
+  background: var(--nui-card-background);
+}
+
+.nui-radio-button-box[checked] {
+  background: var(--nui-primary-color);
+  border-color: var(--nui-primary-color);
+}
+
+.nui-radio-button-box[invalid]:not([checked]) {
+  border-color: var(--nui-danger-color);
+}
+
+.nui-radio-button-box[disabled] {
+  opacity: 0.65;
+}
+
+.nui-radio-button-icon {
+  width: 1rem;
+  height: 1rem;
+  border-radius: 50%;
+  background: transparent;
+  transform: scale(0.1);
+  transition:
+    transform var(--transition-fast) ease,
+    background var(--transition-fast) ease;
+}
+
+.nui-radio-button[size="small"] .nui-radio-button-icon {
+  width: 0.75rem;
+  height: 0.75rem;
+}
+
+.nui-radio-button[size="large"] .nui-radio-button-icon {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+.nui-radio-button-box[checked] .nui-radio-button-icon {
+  background: var(--nui-primary-white-text-color);
+  transform: scale(1);
+}
+
+.nui-radio-button-input:focus-visible + .nui-radio-button-box {
+  outline: var(--border-width-focus) solid var(--nui-primary-focus-color);
+  outline-offset: var(--outline-offset);
+}
