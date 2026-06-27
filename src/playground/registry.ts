@@ -14,6 +14,7 @@ import { nuiKnobPlayground } from './definitions/nui-knob.js';
 import { nuiLabelPlayground } from './definitions/nui-label.js';
 import { nuiListboxPlayground } from './definitions/nui-listbox.js';
 import { nuiLogoPlayground } from './definitions/nui-logo.js';
+import { nuiParagraphPlayground } from './definitions/nui-paragraph.js';
 import { nuiSkeletonPlayground } from './definitions/nui-skeleton.js';
 import { nuiSliderPlayground } from './definitions/nui-slider.js';
 import { nuiTagPlayground } from './definitions/nui-tag.js';
@@ -37,6 +38,7 @@ export const playgroundRegistry: PlaygroundDefinition[] = [
   nuiLabelPlayground,
   nuiListboxPlayground,
   nuiLogoPlayground,
+  nuiParagraphPlayground,
   nuiSkeletonPlayground,
   nuiSliderPlayground,
   nuiTagPlayground,

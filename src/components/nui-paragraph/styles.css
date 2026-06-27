@@ -1,0 +1,11 @@
+:host {
+  display: block;
+}
+
+.nui-paragraph {
+  margin: 0;
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-regular);
+  line-height: 1.5;
+  color: var(--nui-white-text-color);
+}
