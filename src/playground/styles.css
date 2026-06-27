@@ -198,6 +198,11 @@ main {
   width: min(100%, 20rem);
 }
 
+.accordion-preview {
+  width: min(100%, 28rem);
+  flex-shrink: 0;
+}
+
 .scroll-top-demo {
   position: relative;
   width: min(100%, 28rem);
