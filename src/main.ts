@@ -43,6 +43,7 @@ import './components/nui-select-button/nui-select-button.js';
 import './components/nui-skeleton/nui-skeleton.js';
 import './components/nui-speed-dial/nui-speed-dial.js';
 import './components/nui-swiper/nui-swiper.js';
+import './components/nui-tabs/nui-tabs.js';
 import './components/nui-slider/nui-slider.js';
 import './components/nui-tag/nui-tag.js';
 import './components/nui-textarea/nui-textarea.js';

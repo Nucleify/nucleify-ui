@@ -1,0 +1,86 @@
+:host {
+  display: block;
+  width: 100%;
+}
+
+.nui-tabs {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.nui-tablist {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  border-bottom: var(--border-width, 1px) solid var(--nui-card-border, #3f3f46);
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.nui-tablist::-webkit-scrollbar {
+  display: none;
+}
+.nui-tablist {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.nui-tab {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-sm, 12px) var(--spacing-md, 16px);
+  border: 0;
+  border-bottom: 2px solid transparent;
+  background: transparent;
+  color: var(--nui-secondary-text-color, #a1a1aa);
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  outline: 0;
+  transition:
+    color var(--transition-fast, 150ms) ease,
+    border-color var(--transition-fast, 150ms) ease;
+  margin-bottom: -1px;
+}
+
+.nui-tab h4 {
+  margin: 0;
+  padding: 0;
+  font-size: 1rem;
+  font-weight: 600;
+  font-family: inherit;
+}
+
+.nui-tab:hover:not([disabled]) {
+  color: var(--nui-white-text-color, #ffffff);
+}
+
+.nui-tab[active] {
+  color: var(--nui-primary-color, #10b981);
+  border-color: var(--nui-primary-color, #10b981);
+}
+
+.nui-tab[disabled] {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.nui-tabpanels {
+  padding: var(--spacing-md, 16px) 0;
+  box-sizing: border-box;
+}
+
+.nui-tabpanel {
+  box-sizing: border-box;
+}
+
+.nui-tabpanel[hidden] {
+  display: none;
+}
