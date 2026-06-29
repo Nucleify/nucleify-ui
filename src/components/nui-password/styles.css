@@ -1,0 +1,183 @@
+:host {
+  display: inline-block;
+  vertical-align: middle;
+  position: relative;
+  width: 100%;
+}
+
+:host([disabled]) {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+.nui-password {
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.nui-password-input {
+  display: block;
+  width: 100%;
+  min-height: 2.5625rem;
+  margin: 0;
+  padding: var(--spacing-xs) 2.5rem var(--spacing-xs) var(--spacing-sm);
+  border: var(--border-width) solid var(--nui-card-border);
+  border-radius: var(--border-radius-sm);
+  background: var(--nui-card-background);
+  color: var(--nui-white-text-color);
+  font: inherit;
+  line-height: 1.25;
+  box-sizing: border-box;
+  box-shadow: 0 0 0 0.5rem transparent;
+  transition:
+    border-color var(--transition-fast) ease,
+    box-shadow var(--transition-fast) ease;
+}
+
+.nui-password-input::placeholder {
+  color: var(--nui-secondary-text-color);
+}
+
+.nui-password-input:hover:not(:disabled):not(:read-only) {
+  border-color: var(--nui-primary-focus-color);
+}
+
+.nui-password-input:focus,
+.nui-password-input:focus-visible {
+  outline: 0;
+  outline-offset: 0;
+  box-shadow: 0 0 0.5em var(--nui-primary-focus-color);
+  border-color: var(--nui-primary-color);
+}
+
+:host([invalid]) .nui-password-input {
+  border-color: var(--nui-danger-color);
+}
+
+:host([invalid]) .nui-password-input:focus,
+:host([invalid]) .nui-password-input:focus-visible {
+  outline: 0;
+  outline-offset: 0;
+  box-shadow: 0 0 0.5em var(--nui-danger-color);
+  border-color: var(--nui-danger-color);
+}
+
+.nui-password-toggle {
+  position: relative;
+  z-index: 1;
+  margin-left: -2.5rem;
+  margin-right: 0.5rem;
+  height: 2rem;
+  width: 2rem;
+  background: transparent;
+  border: none;
+  color: var(--nui-muted-text-color, rgba(255, 255, 255, 0.6));
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: color var(--transition-fast) ease;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.nui-password-toggle:hover:not(:disabled) {
+  color: var(--nui-white-text-color);
+}
+
+.nui-password-toggle-icon {
+  --nui-icon-width: 1.25rem;
+  --nui-icon-height: 1.25rem;
+  transform: translateY(-2px);
+}
+
+/* Feedback dropdown overlay styling */
+.nui-password-overlay {
+  position: absolute;
+  left: 0;
+  top: 100%;
+  margin-top: var(--spacing-2xs, 0.25rem);
+  width: 100%;
+  min-width: 250px;
+  background: var(--nui-bg-dark-color, #121212);
+  border: var(--border-width) solid var(--nui-card-border);
+  border-radius: var(--border-radius-md);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  padding: var(--spacing-sm);
+  z-index: 1000;
+  box-sizing: border-box;
+  backdrop-filter: blur(0.25em);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+}
+
+.nui-password-overlay[hidden] {
+  display: none;
+}
+
+/* Strength meter styles */
+.nui-password-meter {
+  height: 0.5rem;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: var(--border-radius-sm);
+  overflow: hidden;
+  width: 100%;
+}
+
+.nui-password-meter-bar {
+  height: 100%;
+  width: 0;
+  transition:
+    width var(--transition-medium, 0.3s) ease,
+    background-color var(--transition-medium, 0.3s) ease;
+}
+
+.nui-password-info {
+  font-size: var(--font-size-2xs, 0.7rem);
+  color: var(--nui-secondary-text-color);
+  font-weight: 500;
+}
+
+/* Criteria checklist styles */
+.nui-password-criteria {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2xs);
+}
+
+.nui-password-criterion {
+  display: flex;
+  align-items: center;
+  font-size: var(--font-size-xs, 0.75rem);
+  gap: var(--spacing-xs);
+  transition: color var(--transition-fast) ease;
+}
+
+.nui-password-criterion-icon {
+  --nui-icon-width: 1rem;
+  --nui-icon-height: 1rem;
+  flex-shrink: 0;
+}
+
+.nui-password-criterion.valid {
+  color: #10b981;
+  font-weight: bold;
+}
+
+.nui-password-criterion.invalid {
+  color: #ef4444;
+  font-weight: bold;
+}
+
+.nui-password-divider {
+  height: 1px;
+  background: var(--nui-card-border);
+  margin: var(--spacing-2xs) 0;
+}

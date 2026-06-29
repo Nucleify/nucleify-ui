@@ -30,6 +30,7 @@ import { nuiLogoPlayground } from './definitions/nui-logo.js';
 import { nuiMenuPlayground } from './definitions/nui-menu.js';
 import { nuiMeterGroupPlayground } from './definitions/nui-meter-group.js';
 import { nuiParagraphPlayground } from './definitions/nui-paragraph.js';
+import { nuiPasswordPlayground } from './definitions/nui-password.js';
 import { nuiProgressBarPlayground } from './definitions/nui-progress-bar.js';
 import { nuiProgressSpinnerPlayground } from './definitions/nui-progress-spinner.js';
 import { nuiRadioButtonPlayground } from './definitions/nui-radio-button.js';
@@ -77,6 +78,7 @@ export const playgroundRegistry: PlaygroundDefinition[] = [
   nuiMeterGroupPlayground,
   nuiLogoPlayground,
   nuiParagraphPlayground,
+  nuiPasswordPlayground,
   nuiProgressBarPlayground,
   nuiProgressSpinnerPlayground,
   nuiRadioButtonPlayground,

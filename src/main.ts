@@ -30,6 +30,7 @@ import './components/nui-menu/nui-menu.js';
 import './components/nui-meter-group/nui-meter-group.js';
 import './components/nui-logo/nui-logo.js';
 import './components/nui-paragraph/nui-paragraph.js';
+import './components/nui-password/nui-password.js';
 import './components/nui-progress-bar/nui-progress-bar.js';
 import './components/nui-progress-spinner/nui-progress-spinner.js';
 import './components/nui-radio-button/nui-radio-button.js';
