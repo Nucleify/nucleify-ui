@@ -1,0 +1,159 @@
+:host {
+  display: block;
+  width: 100%;
+  position: relative;
+  aspect-ratio: 16 / 9;
+}
+
+.nui-swiper-container {
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  margin: 0 auto;
+  z-index: 1;
+}
+
+.nui-swiper-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  display: flex;
+  transition-property: transform;
+  box-sizing: content-box;
+}
+
+.nui-swiper-slide,
+.nui-swiper-wrapper ::slotted(*) {
+  flex-shrink: 0;
+  height: 100%;
+  position: relative;
+  box-sizing: border-box;
+  width: calc(
+    (
+      100% -
+      (var(--nui-swiper-slides-per-view, 1) - 1) *
+      var(--nui-swiper-space-between, 0px)
+    ) /
+    var(--nui-swiper-slides-per-view, 1)
+  );
+  margin-right: var(--nui-swiper-space-between, 0px);
+}
+
+.nui-swiper-slide nui-anchor,
+.nui-swiper-slide nui-image,
+.nui-swiper-slide img,
+.nui-swiper-slide a {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.nui-swiper-slide img,
+.nui-swiper-wrapper ::slotted(img) {
+  display: block;
+  max-width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: var(--border-radius-md, 8px);
+}
+
+.nui-swiper-slide a,
+.nui-swiper-wrapper ::slotted(a) {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* Navigation buttons */
+.nui-swiper-button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  background: var(--nui-card-background, #1e1e2e);
+  border: var(--border-width, 1px) solid var(--nui-card-border, #3f3f46);
+  color: var(--nui-white-text-color, #ffffff);
+  cursor: pointer;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  margin: 0;
+  opacity: 0.8;
+  transition:
+    opacity var(--transition-fast) ease,
+    background var(--transition-fast) ease,
+    border-color var(--transition-fast) ease;
+}
+
+.nui-swiper-button:hover:not(:disabled) {
+  opacity: 1;
+  background: var(--nui-primary-highlight-color);
+  border-color: var(--nui-primary-color);
+  color: var(--nui-primary-color);
+}
+
+.nui-swiper-button:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.nui-swiper-button-prev {
+  left: var(--spacing-sm, 12px);
+}
+
+.nui-swiper-button-next {
+  right: var(--spacing-sm, 12px);
+}
+
+.nui-swiper-button nui-icon {
+  width: 1.5rem;
+  height: 1.5rem;
+  --nui-icon-width: 1.5rem;
+  --nui-icon-height: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Pagination */
+.nui-swiper-pagination {
+  position: absolute;
+  bottom: var(--spacing-sm, 12px);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  display: flex;
+  gap: var(--spacing-xs, 8px);
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.nui-swiper-pagination-bullet {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background: var(--nui-secondary-text-color, #71717a);
+  opacity: 0.5;
+  cursor: pointer;
+  transition:
+    opacity var(--transition-fast) ease,
+    background var(--transition-fast) ease,
+    transform var(--transition-fast) ease;
+}
+
+.nui-swiper-pagination-bullet:hover {
+  opacity: 0.8;
+}
+
+.nui-swiper-pagination-bullet-active {
+  background: var(--nui-primary-color, #10b981);
+  opacity: 1;
+  transform: scale(1.2);
+}
