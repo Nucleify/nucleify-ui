@@ -1,0 +1,112 @@
+:host {
+  display: block;
+  width: 100%;
+  height: 350px;
+  position: relative;
+  box-sizing: border-box;
+  font-family: var(
+    --font-monospace,
+    "Fira Code",
+    "Courier New",
+    Courier,
+    monospace
+  );
+}
+
+.nui-terminal {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  background: var(--nui-card-background, #181825);
+  border: var(--border-width, 1px) solid var(--nui-card-border, #313244);
+  border-radius: var(--border-radius-md, 8px);
+  padding: var(--spacing-md, 16px);
+  box-shadow: var(--shadow-md);
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.nui-terminal-content {
+  flex-grow: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs, 8px);
+  margin-bottom: var(--spacing-xs, 8px);
+  padding-right: var(--spacing-xs, 8px);
+}
+
+.nui-terminal-content::-webkit-scrollbar {
+  width: 6px;
+}
+.nui-terminal-content::-webkit-scrollbar-track {
+  background: transparent;
+}
+.nui-terminal-content::-webkit-scrollbar-thumb {
+  background: var(--nui-card-border, #313244);
+  border-radius: 3px;
+}
+
+.nui-terminal-welcome {
+  color: var(--nui-white-text-color, #cdd6f4);
+  line-height: 1.5;
+  white-space: pre-wrap;
+}
+
+.nui-terminal-history {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs, 8px);
+}
+
+.nui-terminal-line {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2xs, 4px);
+  line-height: 1.4;
+}
+
+.nui-terminal-command-line {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs, 8px);
+}
+
+.nui-terminal-prompt {
+  color: var(--nui-white-text-color, #cdd6f4);
+  font-weight: bold;
+  user-select: none;
+}
+
+.nui-terminal-command-text {
+  color: var(--nui-white-text-color, #cdd6f4);
+}
+
+.nui-terminal-response-line {
+  color: var(--nui-primary-color, #10b981);
+  padding-left: var(--spacing-sm, 12px);
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+
+.nui-terminal-input-line {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs, 8px);
+  border-top: 1px solid var(--nui-card-border, #313244);
+  padding-top: var(--spacing-sm, 12px);
+  box-sizing: border-box;
+}
+
+.nui-terminal-input {
+  flex-grow: 1;
+  background: transparent;
+  border: 0;
+  color: var(--nui-white-text-color, #cdd6f4);
+  font-family: inherit;
+  font-size: 1rem;
+  outline: 0;
+  margin: 0;
+  padding: 0;
+}

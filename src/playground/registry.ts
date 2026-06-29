@@ -46,6 +46,7 @@ import { nuiSpeedDialPlayground } from './definitions/nui-speed-dial.js';
 import { nuiSwiperPlayground } from './definitions/nui-swiper.js';
 import { nuiTabsPlayground } from './definitions/nui-tabs.js';
 import { nuiTagPlayground } from './definitions/nui-tag.js';
+import { nuiTerminalPlayground } from './definitions/nui-terminal.js';
 import { nuiTextareaPlayground } from './definitions/nui-textarea.js';
 import { nuiTilePlayground } from './definitions/nui-tile.js';
 import { nuiTooltipPlayground } from './definitions/nui-tooltip.js';
@@ -99,6 +100,7 @@ export const playgroundRegistry: PlaygroundDefinition[] = [
   nuiSpeedDialPlayground,
   nuiSwiperPlayground,
   nuiTabsPlayground,
+  nuiTerminalPlayground,
   nuiTagPlayground,
   nuiTextareaPlayground,
   nuiTilePlayground,
