@@ -14,6 +14,7 @@ import { nuiDeferredContentPlayground } from './definitions/nui-deferred-content
 import { nuiDialogPlayground } from './definitions/nui-dialog.js';
 import { nuiDividerPlayground } from './definitions/nui-divider.js';
 import { nuiDockPlayground } from './definitions/nui-dock.js';
+import { nuiFileUploadPlayground } from './definitions/nui-file-upload.js';
 import { nuiFloatLabelPlayground } from './definitions/nui-float-label.js';
 import { nuiHeadingPlayground } from './definitions/nui-heading.js';
 import { nuiIconPlayground } from './definitions/nui-icon.js';
@@ -56,8 +57,9 @@ export const playgroundRegistry: PlaygroundDefinition[] = [
   nuiDatePickerPlayground,
   nuiDeferredContentPlayground,
   nuiDialogPlayground,
-  nuiDockPlayground,
   nuiDividerPlayground,
+  nuiDockPlayground,
+  nuiFileUploadPlayground,
   nuiFloatLabelPlayground,
   nuiHeadingPlayground,
   nuiIconPlayground,

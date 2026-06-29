@@ -1,0 +1,184 @@
+:host {
+  display: block;
+  box-sizing: border-box;
+  font-family: inherit;
+}
+
+.nui-file-upload {
+  border: 1px solid var(--nui-card-border);
+  background: var(--nui-content-background);
+  border-radius: var(--border-radius-md);
+  overflow: hidden;
+}
+
+.nui-file-upload-header {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-md);
+  background: var(--nui-bg-black-color);
+  border-bottom: 1px solid var(--nui-card-border);
+  flex-wrap: wrap;
+}
+
+.nui-file-upload-progress {
+  width: 100%;
+  margin-top: var(--spacing-xs);
+}
+
+.nui-file-upload-content {
+  padding: var(--spacing-md);
+  position: relative;
+}
+
+/* Drag and Drop Zone */
+.nui-file-upload-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 1.5rem;
+  border: 2px dashed var(--nui-card-border);
+  border-radius: var(--border-radius-md);
+  background: var(--nui-bg-green-color-05);
+  color: var(--nui-secondary-text-color);
+  text-align: center;
+  transition:
+    border-color var(--transition-fast),
+    background-color var(--transition-fast);
+  cursor: pointer;
+}
+
+.nui-file-upload-empty[dragover] {
+  border-color: var(--nui-primary-color);
+  background: var(--nui-primary-highlight-color);
+  color: var(--nui-primary-color);
+}
+
+.nui-file-upload-empty-icon {
+  font-size: 3rem;
+  margin-bottom: var(--spacing-sm);
+  color: var(--nui-primary-color);
+}
+
+.nui-file-upload-empty-text {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+}
+
+/* Files List */
+.nui-file-upload-files {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.nui-file-upload-file-row {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  padding: var(--spacing-sm);
+  border: 1px solid var(--nui-card-border);
+  border-radius: var(--border-radius-sm);
+  background: var(--nui-bg-black-color);
+}
+
+.nui-file-upload-thumbnail {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: var(--border-radius-sm);
+  border: 1px solid var(--nui-card-border);
+  background: var(--nui-bg-dark-color);
+  flex-shrink: 0;
+}
+
+.nui-file-upload-file-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+  flex-grow: 1;
+  min-width: 0;
+}
+
+.nui-file-upload-file-name {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+  color: var(--nui-white-text-color);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.nui-file-upload-file-size {
+  font-size: var(--font-size-2xs);
+  color: var(--nui-secondary-text-color);
+}
+
+.nui-file-upload-file-status {
+  padding: 0.125rem 0.375rem;
+  font-size: var(--font-size-2xs);
+  font-weight: var(--font-weight-semibold);
+  border-radius: var(--border-radius-sm);
+  text-transform: uppercase;
+}
+
+.nui-file-upload-file-status[status="pending"] {
+  background: var(--nui-primary-secondary-color);
+  color: var(--nui-primary-color);
+}
+
+.nui-file-upload-file-status[status="uploading"] {
+  background: var(--nui-info-color);
+  color: var(--nui-contrast-text-color);
+}
+
+.nui-file-upload-file-status[status="completed"] {
+  background: var(--nui-success-color);
+  color: var(--nui-contrast-text-color);
+}
+
+.nui-file-upload-file-status[status="failed"] {
+  background: var(--nui-danger-color);
+  color: var(--nui-contrast-text-color);
+}
+
+.nui-file-upload-remove-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0.25rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--nui-secondary-text-color);
+  transition:
+    background-color var(--transition-fast),
+    color var(--transition-fast);
+}
+
+.nui-file-upload-remove-btn:hover {
+  background-color: var(--nui-danger-color);
+  color: var(--nui-contrast-text-color);
+}
+
+/* Basic mode */
+.nui-file-upload-basic {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.nui-file-upload-basic-info {
+  font-size: var(--font-size-xs);
+  color: var(--nui-secondary-text-color);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Hidden natywny input */
+.nui-file-upload-input {
+  display: none;
+}
