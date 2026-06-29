@@ -145,7 +145,7 @@ function renderPreview(props: PlaygroundProps): TemplateResult {
 
 export const nuiMeterGroupPlayground: PlaygroundDefinition = {
   tag: 'nui-meter-group',
-  label: 'MeterGroup',
+  label: 'Meter Group',
   description:
     'Displays a group of values as multi-segmented bar progress indicators.',
   defaults: NUI_METER_GROUP_DEFAULTS,

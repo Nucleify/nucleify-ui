@@ -36,6 +36,7 @@ import './components/nui-progress-bar/nui-progress-bar.js';
 import './components/nui-progress-spinner/nui-progress-spinner.js';
 import './components/nui-radio-button/nui-radio-button.js';
 import './components/nui-rating/nui-rating.js';
+import './components/nui-scroll-panel/nui-scroll-panel.js';
 import './components/nui-scroll-top/nui-scroll-top.js';
 import './components/nui-select-button/nui-select-button.js';
 import './components/nui-skeleton/nui-skeleton.js';

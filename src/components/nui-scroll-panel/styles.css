@@ -1,0 +1,25 @@
+/* Native scrollbar styling for Firefox */
+.nui-scroll-panel-content {
+  scrollbar-width: thin;
+  scrollbar-color: var(--nui-card-border, rgba(255, 255, 255, 0.15)) transparent;
+}
+
+/* Custom scrollbars for Chrome, Edge, Safari */
+.nui-scroll-panel-content::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.nui-scroll-panel-content::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.nui-scroll-panel-content::-webkit-scrollbar-thumb {
+  background: var(--nui-card-border, rgba(255, 255, 255, 0.15));
+  border-radius: 3px;
+  transition: background var(--transition-fast, 0.2s) ease;
+}
+
+.nui-scroll-panel-content::-webkit-scrollbar-thumb:hover {
+  background: var(--nui-primary-color, #10b981);
+}
