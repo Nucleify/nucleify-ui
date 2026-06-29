@@ -131,10 +131,13 @@ aside h2 {
 
 main {
   padding: 2rem;
+  min-width: 0;
 }
 
 .preview-panel {
   max-width: 56rem;
+  width: 100%;
+  min-width: 0;
 }
 
 .preview-panel h2 {
@@ -148,7 +151,12 @@ main {
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
+  flex-wrap: wrap;
   margin-bottom: 0.25rem;
+}
+
+.panel-header > div:first-child {
+  min-width: 0;
 }
 
 .reset-button {
@@ -160,6 +168,7 @@ main {
   font: inherit;
   font-size: 0.8125rem;
   cursor: pointer;
+  flex-shrink: 0;
 }
 
 .reset-button:hover {
@@ -417,4 +426,27 @@ main {
 
 .dock-preview nui-dock {
   position: absolute;
+}
+
+.speed-dial-preview-host .preview-box {
+  min-height: 26rem;
+  overflow: hidden;
+}
+
+.speed-dial-preview {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 22rem;
+  width: 100%;
+  overflow: hidden;
+}
+
+.speed-dial-preview-host .props-grid {
+  grid-template-columns: repeat(auto-fit, minmax(13.5rem, 1fr));
+}
+
+.speed-dial-preview-host .prop-field label {
+  line-height: 1.2;
+  white-space: normal;
 }
