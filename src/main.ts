@@ -48,6 +48,7 @@ import './components/nui-slider/nui-slider.js';
 import './components/nui-tag/nui-tag.js';
 import './components/nui-terminal/nui-terminal.js';
 import './components/nui-toast/nui-toast.js';
+import './components/nui-tree/nui-tree.js';
 import './components/nui-textarea/nui-textarea.js';
 import './components/nui-tile/nui-tile.js';
 import './components/nui-tooltip/nui-tooltip.js';
