@@ -26,6 +26,7 @@ import './components/nui-input-text/nui-input-text.js';
 import './components/nui-knob/nui-knob.js';
 import './components/nui-label/nui-label.js';
 import './components/nui-listbox/nui-listbox.js';
+import './components/nui-menu/nui-menu.js';
 import './components/nui-logo/nui-logo.js';
 import './components/nui-paragraph/nui-paragraph.js';
 import './components/nui-progress-bar/nui-progress-bar.js';
