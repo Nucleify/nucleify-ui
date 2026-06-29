@@ -49,6 +49,7 @@ import { nuiTagPlayground } from './definitions/nui-tag.js';
 import { nuiTerminalPlayground } from './definitions/nui-terminal.js';
 import { nuiTextareaPlayground } from './definitions/nui-textarea.js';
 import { nuiTilePlayground } from './definitions/nui-tile.js';
+import { nuiToastPlayground } from './definitions/nui-toast.js';
 import { nuiTooltipPlayground } from './definitions/nui-tooltip.js';
 import type { PlaygroundDefinition, PlaygroundProps } from './types.js';
 
@@ -101,6 +102,7 @@ export const playgroundRegistry: PlaygroundDefinition[] = [
   nuiSwiperPlayground,
   nuiTabsPlayground,
   nuiTerminalPlayground,
+  nuiToastPlayground,
   nuiTagPlayground,
   nuiTextareaPlayground,
   nuiTilePlayground,
