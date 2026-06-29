@@ -1,0 +1,147 @@
+:host {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+:host([fluid]) {
+  display: block;
+  width: 100%;
+}
+
+/* ── Wrapper ─────────────────────────────────────────────── */
+.nui-select-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+/* ── Trigger button ──────────────────────────────────────── */
+.nui-select {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  min-height: 2.5625rem;
+  margin: 0;
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border: var(--border-width) solid var(--nui-card-border);
+  border-radius: var(--border-radius-sm);
+  background: var(--nui-card-background);
+  color: var(--nui-white-text-color);
+  font: inherit;
+  font-size: 1rem;
+  line-height: 1.25;
+  text-align: left;
+  box-sizing: border-box;
+  cursor: pointer;
+  box-shadow: 0 0 0 0.5rem transparent;
+  transition:
+    border-color var(--transition-fast) ease,
+    box-shadow var(--transition-fast) ease;
+}
+
+.nui-select:hover:not(:disabled) {
+  border-color: var(--nui-primary-focus-color);
+}
+
+.nui-select:focus,
+.nui-select:focus-visible {
+  outline: 0;
+  box-shadow: 0 0 0.5em var(--nui-primary-focus-color);
+  border-color: var(--nui-primary-color);
+}
+
+.nui-select:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+:host([invalid]) .nui-select {
+  border-color: var(--nui-danger-color);
+}
+
+:host([invalid]) .nui-select:focus,
+:host([invalid]) .nui-select:focus-visible {
+  box-shadow: 0 0 0.5em var(--nui-danger-color);
+  border-color: var(--nui-danger-color);
+}
+
+:host([variant="filled"]) .nui-select {
+  background: var(--nui-content-background);
+}
+
+:host([size="small"]) .nui-select {
+  min-height: 2rem;
+  font-size: 0.875rem;
+}
+
+:host([size="large"]) .nui-select {
+  min-height: 3rem;
+  font-size: 1.125rem;
+}
+
+/* ── Label / placeholder ─────────────────────────────────── */
+.nui-select-label {
+  flex: 1;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.nui-select-placeholder {
+  color: var(--nui-secondary-text-color);
+}
+
+/* ── Arrow icon ──────────────────────────────────────────── */
+.nui-select-arrow {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  margin-left: var(--spacing-xs);
+  color: var(--nui-secondary-text-color);
+  transition: transform var(--transition-fast) ease;
+}
+
+.nui-select[aria-expanded="true"] .nui-select-arrow {
+  transform: rotate(180deg);
+}
+
+/* ── Dropdown panel ──────────────────────────────────────── */
+.nui-select-panel {
+  position: absolute;
+  top: calc(100% + 2px);
+  left: 0;
+  right: 0;
+  z-index: 10000;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border: var(--border-width) solid var(--nui-card-border);
+  border-radius: var(--border-radius-sm);
+  background: var(--nui-card-background);
+  overflow-y: auto;
+  max-height: 14rem;
+  box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.4);
+}
+
+/* ── Option items ────────────────────────────────────────── */
+.nui-select-option {
+  display: flex;
+  align-items: center;
+  padding: var(--spacing-xs) var(--spacing-sm);
+  color: var(--nui-white-text-color);
+  cursor: pointer;
+  transition: background var(--transition-fast) ease;
+}
+
+.nui-select-option:hover:not([disabled]) {
+  background: var(--nui-primary-highlight-color);
+}
+
+.nui-select-option[selected] {
+  background: var(--nui-content-background);
+  color: var(--nui-primary-color);
+}
+
+.nui-select-option[disabled] {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

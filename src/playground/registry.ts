@@ -38,6 +38,7 @@ import { nuiRadioButtonPlayground } from './definitions/nui-radio-button.js';
 import { nuiRatingPlayground } from './definitions/nui-rating.js';
 import { nuiScrollPanelPlayground } from './definitions/nui-scroll-panel.js';
 import { nuiScrollTopPlayground } from './definitions/nui-scroll-top.js';
+import { nuiSelectPlayground } from './definitions/nui-select.js';
 import { nuiSelectButtonPlayground } from './definitions/nui-select-button.js';
 import { nuiSkeletonPlayground } from './definitions/nui-skeleton.js';
 import { nuiSliderPlayground } from './definitions/nui-slider.js';
@@ -88,6 +89,7 @@ export const playgroundRegistry: PlaygroundDefinition[] = [
   nuiRatingPlayground,
   nuiScrollPanelPlayground,
   nuiScrollTopPlayground,
+  nuiSelectPlayground,
   nuiSelectButtonPlayground,
   nuiSkeletonPlayground,
   nuiSliderPlayground,
