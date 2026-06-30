@@ -47,7 +47,7 @@
   flex-direction: row-reverse;
   gap: var(--spacing-sm);
   width: 100%;
-  min-height: 3.75rem;
+  min-height: 41px;
   margin: 0;
   padding: 0 var(--spacing-md);
   border: 0;

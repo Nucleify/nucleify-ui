@@ -1,6 +1,11 @@
 import { html, nothing, type TemplateResult } from 'lit';
 import type { NuiType } from '../../types/nui-type.js';
 import {
+  filterRows,
+  getFilterOptionsForColumn,
+  isColumnFilterable,
+} from './data-table-filters.js';
+import {
   getCellValue,
   getCurrentPage,
   getPageCount,
@@ -10,7 +15,9 @@ import {
 } from './data-table-state.js';
 import type {
   DataTableColumn,
+  DataTableFilters,
   DataTableRow,
+  DataTableSize,
   DataTableSortOrder,
 } from './types.js';
 
@@ -21,6 +28,8 @@ export interface NuiDataTableViewState {
   rows: number;
   first: number;
   paginator: boolean;
+  filter: boolean;
+  filters: DataTableFilters;
   showHeaders: boolean;
   stripedRows: boolean;
   rowHover: boolean;
@@ -28,6 +37,7 @@ export interface NuiDataTableViewState {
   sortField: string;
   sortOrder: DataTableSortOrder;
   emptyMessage: string;
+  size: DataTableSize;
   nuiType: NuiType;
   dataTableClass: string;
 }
@@ -36,6 +46,8 @@ export interface DataTableRenderHandlers {
   onSort: (field: string) => void;
   onRowClick: (row: DataTableRow, index: number) => void;
   onPageChange: (first: number) => void;
+  onFilterChange: (field: string, value: string) => void;
+  onFilterSelectOpen: (event: Event) => void;
 }
 
 export function getDataTableClass(dataTableClass: string): string {
@@ -55,6 +67,92 @@ function renderSortIcon(
     <span class="nui-data-table-sort-icon" aria-hidden="true">
       ${sortOrder === 1 ? '▲' : '▼'}
     </span>
+  `;
+}
+
+function renderFilterControl(
+  state: NuiDataTableViewState,
+  column: DataTableColumn,
+  handlers: DataTableRenderHandlers,
+): TemplateResult | typeof nothing {
+  if (!isColumnFilterable(column, state.filter)) {
+    return nothing;
+  }
+
+  const value = state.filters[column.field] ?? '';
+
+  if (column.filterType === 'select') {
+    const options = getFilterOptionsForColumn(state.value, column);
+
+    return html`
+      <nui-select
+        class="nui-data-table-filter-control"
+        variant="borderless"
+        .value=${value}
+        .options=${[
+          { label: 'All', value: '' },
+          ...options.map((option) => ({ label: option, value: option })),
+        ]}
+        placeholder="All"
+        fluid
+        @click=${(event: Event) => event.stopPropagation()}
+        @nui-select-open=${handlers.onFilterSelectOpen}
+        @nui-change=${(event: Event) => {
+          handlers.onFilterChange(
+            column.field,
+            (event as CustomEvent<{ value: string }>).detail.value,
+          );
+        }}
+      ></nui-select>
+    `;
+  }
+
+  return html`
+    <nui-input-text
+      class="nui-data-table-filter-control"
+      variant="borderless"
+      type="search"
+      .value=${value}
+      placeholder="Filter"
+      fluid
+      @click=${(event: Event) => event.stopPropagation()}
+      @input=${(event: Event) => {
+        handlers.onFilterChange(
+          column.field,
+          (event as CustomEvent<{ value: string }>).detail.value,
+        );
+      }}
+    ></nui-input-text>
+  `;
+}
+
+function renderFilterRow(
+  state: NuiDataTableViewState,
+  columns: DataTableColumn[],
+  handlers: DataTableRenderHandlers,
+): TemplateResult | typeof nothing {
+  if (!state.filter) {
+    return nothing;
+  }
+
+  const hasFilterableColumn = columns.some((column) =>
+    isColumnFilterable(column, state.filter),
+  );
+
+  if (!hasFilterableColumn) {
+    return nothing;
+  }
+
+  return html`
+    <tr class="nui-data-table-filter-row">
+      ${columns.map(
+        (column) => html`
+          <th class=${column.class || nothing} scope="col">
+            ${renderFilterControl(state, column, handlers)}
+          </th>
+        `,
+      )}
+    </tr>
   `;
 }
 
@@ -86,6 +184,7 @@ function renderHeader(
           `,
         )}
       </tr>
+      ${renderFilterRow(state, columns, handlers)}
     </thead>
   `;
 }
@@ -215,7 +314,13 @@ export function renderDataTable(
   }
 
   const columns = resolveColumns(state.value, state.columns);
-  const sortedRows = sortRows(state.value, state.sortField, state.sortOrder);
+  const filteredRows = filterRows(
+    state.value,
+    state.filters,
+    columns,
+    state.filter,
+  );
+  const sortedRows = sortRows(filteredRows, state.sortField, state.sortOrder);
   const visibleRows = state.paginator
     ? paginateRows(sortedRows, state.first, state.rows)
     : sortedRows;
@@ -226,6 +331,7 @@ export function renderDataTable(
       nui-type=${state.nuiType || nothing}
       ?striped-rows=${state.stripedRows || nothing}
       ?row-hover=${state.rowHover || nothing}
+      ?filter=${state.filter || nothing}
     >
       <div class="nui-data-table-wrapper">
         <table class="nui-data-table-table">

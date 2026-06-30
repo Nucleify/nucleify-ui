@@ -6,15 +6,21 @@
   display: inline-flex;
   align-items: center;
   gap: var(--spacing-xs);
-  color: inherit;
+  color: var(--nui-secondary-text-color);
   text-decoration: none;
   cursor: pointer;
+  transition: color var(--transition-fast) ease;
 }
 
 .nui-anchor:focus-visible {
   outline: var(--border-width-focus) solid var(--nui-primary-focus-color);
   outline-offset: var(--outline-offset);
   border-radius: var(--border-radius-sm);
+}
+
+.nui-anchor nui-label,
+.nui-anchor nui-icon {
+  color: inherit;
 }
 
 .nui-anchor:hover {

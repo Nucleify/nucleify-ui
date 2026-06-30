@@ -39,6 +39,7 @@ export class NuiChart extends LitElement implements NuiChartViewState {
   @property({ type: String, attribute: 'chart-class' }) chartClass = '';
 
   private controller: ChartController | null = null;
+  private initGeneration = 0;
 
   protected firstUpdated() {
     void styles.sync(this.renderRoot, { unstyled: this.unstyled });
@@ -62,6 +63,7 @@ export class NuiChart extends LitElement implements NuiChartViewState {
 
   disconnectedCallback() {
     super.disconnectedCallback();
+    this.initGeneration += 1;
     void this.controller?.destroy();
     this.controller = null;
   }
@@ -83,7 +85,12 @@ export class NuiChart extends LitElement implements NuiChartViewState {
   }
 
   private async initChart(): Promise<void> {
+    const generation = ++this.initGeneration;
     await this.updateComplete;
+
+    if (generation !== this.initGeneration) {
+      return;
+    }
 
     if (!this.data) {
       await this.controller?.destroy();
@@ -98,9 +105,16 @@ export class NuiChart extends LitElement implements NuiChartViewState {
     }
 
     await this.controller?.destroy();
+    this.controller = null;
 
-    this.controller = new ChartController({ canvas });
-    await this.controller.init({
+    if (generation !== this.initGeneration) {
+      return;
+    }
+
+    const controller = new ChartController(canvas);
+    this.controller = controller;
+
+    await controller.init({
       type: this.type,
       data: this.data,
       options: this.options,
@@ -115,6 +129,10 @@ export class NuiChart extends LitElement implements NuiChartViewState {
         );
       },
       onLoaded: (chart) => {
+        if (generation !== this.initGeneration) {
+          return;
+        }
+
         this.dispatchEvent(
           new CustomEvent('loaded', {
             detail: { chart },
@@ -124,6 +142,14 @@ export class NuiChart extends LitElement implements NuiChartViewState {
         );
       },
     });
+
+    if (generation !== this.initGeneration) {
+      await controller.destroy();
+
+      if (this.controller === controller) {
+        this.controller = null;
+      }
+    }
   }
 
   render() {

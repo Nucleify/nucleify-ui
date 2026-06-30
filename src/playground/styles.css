@@ -1,11 +1,15 @@
 :host {
-  display: block;
-  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  height: 100dvh;
+  max-height: 100dvh;
+  overflow: hidden;
   background: var(--nui-bg-dark-color);
   color: var(--nui-white-text-color);
 }
 
 header {
+  flex-shrink: 0;
   padding: 1.5rem 2rem;
   border-bottom: 1px solid var(--nui-card-border);
   background: var(--nui-content-background);
@@ -19,17 +23,28 @@ header {
   flex-wrap: wrap;
 }
 
-header h1 {
+.header-intro {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+}
+
+header .playground-site-title,
+header .playground-site-description {
   margin: 0;
+  padding: 0;
+}
+
+header .playground-site-title {
   font-size: 1.5rem;
   font-weight: 600;
   color: var(--nui-white-text-color);
 }
 
-header p {
-  margin: 0.375rem 0 0;
+header .playground-site-description {
   color: var(--nui-secondary-text-color);
   font-size: 0.875rem;
+  line-height: 1.4;
 }
 
 .theme-controls {
@@ -61,6 +76,30 @@ nav {
   display: flex;
   flex-direction: column;
   gap: 0.375rem;
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-gutter: stable;
+  scrollbar-width: thin;
+  scrollbar-color: var(--nui-card-border) transparent;
+}
+
+nav::-webkit-scrollbar {
+  width: 0.5rem;
+}
+
+nav::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+nav::-webkit-scrollbar-thumb {
+  border-radius: var(--border-radius-sm);
+  background: var(--nui-card-border);
+}
+
+nav::-webkit-scrollbar-thumb:hover {
+  background: var(--nui-secondary-text-color);
 }
 
 nav button {
@@ -112,17 +151,26 @@ nav button[aria-current="true"] {
 .layout {
   display: grid;
   grid-template-columns: 280px 1fr;
-  min-height: calc(100vh - 6.5rem);
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
 }
 
 aside {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  min-height: 0;
+  overflow: hidden;
   padding: 1rem;
   border-right: 1px solid var(--nui-card-border);
   background: var(--nui-bg-dark-green-color);
 }
 
-aside h2 {
-  margin: 0 0 0.75rem;
+aside .playground-nav-title {
+  margin: 0;
+  padding: 0;
+  flex-shrink: 0;
   font-size: 0.75rem;
   text-transform: uppercase;
   letter-spacing: 0.05em;
@@ -132,6 +180,8 @@ aside h2 {
 main {
   padding: 2rem;
   min-width: 0;
+  min-height: 0;
+  overflow-y: auto;
 }
 
 .preview-panel {
@@ -140,8 +190,9 @@ main {
   min-width: 0;
 }
 
-.preview-panel h2 {
-  margin: 0 0 0.25rem;
+.playground-panel-title {
+  margin: 0;
+  padding: 0;
   font-size: 1.125rem;
   color: var(--nui-white-text-color);
 }
@@ -314,6 +365,9 @@ main {
 }
 
 .props-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
   margin-top: 1.5rem;
   padding: 1rem;
   border-radius: 0.75rem;
@@ -321,22 +375,23 @@ main {
   border: 1px solid var(--nui-card-border);
 }
 
-.props-panel h3 {
-  margin: 0 0 1rem;
+.playground-props-title {
+  margin: 0;
+  padding: 0;
   font-size: 0.875rem;
   color: var(--nui-white-text-color);
 }
 
 .props-section {
-  margin-bottom: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+  margin: 0;
 }
 
-.props-section:last-child {
-  margin-bottom: 0;
-}
-
-.props-section h4 {
-  margin: 0 0 0.625rem;
+.playground-section-title {
+  margin: 0;
+  padding: 0;
   font-size: 0.6875rem;
   text-transform: uppercase;
   letter-spacing: 0.06em;
@@ -449,4 +504,20 @@ main {
 .speed-dial-preview-host .prop-field label {
   line-height: 1.2;
   white-space: normal;
+}
+
+.popover-demo-title {
+  margin: 0;
+  font-size: 1.1rem;
+  color: var(--nui-white-text-color);
+}
+
+.popover-demo-title-content {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+}
+
+.popover-demo-title-content nui-icon {
+  color: var(--nui-primary-color);
 }

@@ -10,9 +10,18 @@ export function renderHeader(
   return html`
     <header>
       <div class="header-top">
-        <div>
-          <h1>Nucleify UI Playground</h1>
-          <p>Test Lit components – register new ones in src/playground/registry.ts</p>
+        <div class="header-intro">
+          <nui-heading
+            class="playground-site-title"
+            tag="1"
+            text="Nucleify UI Playground"
+            unstyled
+          ></nui-heading>
+          <nui-paragraph
+            class="playground-site-description"
+            text="Test Lit components – register new ones in src/playground/registry.ts"
+            unstyled
+          ></nui-paragraph>
         </div>
         ${renderThemeControls(palette, mode, onPaletteChange, onModeChange)}
       </div>

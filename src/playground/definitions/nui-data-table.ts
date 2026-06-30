@@ -1,6 +1,7 @@
 import { html, type TemplateResult } from 'lit';
 import type {
   DataTableColumn,
+  DataTableFilters,
   DataTableRow,
 } from '../../components/nui-data-table/types.js';
 import {
@@ -16,7 +17,15 @@ import {
 const DEFAULT_VALUE: DataTableRow[] = [
   { id: 1, name: 'Nucleify', status: 'Active', category: 'Platform' },
   { id: 2, name: 'Page Builder', status: 'Active', category: 'Module' },
-  { id: 3, name: 'Auth', status: 'Active', category: 'Module' },
+  { id: 3, name: 'Auth', status: 'Inactive', category: 'Module' },
+  { id: 4, name: 'Analytics', status: 'Active', category: 'Module' },
+];
+
+const DEFAULT_COLUMNS: DataTableColumn[] = [
+  { field: 'id', header: 'Id', sortable: true, filter: false },
+  { field: 'name', header: 'Name', sortable: true, filterType: 'text' },
+  { field: 'status', header: 'Status', filterType: 'select' },
+  { field: 'category', header: 'Category', filterType: 'select' },
 ];
 
 const ATTRIBUTE_NAMES: Record<string, string> = {
@@ -33,11 +42,13 @@ const ATTRIBUTE_NAMES: Record<string, string> = {
 
 export const NUI_DATA_TABLE_DEFAULTS: PlaygroundProps = {
   value: JSON.stringify(DEFAULT_VALUE, null, 2),
-  columns: '',
+  columns: JSON.stringify(DEFAULT_COLUMNS, null, 2),
+  filters: '{}',
   dataKey: 'id',
   rows: '10',
   first: '0',
   paginator: false,
+  filter: true,
   showHeaders: true,
   stripedRows: true,
   rowHover: true,
@@ -45,6 +56,7 @@ export const NUI_DATA_TABLE_DEFAULTS: PlaygroundProps = {
   sortField: '',
   sortOrder: '0',
   emptyMessage: 'No records found',
+  size: 'medium',
   unstyled: false,
   nuiType: '',
   dataTableClass: '',
@@ -67,7 +79,16 @@ const CONTROLS: PlaygroundControl[] = [
     section: 'Content',
     rows: 6,
     fullWidth: true,
-    placeholder: '[{"field":"name","header":"Name","sortable":true}]',
+    placeholder: '[{"field":"name","header":"Name","filterType":"text"}]',
+  },
+  {
+    key: 'filters',
+    label: 'filters (JSON)',
+    type: 'textarea',
+    section: 'Content',
+    rows: 4,
+    fullWidth: true,
+    placeholder: '{"status":"Active"}',
   },
   {
     key: 'emptyMessage',
@@ -100,10 +121,27 @@ const CONTROLS: PlaygroundControl[] = [
     type: 'boolean',
     section: 'Appearance',
   },
+  {
+    key: 'size',
+    label: 'size',
+    type: 'select',
+    section: 'Appearance',
+    options: [
+      { value: 'small', label: 'small' },
+      { value: 'medium', label: 'medium' },
+      { value: 'large', label: 'large' },
+    ],
+  },
   { key: 'nuiType', label: 'nui-type', type: 'text', section: 'Appearance' },
   {
     key: 'paginator',
     label: 'paginator',
+    type: 'boolean',
+    section: 'Layout',
+  },
+  {
+    key: 'filter',
+    label: 'filter',
     type: 'boolean',
     section: 'Layout',
   },
@@ -175,15 +213,33 @@ function parseJsonArray<T>(value: unknown, fallback: T[]): T[] {
 
 function parseColumns(value: unknown): DataTableColumn[] {
   if (typeof value !== 'string' || !value.trim()) {
-    return [];
+    return DEFAULT_COLUMNS;
   }
 
   try {
     const parsed = JSON.parse(value);
 
-    return Array.isArray(parsed) ? (parsed as DataTableColumn[]) : [];
+    return Array.isArray(parsed)
+      ? (parsed as DataTableColumn[])
+      : DEFAULT_COLUMNS;
   } catch {
-    return [];
+    return DEFAULT_COLUMNS;
+  }
+}
+
+function parseFilters(value: unknown): DataTableFilters {
+  if (typeof value !== 'string' || !value.trim()) {
+    return {};
+  }
+
+  try {
+    const parsed = JSON.parse(value);
+
+    return parsed && typeof parsed === 'object' && !Array.isArray(parsed)
+      ? (parsed as DataTableFilters)
+      : {};
+  } catch {
+    return {};
   }
 }
 
@@ -210,6 +266,19 @@ function handlePage(event: Event, handlers?: PlaygroundPreviewHandlers): void {
   handlers.onPropChange('first', String(detail.first));
 }
 
+function handleFilter(
+  event: Event,
+  handlers?: PlaygroundPreviewHandlers,
+): void {
+  if (!handlers) {
+    return;
+  }
+
+  const detail = (event as CustomEvent<{ filters: DataTableFilters }>).detail;
+  handlers.onPropChange('filters', JSON.stringify(detail.filters, null, 2));
+  handlers.onPropChange('first', '0');
+}
+
 function renderPreview(
   props: PlaygroundProps,
   handlers?: PlaygroundPreviewHandlers,
@@ -219,6 +288,7 @@ function renderPreview(
       <nui-data-table
         .value=${parseJsonArray<DataTableRow>(props.value, DEFAULT_VALUE)}
         .columns=${parseColumns(props.columns)}
+        .filters=${parseFilters(props.filters)}
         data-key=${whenString(props.dataKey)}
         rows=${Number(props.rows)}
         first=${Number(props.first)}
@@ -226,8 +296,10 @@ function renderPreview(
         sort-order=${Number(props.sortOrder) as -1 | 0 | 1}
         empty-message=${whenString(props.emptyMessage)}
         data-table-class=${whenString(props.dataTableClass)}
+        size=${whenString(props.size)}
         nui-type=${whenString(props.nuiType)}
         ?paginator=${whenBoolean(props.paginator)}
+        ?filter=${whenBoolean(props.filter)}
         ?show-headers=${whenBoolean(props.showHeaders)}
         ?striped-rows=${whenBoolean(props.stripedRows)}
         ?row-hover=${whenBoolean(props.rowHover)}
@@ -235,6 +307,7 @@ function renderPreview(
         ?unstyled=${whenBoolean(props.unstyled)}
         @sort=${(event: Event) => handleSort(event, handlers)}
         @page=${(event: Event) => handlePage(event, handlers)}
+        @filter=${(event: Event) => handleFilter(event, handlers)}
       ></nui-data-table>
     </div>
   `;
@@ -244,13 +317,18 @@ export const nuiDataTablePlayground: PlaygroundDefinition = {
   tag: 'nui-data-table',
   label: 'Data Table',
   description:
-    'Tabular data with auto columns, sorting, pagination, striped rows, and row hover.',
+    'Tabular data with auto columns, sorting, column filters, pagination, striped rows, and row hover.',
   defaults: NUI_DATA_TABLE_DEFAULTS,
   controls: CONTROLS,
   renderPreview,
   getPreviewClass: () => 'is-fluid',
   formatUsage: (props) => {
-    const { value: _value, columns: _columns, ...usageProps } = props;
+    const {
+      value: _value,
+      columns: _columns,
+      filters: _filters,
+      ...usageProps
+    } = props;
 
     return formatUsageFromDefaults(
       'nui-data-table',

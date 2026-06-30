@@ -64,6 +64,26 @@
   background: var(--nui-content-background);
 }
 
+:host([variant="borderless"]) .nui-input-text-input {
+  min-height: 0;
+  padding: var(--spacing-xs) var(--spacing-md);
+  border: var(--border-width) solid transparent;
+  background: transparent;
+  box-shadow: none;
+}
+
+:host([variant="borderless"])
+  .nui-input-text-input:hover:not(:disabled):not(:read-only) {
+  background: var(--nui-primary-highlight-color);
+}
+
+:host([variant="borderless"]) .nui-input-text-input:focus,
+:host([variant="borderless"]) .nui-input-text-input:focus-visible {
+  border-color: var(--nui-primary-color);
+  box-shadow: 0 0 0.5em var(--nui-primary-focus-color);
+  background: var(--nui-primary-highlight-color);
+}
+
 :host([size="small"]) .nui-input-text-input {
   min-height: 2rem;
   font-size: 0.875rem;

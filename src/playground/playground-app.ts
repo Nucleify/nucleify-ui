@@ -1,3 +1,4 @@
+import '../components/nui-heading/nui-heading.js';
 import { html, LitElement } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
 import { applyTheme, type Palette, type ThemeMode } from '../theme.js';
@@ -51,12 +52,23 @@ export class PlaygroundApp extends LitElement {
   }
 
   private updateProp(key: string, value: string | boolean) {
+    const definition = this.definition;
+    let nextProps: PlaygroundProps = {
+      ...this.currentProps,
+      [key]: value,
+    };
+
+    if (definition?.onPropChange) {
+      const patch = definition.onPropChange(key, value, nextProps);
+
+      if (patch) {
+        nextProps = { ...nextProps, ...patch };
+      }
+    }
+
     this.propsByTag = {
       ...this.propsByTag,
-      [this.selectedTag]: {
-        ...this.currentProps,
-        [key]: value,
-      },
+      [this.selectedTag]: nextProps,
     };
   }
 

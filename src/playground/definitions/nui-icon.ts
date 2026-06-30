@@ -14,8 +14,8 @@ const ATTRIBUTE_NAMES: Record<string, string> = {
 
 export const NUI_ICON_DEFAULTS: PlaygroundProps = {
   icon: 'mdi:check',
-  width: '1em',
-  height: '1em',
+  width: '',
+  height: '',
   mode: 'svg',
   nuiType: '',
 };
@@ -65,8 +65,8 @@ function renderPreview(props: PlaygroundProps): TemplateResult {
   return html`
     <nui-icon
       icon=${String(props.icon)}
-      width=${whenStringNotDefault(props.width, '1em')}
-      height=${whenStringNotDefault(props.height, '1em')}
+      width=${whenStringNotDefault(props.width, '')}
+      height=${whenStringNotDefault(props.height, '')}
       mode=${whenStringNotDefault(props.mode, 'svg')}
       nui-type=${whenString(props.nuiType)}
     ></nui-icon>

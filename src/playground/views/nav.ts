@@ -8,7 +8,12 @@ export function renderNav(
 ): TemplateResult {
   return html`
     <aside>
-      <h2>Components</h2>
+      <nui-heading
+        class="playground-nav-title"
+        tag="2"
+        text="Components"
+        unstyled
+      ></nui-heading>
       <nav>
         ${definitions.map(
           (definition) => html`

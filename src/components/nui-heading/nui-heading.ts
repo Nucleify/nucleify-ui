@@ -1,15 +1,37 @@
 import { LitElement, type PropertyValues } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { type NuiType, nuiTypeProperty } from '../../types/nui-type.js';
-import {
-  createComponentStyles,
-  syncStylesWhen,
-} from '../../utils/sync-stylesheet.js';
+import { syncStylesWhen } from '../../utils/sync-stylesheet.js';
 import { type NuiHeadingViewState, renderHeading } from './logic.js';
 
-const styles = createComponentStyles(
-  () => import('./styles.css', { with: { type: 'css' } }),
-);
+let baseStylesheet: CSSStyleSheet | null = null;
+let themeStylesheet: CSSStyleSheet | null = null;
+
+async function syncHeadingStyles(
+  renderRoot: Element | DocumentFragment,
+  unstyled: boolean,
+): Promise<void> {
+  if (!(renderRoot instanceof ShadowRoot)) {
+    return;
+  }
+
+  if (!baseStylesheet) {
+    const baseModule = await import('./base.css', { with: { type: 'css' } });
+    baseStylesheet = baseModule.default;
+  }
+
+  if (unstyled) {
+    renderRoot.adoptedStyleSheets = [baseStylesheet];
+    return;
+  }
+
+  if (!themeStylesheet) {
+    const themeModule = await import('./styles.css', { with: { type: 'css' } });
+    themeStylesheet = themeModule.default;
+  }
+
+  renderRoot.adoptedStyleSheets = [baseStylesheet, themeStylesheet];
+}
 
 @customElement('nui-heading')
 export class NuiHeading extends LitElement implements NuiHeadingViewState {
@@ -20,12 +42,12 @@ export class NuiHeading extends LitElement implements NuiHeadingViewState {
   @property({ type: String, attribute: 'heading-class' }) headingClass = '';
 
   protected firstUpdated() {
-    void styles.sync(this.renderRoot, { unstyled: this.unstyled });
+    void syncHeadingStyles(this.renderRoot, this.unstyled);
   }
 
   protected updated(changed: PropertyValues) {
     syncStylesWhen(changed, 'unstyled', () =>
-      styles.sync(this.renderRoot, { unstyled: this.unstyled }),
+      syncHeadingStyles(this.renderRoot, this.unstyled),
     );
   }
 

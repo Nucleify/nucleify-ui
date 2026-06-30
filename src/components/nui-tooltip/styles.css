@@ -10,6 +10,8 @@
 
 .nui-tooltip {
   position: fixed;
+  top: 0;
+  left: 0;
   z-index: 1100;
   max-width: 18rem;
   padding: var(--spacing-xs) var(--spacing-sm);
@@ -24,8 +26,8 @@
   opacity: 0;
   visibility: hidden;
   transition:
-    opacity 0.15s ease,
-    visibility 0.15s ease;
+    opacity var(--transition-fast) ease,
+    visibility var(--transition-fast) ease;
   box-sizing: border-box;
 }
 

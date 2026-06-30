@@ -147,16 +147,17 @@ export class NuiTooltip extends LitElement implements NuiTooltipViewState {
 
   private show(): void {
     this.visible = true;
+    this.updatePosition();
     requestAnimationFrame(() => this.updatePosition());
   }
 
   private hide(immediate = false): void {
     if (immediate) {
       this.clearTimers();
+      this.coords = null;
     }
 
     this.visible = false;
-    this.coords = null;
   }
 
   private getTriggerRect(): DOMRect | null {

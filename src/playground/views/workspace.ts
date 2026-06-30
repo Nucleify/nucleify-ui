@@ -14,7 +14,12 @@ export function renderWorkspace(
   return html`
     <div class="preview-panel">
       <div class="panel-header">
-        <h2>${definition.label}</h2>
+        <nui-heading
+          class="playground-panel-title"
+          tag="2"
+          text=${definition.label}
+          unstyled
+        ></nui-heading>
         <button class="reset-button" type="button" @click=${onReset}>
           Reset attributes
         </button>

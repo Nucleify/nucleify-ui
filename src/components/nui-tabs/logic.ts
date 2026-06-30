@@ -1,3 +1,4 @@
+import '../nui-heading/nui-heading.js';
 import { html, nothing, type TemplateResult } from 'lit';
 import type { NuiTabsViewState } from './types.js';
 
@@ -24,7 +25,11 @@ export function renderTabs(
             ?active=${isActive}
             aria-selected=${isActive ? 'true' : 'false'}
             @click=${() => handlers.onTabClick(list.value)}
-          ><h4>${list.header || ''}</h4></button>`;
+          ><nui-heading
+            tag="4"
+            text=${list.header || ''}
+            unstyled
+          ></nui-heading></button>`;
         })}
       </div>
       <div class="nui-tabpanels">

@@ -97,10 +97,12 @@ function renderPreview(props: PlaygroundProps): TemplateResult {
         nui-type=${whenString(props.nuiType)}
       >
         <div style="display: flex; flex-direction: column; gap: var(--spacing-sm);">
-          <h4 style="margin: 0; color: var(--nui-white-text-color); font-size: 1.1rem; display: flex; align-items: center; gap: var(--spacing-xs);">
-            <nui-icon .icon=${'mdi:message-badge'} style="color: var(--nui-primary-color);"></nui-icon>
-            Live Support
-          </h4>
+          <nui-heading class="popover-demo-title" tag="4" unstyled>
+            <span class="popover-demo-title-content">
+              <nui-icon .icon=${'mdi:message-badge'}></nui-icon>
+              Live Support
+            </span>
+          </nui-heading>
           <p style="margin: 0; font-size: 0.875rem; color: var(--nui-secondary-text-color); line-height: 1.4;">
             Welcome to the Nucleify support agent! How can we assist you today? Our team is online and ready to help.
           </p>

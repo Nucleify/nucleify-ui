@@ -31,6 +31,11 @@ export interface PlaygroundDefinition {
     props: PlaygroundProps,
     handlers?: PlaygroundPreviewHandlers,
   ) => TemplateResult | HTMLElement;
+  onPropChange?: (
+    key: string,
+    value: string | boolean,
+    props: PlaygroundProps,
+  ) => Partial<PlaygroundProps> | undefined;
   getPreviewClass?: (props: PlaygroundProps) => string;
 }
 

@@ -29,7 +29,10 @@ export class NuiSelect extends LitElement implements NuiSelectViewState {
   @property({ type: Boolean, reflect: true }) invalid = false;
   @property({ type: Boolean, reflect: true }) fluid = false;
   @property({ type: String, reflect: true }) size: 'small' | '' | 'large' = '';
-  @property({ type: String, reflect: true }) variant: '' | 'filled' = '';
+  @property({ type: String, reflect: true }) variant:
+    | ''
+    | 'filled'
+    | 'borderless' = '';
   @property({ type: String, attribute: 'select-class' }) selectClass = '';
   @property({ type: Boolean }) unstyled = false;
   @nuiTypeProperty nuiType: NuiType = '';
@@ -49,12 +52,12 @@ export class NuiSelect extends LitElement implements NuiSelectViewState {
 
   connectedCallback() {
     super.connectedCallback();
-    document.addEventListener('click', this._boundClickOutside);
+    document.addEventListener('click', this._boundClickOutside, true);
   }
 
   disconnectedCallback() {
     super.disconnectedCallback();
-    document.removeEventListener('click', this._boundClickOutside);
+    document.removeEventListener('click', this._boundClickOutside, true);
   }
 
   protected firstUpdated() {
@@ -67,16 +70,31 @@ export class NuiSelect extends LitElement implements NuiSelectViewState {
     );
   }
 
+  private setOpen(next: boolean): void {
+    if (this.disabled && next) {
+      return;
+    }
+
+    if (next && !this.open) {
+      this.dispatchEvent(
+        new CustomEvent('nui-select-open', {
+          bubbles: true,
+          composed: true,
+        }),
+      );
+    }
+
+    this.open = next;
+  }
+
   private get _handlers(): NuiSelectHandlers {
     return {
       onToggle: () => {
-        if (!this.disabled) {
-          this.open = !this.open;
-        }
+        this.setOpen(!this.open);
       },
       onSelect: (value: string) => {
         this.value = value;
-        this.open = false;
+        this.setOpen(false);
         this.dispatchEvent(
           new CustomEvent('nui-change', {
             detail: { value },
@@ -87,12 +105,12 @@ export class NuiSelect extends LitElement implements NuiSelectViewState {
       },
       onKeydown: (e: KeyboardEvent) => {
         if (e.key === 'Escape') {
-          this.open = false;
+          this.setOpen(false);
         }
         if (e.key === 'Enter' || e.key === ' ') {
           if (!this.open) {
-            this.open = true;
             e.preventDefault();
+            this.setOpen(true);
           }
         }
       },

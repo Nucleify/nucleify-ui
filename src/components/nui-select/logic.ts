@@ -10,7 +10,7 @@ export interface NuiSelectViewState {
   invalid: boolean;
   fluid: boolean;
   size: 'small' | '' | 'large';
-  variant: '' | 'filled';
+  variant: '' | 'filled' | 'borderless';
   selectClass: string;
   open: boolean;
   nuiType: NuiType;

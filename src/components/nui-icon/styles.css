@@ -1,9 +1,15 @@
 :host {
   display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
   line-height: 0;
+  width: var(--nui-icon-width, 1em);
+  height: var(--nui-icon-height, 1em);
 }
 
 iconify-icon {
-  width: var(--nui-icon-width, 1em);
-  height: var(--nui-icon-height, 1em);
+  display: block;
+  width: 100%;
+  height: 100%;
 }

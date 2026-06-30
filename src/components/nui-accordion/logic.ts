@@ -1,3 +1,4 @@
+import '../nui-heading/nui-heading.js';
 import '../nui-icon/nui-icon.js';
 import { html, nothing, type TemplateResult } from 'lit';
 import type { NuiType } from '../../types/nui-type.js';
@@ -67,7 +68,7 @@ export function renderAccordion(
             class="nui-accordion-panel"
             ?expanded=${expanded}
           >
-            <h3 class="nui-accordion-header">
+            <nui-heading tag="3" heading-class="nui-accordion-header">
               <button
                 type="button"
                 class="nui-accordion-header-button"
@@ -95,7 +96,7 @@ export function renderAccordion(
                     : nothing
                 }
               </button>
-            </h3>
+            </nui-heading>
             ${
               renderContent
                 ? html`

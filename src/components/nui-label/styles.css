@@ -1,6 +1,7 @@
 :host {
   display: inline-block;
   vertical-align: middle;
+  color: var(--nui-secondary-text-color);
 }
 
 .nui-label {
@@ -8,7 +9,7 @@
   font-size: var(--font-size-2xs);
   font-weight: var(--font-weight-medium);
   line-height: 1.5;
-  color: var(--nui-secondary-text-color);
+  color: inherit;
   cursor: pointer;
 }
 

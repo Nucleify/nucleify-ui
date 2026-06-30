@@ -3,6 +3,7 @@ import {
   formatUsageFromDefaults,
   type PlaygroundControl,
   type PlaygroundDefinition,
+  type PlaygroundPreviewHandlers,
   type PlaygroundProps,
   whenBoolean,
   whenString,
@@ -20,7 +21,7 @@ export const NUI_RADIO_BUTTON_DEFAULTS: PlaygroundProps = {
   checked: false,
   value: 'option-a',
   name: 'demo',
-  binary: false,
+  binary: true,
   disabled: false,
   invalid: false,
   readonly: false,
@@ -116,7 +117,22 @@ const CONTROLS: PlaygroundControl[] = [
   },
 ];
 
-function renderPreview(props: PlaygroundProps): TemplateResult {
+function handleChange(
+  event: Event,
+  handlers?: PlaygroundPreviewHandlers,
+): void {
+  if (!handlers) {
+    return;
+  }
+
+  const { checked } = (event as CustomEvent<{ checked: boolean }>).detail;
+  handlers.onPropChange('checked', checked);
+}
+
+function renderPreview(
+  props: PlaygroundProps,
+  handlers?: PlaygroundPreviewHandlers,
+): TemplateResult {
   return html`
     <nui-radio-button
       value=${whenString(props.value)}
@@ -135,6 +151,7 @@ function renderPreview(props: PlaygroundProps): TemplateResult {
       ?invalid=${whenBoolean(props.invalid)}
       ?readonly=${whenBoolean(props.readonly)}
       ?unstyled=${whenBoolean(props.unstyled)}
+      @change=${(event: Event) => handleChange(event, handlers)}
     ></nui-radio-button>
   `;
 }

@@ -16,6 +16,7 @@ export function renderParagraph(state: NuiParagraphViewState): TemplateResult {
     <p
       class=${getParagraphClass(state.paragraphClass)}
       nui-type=${state.nuiType || nothing}
+      style="margin:0"
     >
       ${state.text || nothing}
       <slot></slot>

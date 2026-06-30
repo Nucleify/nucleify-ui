@@ -29,6 +29,50 @@
   background: rgb(0 0 0 / 55%);
 }
 
+.nui-dialog[open]::backdrop {
+  animation: nui-dialog-backdrop-in var(--transition-medium) ease;
+}
+
+.nui-dialog.is-closing::backdrop {
+  animation: nui-dialog-backdrop-out var(--transition-medium) ease forwards;
+}
+
+.nui-dialog[position="center"] {
+  --nui-dialog-enter-transform: scale(0.95) translateY(0.5rem);
+}
+
+.nui-dialog[position="top"] {
+  --nui-dialog-enter-transform: translateY(-1rem);
+}
+
+.nui-dialog[position="bottom"] {
+  --nui-dialog-enter-transform: translateY(1rem);
+}
+
+.nui-dialog[position="left"] {
+  --nui-dialog-enter-transform: translateX(-1rem);
+}
+
+.nui-dialog[position="right"] {
+  --nui-dialog-enter-transform: translateX(1rem);
+}
+
+.nui-dialog[position="topleft"] {
+  --nui-dialog-enter-transform: translate(-1rem, -1rem);
+}
+
+.nui-dialog[position="topright"] {
+  --nui-dialog-enter-transform: translate(1rem, -1rem);
+}
+
+.nui-dialog[position="bottomleft"] {
+  --nui-dialog-enter-transform: translate(-1rem, 1rem);
+}
+
+.nui-dialog[position="bottomright"] {
+  --nui-dialog-enter-transform: translate(1rem, 1rem);
+}
+
 .nui-dialog[position="center"] {
   align-items: center;
   justify-content: center;
@@ -85,6 +129,73 @@
   background: var(--nui-bg-dark-color);
   box-shadow: 0 8px 24px rgb(0 0 0 / 28%);
   box-sizing: border-box;
+}
+
+.nui-dialog[open] .nui-dialog-panel {
+  animation: nui-dialog-panel-in var(--transition-medium) ease;
+}
+
+.nui-dialog.is-closing .nui-dialog-panel {
+  animation: nui-dialog-panel-out var(--transition-medium) ease forwards;
+}
+
+@keyframes nui-dialog-backdrop-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes nui-dialog-backdrop-out {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes nui-dialog-panel-in {
+  from {
+    opacity: 0;
+    transform: var(
+      --nui-dialog-enter-transform,
+      scale(0.95) translateY(0.5rem)
+    );
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes nui-dialog-panel-out {
+  from {
+    opacity: 1;
+    transform: none;
+  }
+
+  to {
+    opacity: 0;
+    transform: var(
+      --nui-dialog-enter-transform,
+      scale(0.95) translateY(0.5rem)
+    );
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nui-dialog[open]::backdrop,
+  .nui-dialog.is-closing::backdrop,
+  .nui-dialog[open] .nui-dialog-panel,
+  .nui-dialog.is-closing .nui-dialog-panel {
+    animation: none;
+  }
 }
 
 .nui-dialog-header {

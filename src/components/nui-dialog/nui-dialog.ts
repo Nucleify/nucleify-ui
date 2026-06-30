@@ -35,6 +35,10 @@ export class NuiDialog extends LitElement implements NuiDialogViewState {
   @state() hasFooterSlot = false;
 
   private wasVisible = false;
+  private pendingCloseEvent?: Event;
+  private isClosing = false;
+
+  private static readonly CLOSE_DURATION_MS = 250;
 
   protected firstUpdated() {
     void styles.sync(this.renderRoot, { unstyled: this.unstyled });
@@ -85,8 +89,60 @@ export class NuiDialog extends LitElement implements NuiDialogViewState {
     }
 
     if (!this.visible && dialog.open) {
-      dialog.close();
+      void this.animateClose(dialog);
     }
+  }
+
+  private waitForCloseAnimation(panel: Element | null): Promise<void> {
+    return new Promise((resolve) => {
+      const duration = NuiDialog.CLOSE_DURATION_MS;
+      let settled = false;
+
+      const finish = (): void => {
+        if (settled) {
+          return;
+        }
+
+        settled = true;
+        panel?.removeEventListener('animationend', onAnimationEnd);
+        window.clearTimeout(fallback);
+        resolve();
+      };
+
+      const onAnimationEnd = (event: AnimationEvent): void => {
+        if (event.target === panel) {
+          finish();
+        }
+      };
+
+      panel?.addEventListener('animationend', onAnimationEnd);
+      const fallback = window.setTimeout(finish, duration + 50);
+    });
+  }
+
+  private async animateClose(
+    dialog: HTMLDialogElement,
+    event?: Event,
+  ): Promise<void> {
+    if (this.isClosing) {
+      return;
+    }
+
+    this.isClosing = true;
+    this.pendingCloseEvent = event;
+    dialog.classList.add('is-closing');
+
+    await this.waitForCloseAnimation(dialog.querySelector('.nui-dialog-panel'));
+
+    dialog.classList.remove('is-closing');
+    this.isClosing = false;
+
+    if (dialog.open) {
+      dialog.close();
+      return;
+    }
+
+    this.emitClose(event);
   }
 
   private emitClose(event?: Event): void {
@@ -122,7 +178,7 @@ export class NuiDialog extends LitElement implements NuiDialogViewState {
     const dialog = this.getDialogElement();
 
     if (dialog?.open) {
-      dialog.close();
+      void this.animateClose(dialog, event);
       return;
     }
 
@@ -138,7 +194,8 @@ export class NuiDialog extends LitElement implements NuiDialogViewState {
   };
 
   private handleDialogClose = (event: Event): void => {
-    this.emitClose(event);
+    this.emitClose(this.pendingCloseEvent ?? event);
+    this.pendingCloseEvent = undefined;
   };
 
   private handleDialogCancel = (event: Event): void => {

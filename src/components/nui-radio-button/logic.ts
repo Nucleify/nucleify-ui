@@ -23,9 +23,14 @@ export function getRadioButtonClass(radioButtonClass: string): string {
   return ['nui-radio-button', radioButtonClass].filter(Boolean).join(' ');
 }
 
+export interface NuiRadioButtonHandlers {
+  onChange: (event: Event) => void;
+  onClick: (event: Event) => void;
+}
+
 export function renderRadioButton(
   state: NuiRadioButtonViewState,
-  onChange: (event: Event) => void,
+  handlers: NuiRadioButtonHandlers,
 ): TemplateResult {
   return html`
     <label
@@ -48,7 +53,8 @@ export function renderRadioButton(
         aria-label=${state.ariaLabel || nothing}
         aria-labelledby=${state.ariaLabelledby || nothing}
         aria-invalid=${state.invalid ? 'true' : nothing}
-        @change=${onChange}
+        @change=${handlers.onChange}
+        @click=${handlers.onClick}
       />
       <span
         class="nui-radio-button-box"

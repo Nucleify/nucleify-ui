@@ -47,6 +47,25 @@ export class NuiRadioButton
     );
   }
 
+  private handleClick = (event: Event): void => {
+    if (this.disabled || this.readonly || !this.binary || !this.checked) {
+      return;
+    }
+
+    event.preventDefault();
+
+    this.checked = false;
+
+    const input = this.renderRoot.querySelector(
+      '.nui-radio-button-input',
+    ) as HTMLInputElement | null;
+    if (input) {
+      input.checked = false;
+    }
+
+    this.dispatchChange();
+  };
+
   private handleChange = (event: Event): void => {
     if (this.disabled || this.readonly) {
       return;
@@ -54,12 +73,15 @@ export class NuiRadioButton
 
     const input = event.target as HTMLInputElement;
 
-    if (!input.checked) {
+    if (!this.binary && !input.checked) {
       return;
     }
 
-    this.checked = true;
+    this.checked = input.checked;
+    this.dispatchChange();
+  };
 
+  private dispatchChange(): void {
     this.dispatchEvent(
       new CustomEvent('change', {
         detail: {
@@ -70,10 +92,13 @@ export class NuiRadioButton
         composed: true,
       }),
     );
-  };
+  }
 
   render() {
-    return renderRadioButton(this, this.handleChange);
+    return renderRadioButton(this, {
+      onChange: this.handleChange,
+      onClick: this.handleClick,
+    });
   }
 }
 

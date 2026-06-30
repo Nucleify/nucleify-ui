@@ -41,6 +41,10 @@ export class ChartController {
     }
 
     const ChartConstructor = this.chartModule.default;
+    const existingChart = ChartConstructor.getChart(this.canvas);
+
+    existingChart?.destroy();
+
     const chartConfig: ChartConfiguration = {
       type: config.type,
       data: config.data,

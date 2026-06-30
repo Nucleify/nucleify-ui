@@ -28,22 +28,47 @@ function renderHeadingElement(
   const attrs = {
     class: getHeadingClass(state.headingClass),
     'nui-type': state.nuiType || nothing,
+    style: 'margin:0',
   };
   const content = html`<slot>${state.text || nothing}</slot>`;
 
   switch (level) {
     case 'h1':
-      return html`<h1 class=${attrs.class} nui-type=${attrs['nui-type']}>${content}</h1>`;
+      return html`<h1
+        class=${attrs.class}
+        nui-type=${attrs['nui-type']}
+        style=${attrs.style}
+      >${content}</h1>`;
     case 'h2':
-      return html`<h2 class=${attrs.class} nui-type=${attrs['nui-type']}>${content}</h2>`;
+      return html`<h2
+        class=${attrs.class}
+        nui-type=${attrs['nui-type']}
+        style=${attrs.style}
+      >${content}</h2>`;
     case 'h3':
-      return html`<h3 class=${attrs.class} nui-type=${attrs['nui-type']}>${content}</h3>`;
+      return html`<h3
+        class=${attrs.class}
+        nui-type=${attrs['nui-type']}
+        style=${attrs.style}
+      >${content}</h3>`;
     case 'h4':
-      return html`<h4 class=${attrs.class} nui-type=${attrs['nui-type']}>${content}</h4>`;
+      return html`<h4
+        class=${attrs.class}
+        nui-type=${attrs['nui-type']}
+        style=${attrs.style}
+      >${content}</h4>`;
     case 'h5':
-      return html`<h5 class=${attrs.class} nui-type=${attrs['nui-type']}>${content}</h5>`;
+      return html`<h5
+        class=${attrs.class}
+        nui-type=${attrs['nui-type']}
+        style=${attrs.style}
+      >${content}</h5>`;
     case 'h6':
-      return html`<h6 class=${attrs.class} nui-type=${attrs['nui-type']}>${content}</h6>`;
+      return html`<h6
+        class=${attrs.class}
+        nui-type=${attrs['nui-type']}
+        style=${attrs.style}
+      >${content}</h6>`;
   }
 }
 

@@ -14,7 +14,7 @@ export interface SelectProps {
   invalid?: boolean;
   fluid?: boolean;
   size?: 'small' | '' | 'large';
-  variant?: '' | 'filled';
+  variant?: '' | 'filled' | 'borderless';
   selectClass?: string;
   unstyled?: boolean;
   nuiType?: NuiType;

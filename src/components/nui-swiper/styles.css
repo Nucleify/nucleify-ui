@@ -129,19 +129,37 @@
   transform: translateX(-50%);
   z-index: 10;
   display: flex;
+  align-items: center;
   gap: var(--spacing-xs, 8px);
   padding: 0;
   margin: 0;
   list-style: none;
 }
 
+.nui-swiper-pagination li {
+  display: flex;
+  margin: 0;
+  padding: 0;
+  line-height: 0;
+}
+
 .nui-swiper-pagination-bullet {
+  appearance: none;
+  box-sizing: border-box;
+  display: block;
+  flex-shrink: 0;
   width: 0.5rem;
   height: 0.5rem;
+  min-width: 0.5rem;
+  min-height: 0.5rem;
+  padding: 0;
+  margin: 0;
+  border: none;
   border-radius: 50%;
   background: var(--nui-secondary-text-color, #71717a);
   opacity: 0.5;
   cursor: pointer;
+  line-height: 0;
   transition:
     opacity var(--transition-fast) ease,
     background var(--transition-fast) ease,

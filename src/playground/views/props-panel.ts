@@ -11,11 +11,21 @@ export function renderPropsPanel(
 
   return html`
     <div class="props-panel">
-      <h3>Attributes</h3>
+      <nui-heading
+        class="playground-props-title"
+        tag="3"
+        text="Attributes"
+        unstyled
+      ></nui-heading>
       ${[...sections.entries()].map(
         ([section, sectionControls]) => html`
           <div class="props-section">
-            <h4>${section}</h4>
+            <nui-heading
+              class="playground-section-title"
+              tag="4"
+              text=${section}
+              unstyled
+            ></nui-heading>
             <div class="props-grid">
               ${sectionControls.map((control) =>
                 renderControlField(control, values[control.key], onChange),

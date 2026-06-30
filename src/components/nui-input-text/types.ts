@@ -2,7 +2,7 @@ import type { NuiType } from '../../types/nui-type.js';
 
 export type InputTextSize = 'small' | 'large';
 
-export type InputTextVariant = 'outlined' | 'filled';
+export type InputTextVariant = 'outlined' | 'filled' | 'borderless';
 
 export type InputTextType =
   | 'text'
