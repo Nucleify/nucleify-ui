@@ -1,6 +1,8 @@
 import { html, nothing, type TemplateResult } from 'lit';
 import type { NuiTerminalViewState } from './types.js';
 
+export type { NuiTerminalViewState } from './types.js';
+
 export interface NuiTerminalHandlers {
   onKeyDown: (event: KeyboardEvent) => void;
   onContainerClick: () => void;

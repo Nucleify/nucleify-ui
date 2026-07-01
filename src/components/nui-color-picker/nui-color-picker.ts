@@ -244,12 +244,16 @@ export class NuiColorPicker
     }
   };
 
-  private get hiddenValue(): string {
+  get hiddenValue(): string {
     return normalizeHex(
       typeof this.value === 'string' && this.value
         ? this.value
         : (formatColorValue(this.hsb, 'hex') as string),
     );
+  }
+
+  get previewColor(): string {
+    return getPreviewColor(this.hsb);
   }
 
   render() {
@@ -267,7 +271,7 @@ export class NuiColorPicker
         overlayVisible: this.overlayVisible,
         hsb: this.hsb,
         hiddenValue: this.hiddenValue,
-        previewColor: getPreviewColor(this.hsb),
+        previewColor: this.previewColor,
       },
       {
         onPreviewClick: this.handlePreviewClick,

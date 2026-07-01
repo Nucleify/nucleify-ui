@@ -62,7 +62,12 @@ export class PlaygroundApp extends LitElement {
       const patch = definition.onPropChange(key, value, nextProps);
 
       if (patch) {
-        nextProps = { ...nextProps, ...patch };
+        const cleanedPatch = Object.fromEntries(
+          Object.entries(patch).filter(
+            ([, patchValue]) => patchValue !== undefined,
+          ),
+        ) as Partial<PlaygroundProps>;
+        nextProps = { ...nextProps, ...cleanedPatch } as PlaygroundProps;
       }
     }
 

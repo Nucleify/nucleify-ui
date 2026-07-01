@@ -23,7 +23,7 @@ export interface AutoCompleteProps {
   variant?: AutoCompleteVariant | '';
   dropdown?: boolean;
   dropdownMode?: AutoCompleteDropdownMode;
-  scrollHeight?: string;
+  panelScrollHeight?: string;
   minLength?: number;
   forceSelection?: boolean;
   completeOnFocus?: boolean;

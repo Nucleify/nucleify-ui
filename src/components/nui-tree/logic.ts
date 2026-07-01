@@ -1,6 +1,8 @@
 import { html, nothing, type TemplateResult } from 'lit';
 import type { NuiTreeViewState, TreeNode } from './types.js';
 
+export type { NuiTreeViewState } from './types.js';
+
 export interface NuiTreeHandlers {
   onToggle: (node: TreeNode) => void;
   onNodeClick: (node: TreeNode) => void;

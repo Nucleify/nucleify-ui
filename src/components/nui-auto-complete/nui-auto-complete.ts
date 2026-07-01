@@ -53,7 +53,7 @@ export class NuiAutoComplete
   @property({ type: String, reflect: true }) size: AutoCompleteSize | '' = '';
   @property({ type: String, reflect: true }) variant: AutoCompleteVariant | '' =
     '';
-  @property({ type: String, attribute: 'scroll-height' }) scrollHeight =
+  @property({ type: String, attribute: 'scroll-height' }) panelScrollHeight =
     '14rem';
   @property({ type: Number, attribute: 'min-length' }) minLength = 1;
   @property({ type: Boolean, attribute: 'force-selection' })

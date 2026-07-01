@@ -45,7 +45,8 @@
     "check": "biome check .",
     "write": "biome check --write .",
     "prepublishOnly": "npm run build",
-    "prepare": "node scripts/prepare.mjs"
+    "prepare": "node scripts/prepare.mjs",
+    "typeslint": "npx tsc -p tsconfig.json --noEmit"
   },
   "dependencies": {
     "@web/dev-server": "^0.4.6",

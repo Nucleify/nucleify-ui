@@ -17,7 +17,9 @@ export const NUI_TABS_DEFAULTS: PlaygroundProps = {
   nuiType: '',
 };
 
-export const ATTRIBUTE_NAMES: string[] = ['value', 'unstyled', 'nui-type'];
+export const ATTRIBUTE_NAMES: Record<string, string> = {
+  nuiType: 'nui-type',
+};
 
 export const CONTROLS: PlaygroundControl[] = [
   {

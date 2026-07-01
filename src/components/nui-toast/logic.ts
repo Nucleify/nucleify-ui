@@ -1,6 +1,8 @@
 import { html, nothing, type TemplateResult } from 'lit';
 import type { NuiToastViewState, ToastMessage } from './types.js';
 
+export type { NuiToastViewState } from './types.js';
+
 export interface NuiToastHandlers {
   onCloseClick: (id: string) => void;
 }

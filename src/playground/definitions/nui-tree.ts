@@ -155,10 +155,5 @@ export const nuiTreePlayground: PlaygroundDefinition = {
   controls: CONTROLS,
   renderPreview,
   formatUsage: (props) =>
-    formatUsageFromDefaults(
-      'nui-tree',
-      props,
-      NUI_TREE_DEFAULTS,
-      ATTRIBUTE_NAMES,
-    ),
+    formatUsageFromDefaults('nui-tree', props, NUI_TREE_DEFAULTS, {}),
 };

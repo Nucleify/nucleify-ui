@@ -112,10 +112,5 @@ export const nuiToastPlayground: PlaygroundDefinition = {
   controls: CONTROLS,
   renderPreview,
   formatUsage: (props) =>
-    formatUsageFromDefaults(
-      'nui-toast',
-      props,
-      NUI_TOAST_DEFAULTS,
-      ATTRIBUTE_NAMES,
-    ),
+    formatUsageFromDefaults('nui-toast', props, NUI_TOAST_DEFAULTS, {}),
 };

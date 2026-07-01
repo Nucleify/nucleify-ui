@@ -16,12 +16,10 @@ export const NUI_TERMINAL_DEFAULTS: PlaygroundProps = {
   nuiType: '',
 };
 
-export const ATTRIBUTE_NAMES: string[] = [
-  'welcome-message',
-  'prompt',
-  'unstyled',
-  'nui-type',
-];
+export const ATTRIBUTE_NAMES: Record<string, string> = {
+  welcomeMessage: 'welcome-message',
+  nuiType: 'nui-type',
+};
 
 export const CONTROLS: PlaygroundControl[] = [
   {

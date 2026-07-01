@@ -29,7 +29,7 @@ export interface NuiAutoCompleteViewState {
   variant: AutoCompleteVariant | '';
   dropdown: boolean;
   dropdownMode: AutoCompleteDropdownMode;
-  scrollHeight: string;
+  panelScrollHeight: string;
   emptyMessage: string;
   dropdownIcon: string;
   overlayVisible: boolean;
@@ -130,7 +130,7 @@ export function renderAutoComplete(
                 class="nui-auto-complete-panel"
                 role="listbox"
                 id=${listboxId}
-                style=${`max-height:${state.scrollHeight}`}
+                style=${`max-height:${state.panelScrollHeight}`}
               >
                 ${
                   state.visibleSuggestions.length

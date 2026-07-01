@@ -1,4 +1,5 @@
-import { type ColorHsb, clamp, normalizeHsb } from './color-math.js';
+import { clamp, normalizeHsb } from './color-math.js';
+import type { ColorHsb } from './types.js';
 
 export interface ColorPickerControllerOptions {
   root: HTMLElement;

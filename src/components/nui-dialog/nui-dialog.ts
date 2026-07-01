@@ -110,7 +110,7 @@ export class NuiDialog extends LitElement implements NuiDialogViewState {
         resolve();
       };
 
-      const onAnimationEnd = (event: AnimationEvent): void => {
+      const onAnimationEnd = (event: Event): void => {
         if (event.target === panel) {
           finish();
         }

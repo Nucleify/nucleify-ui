@@ -2,6 +2,8 @@ import '../nui-heading/nui-heading.js';
 import { html, nothing, type TemplateResult } from 'lit';
 import type { NuiTabsViewState } from './types.js';
 
+export type { NuiTabsViewState } from './types.js';
+
 export interface NuiTabsHandlers {
   onTabClick: (value: string | number) => void;
 }

@@ -35,7 +35,7 @@ export interface PlaygroundDefinition {
     key: string,
     value: string | boolean,
     props: PlaygroundProps,
-  ) => Partial<PlaygroundProps> | undefined;
+  ) => Partial<Record<string, string | boolean | undefined>> | undefined;
   getPreviewClass?: (props: PlaygroundProps) => string;
 }
 
