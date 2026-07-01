@@ -1,0 +1,253 @@
+name: 🫀 Health Check
+
+on:
+  push:
+    branches: ['*']
+  pull_request:
+
+jobs:
+  setup:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+          fetch-depth: 0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+
+      - name: Pin npm version
+        run: npm i -g npm@11.16.0
+
+      - name: Install Node.js Dependencies
+        run: npm ci
+
+  biome:
+    runs-on: ubuntu-latest
+    needs: setup
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+          fetch-depth: 0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+
+      - name: Pin npm version
+        run: npm i -g npm@11.16.0
+
+      - name: Install Node.js Dependencies
+        run: npm ci
+
+      - name: Biome
+        run: npm run check
+
+  typeslint:
+    runs-on: ubuntu-latest
+    needs: setup
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+          fetch-depth: 0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+
+      - name: Pin npm version
+        run: npm i -g npm@11.16.0
+
+      - name: Install Node.js Dependencies
+        run: npm ci
+
+      - name: TypeScript typeslint
+        run: npm run typeslint
+
+  slint:
+    runs-on: ubuntu-latest
+    needs: setup
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+          fetch-depth: 0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+
+      - name: Pin npm version
+        run: npm i -g npm@11.16.0
+
+      - name: Install Node.js Dependencies
+        run: npm ci
+
+      - name: Stylelint
+        run: npm run slint
+
+  build:
+    runs-on: ubuntu-latest
+    needs: setup
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+          fetch-depth: 0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+
+      - name: Pin npm version
+        run: npm i -g npm@11.16.0
+
+      - name: Install Node.js Dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+  test:
+    runs-on: ubuntu-latest
+    needs: setup
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+          fetch-depth: 0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+
+      - name: Pin npm version
+        run: npm i -g npm@11.16.0
+
+      - name: Install Node.js Dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      - name: Test
+        run: npm run test
+
+  pack-check:
+    runs-on: ubuntu-latest
+    needs: setup
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+          fetch-depth: 0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+
+      - name: Pin npm version
+        run: npm i -g npm@11.16.0
+
+      - name: Install Node.js Dependencies
+        run: npm ci
+
+      - name: Pack check
+        run: npm run pack:check
+
+  dedupe-check:
+    runs-on: ubuntu-latest
+    needs: setup
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+          fetch-depth: 0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+
+      - name: Pin npm version
+        run: npm i -g npm@11.16.0
+
+      - name: Install Node.js Dependencies
+        run: npm ci
+
+      - name: Dedupe check
+        run: npm run dedupe:check
+
+  lockfile-check:
+    runs-on: ubuntu-latest
+    needs: setup
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+          fetch-depth: 0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+
+      - name: Pin npm version
+        run: npm i -g npm@11.16.0
+
+      - name: Install Node.js Dependencies
+        run: npm ci
+
+      - name: Lockfile check
+        run: npm run lockfile:check
+
+  audit-check:
+    runs-on: ubuntu-latest
+    needs: setup
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+          fetch-depth: 0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+
+      - name: Install Node.js Dependencies
+        run: npm ci
+
+      - name: Audit check
+        run: npm run audit:check
