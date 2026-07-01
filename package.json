@@ -57,31 +57,31 @@
     "audit:check": "node scripts/run-check.mjs audit npm audit --audit-level=high"
   },
   "dependencies": {
-    "@web/dev-server": "^0.4.6",
-    "chart.js": "^4.0.0",
-    "iconify-icon": "^3.0.0",
-    "lit": "^3.0.0"
+    "@web/dev-server": "0.4.6",
+    "chart.js": "4.5.1",
+    "iconify-icon": "3.0.0",
+    "lit": "3.0.0"
   },
   "devDependencies": {
-    "@biomejs/biome": "^2.5.0",
-    "@vitest/ui": "^4.1.9",
-    "@web/dev-server-rollup": "^0.6.4",
-    "esbuild": "^0.28.1",
-    "glob": "^11.1.0",
-    "happy-dom": "^20.10.6",
-    "husky": "^9.1.7",
-    "rollup-plugin-esbuild": "^6.2.1",
-    "stylelint": "^17.14.0",
-    "stylelint-config-standard": "^40.0.0",
-    "stylelint-config-standard-scss": "^17.0.0",
-    "stylelint-order": "^8.1.1",
-    "typescript": "^5.8.3",
-    "vitest": "^4.1.9"
+    "@biomejs/biome": "2.5.2",
+    "@vitest/ui": "4.1.9",
+    "@web/dev-server-rollup": "0.6.4",
+    "esbuild": "0.28.1",
+    "glob": "11.1.0",
+    "happy-dom": "20.10.6",
+    "husky": "9.1.7",
+    "rollup-plugin-esbuild": "6.2.1",
+    "stylelint": "17.14.0",
+    "stylelint-config-standard": "40.0.0",
+    "stylelint-config-standard-scss": "17.0.0",
+    "stylelint-order": "8.1.1",
+    "typescript": "5.8.3",
+    "vitest": "4.1.9"
   },
   "peerDependencies": {
-    "chart.js": "^4.0.0",
-    "iconify-icon": "^3.0.0",
-    "lit": "^3.0.0"
+    "chart.js": "4.5.1",
+    "iconify-icon": "3.0.0",
+    "lit": "3.0.0"
   },
   "peerDependenciesMeta": {
     "chart.js": {
