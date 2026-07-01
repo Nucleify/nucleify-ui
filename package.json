@@ -1,6 +1,6 @@
 {
   "name": "nucleify-ui",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Lit 3 web component library with optional interactive playground.",
   "type": "module",
   "sideEffects": [
