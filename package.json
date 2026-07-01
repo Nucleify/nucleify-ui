@@ -47,9 +47,9 @@
     "prepublishOnly": "npm run build",
     "prepare": "node scripts/prepare.mjs",
     "typeslint": "npx tsc -p tsconfig.json --noEmit",
-    "test": "npm run build && vitest run",
-    "test:watch": "npm run build && vitest",
-    "test:ui": "npm run build && vitest --ui",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:ui": "vitest --ui",
     "slint": "stylelint \"src/**/*.css\" --allow-empty-input"
   },
   "dependencies": {
