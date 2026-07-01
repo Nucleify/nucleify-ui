@@ -49,7 +49,8 @@
     "typeslint": "npx tsc -p tsconfig.json --noEmit",
     "test": "npm run build && vitest run",
     "test:watch": "npm run build && vitest",
-    "test:ui": "npm run build && vitest --ui"
+    "test:ui": "npm run build && vitest --ui",
+    "slint": "stylelint \"src/**/*.css\" --allow-empty-input"
   },
   "dependencies": {
     "@web/dev-server": "^0.4.6",
@@ -65,6 +66,10 @@
     "glob": "^11.1.0",
     "happy-dom": "^20.10.6",
     "husky": "^9.1.7",
+    "stylelint": "^17.14.0",
+    "stylelint-config-standard": "^40.0.0",
+    "stylelint-config-standard-scss": "^17.0.0",
+    "stylelint-order": "^8.1.1",
     "typescript": "^5.8.3",
     "vitest": "^4.1.9"
   },

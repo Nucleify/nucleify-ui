@@ -1,3 +1,4 @@
 npm run check
 npm run typeslint
+npm run slint
 npm run test
