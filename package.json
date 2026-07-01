@@ -41,17 +41,17 @@
   "scripts": {
     "start": "web-dev-server --config web-dev-server.config.js",
     "playground": "web-dev-server --config web-dev-server.config.js",
-    "build": "node scripts/build.mjs",
-    "check": "biome check .",
+    "build": "node scripts/run-check.mjs build node scripts/build.mjs",
+    "check": "node scripts/run-check.mjs biome npx biome check .",
     "write": "biome check --write .",
     "prepublishOnly": "npm run build",
     "prepare": "node scripts/prepare.mjs",
-    "typeslint": "npx tsc -p tsconfig.json --noEmit",
-    "test": "vitest run",
+    "typeslint": "node scripts/run-check.mjs tsc npx tsc -p tsconfig.json --noEmit",
+    "test": "node scripts/run-check.mjs vitest npx vitest run",
     "test:watch": "vitest",
     "test:ui": "vitest --ui",
-    "slint": "stylelint \"src/**/*.css\" --allow-empty-input",
-    "pack:check": "node scripts/pack-check.mjs"
+    "slint": "node scripts/run-check.mjs stylelint npx stylelint \"src/**/*.css\" --allow-empty-input",
+    "pack:check": "node scripts/run-check.mjs pack-check node scripts/pack-check.mjs"
   },
   "dependencies": {
     "@web/dev-server": "^0.4.6",
