@@ -13,6 +13,7 @@ import {
 import type { TreeNode, TreeProps } from './types.js';
 
 const styles = createComponentStyles(
+  'nui-tree',
   () => import('./styles.css', { with: { type: 'css' } }),
 );
 

@@ -5,6 +5,7 @@ import { createComponentStyles } from '../../utils/sync-stylesheet.js';
 import { type NuiPopoverViewState, renderPopover } from './logic.js';
 
 const styles = createComponentStyles(
+  'nui-popover',
   () => import('./styles.css', { with: { type: 'css' } }),
 );
 

@@ -16,6 +16,7 @@ import {
 import type { ScrollTopBehavior, ScrollTopTarget } from './types.js';
 
 const styles = createComponentStyles(
+  'nui-scroll-top',
   () => import('./styles.css', { with: { type: 'css' } }),
 );
 

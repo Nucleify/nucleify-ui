@@ -10,6 +10,7 @@ import { type NuiAccordionViewState, renderAccordion } from './logic.js';
 import type { AccordionPanel, AccordionValue } from './types.js';
 
 const styles = createComponentStyles(
+  'nui-accordion',
   () => import('./styles.css', { with: { type: 'css' } }),
 );
 

@@ -9,6 +9,7 @@ import { type NuiTextareaViewState, renderTextarea } from './logic.js';
 import type { TextareaSize, TextareaVariant } from './types.js';
 
 const styles = createComponentStyles(
+  'nui-textarea',
   () => import('./styles.css', { with: { type: 'css' } }),
 );
 

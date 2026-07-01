@@ -13,6 +13,7 @@ import {
 import type { TooltipPosition } from './types.js';
 
 const styles = createComponentStyles(
+  'nui-tooltip',
   () => import('./styles.css', { with: { type: 'css' } }),
 );
 

@@ -9,6 +9,7 @@ import { type NuiMeterGroupViewState, renderMeterGroup } from './logic.js';
 import type { MeterItem } from './types.js';
 
 const styles = createComponentStyles(
+  'nui-meter-group',
   () => import('./styles.css', { with: { type: 'css' } }),
 );
 

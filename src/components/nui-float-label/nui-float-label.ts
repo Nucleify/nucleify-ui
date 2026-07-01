@@ -10,6 +10,7 @@ import { type NuiFloatLabelViewState, renderFloatLabel } from './logic.js';
 import type { FloatLabelVariant } from './types.js';
 
 const styles = createComponentStyles(
+  'nui-float-label',
   () => import('./styles.css', { with: { type: 'css' } }),
 );
 

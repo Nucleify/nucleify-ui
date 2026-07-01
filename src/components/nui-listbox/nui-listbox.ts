@@ -19,6 +19,7 @@ import {
 import type { ListboxOption, ListboxPrimitive, ListboxValue } from './types.js';
 
 const styles = createComponentStyles(
+  'nui-listbox',
   () => import('./styles.css', { with: { type: 'css' } }),
 );
 

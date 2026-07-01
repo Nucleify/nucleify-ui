@@ -5,6 +5,7 @@ import { type NuiType, nuiTypeProperty } from '../../types/nui-type.js';
 import { createComponentStyles } from '../../utils/sync-stylesheet.js';
 
 const styles = createComponentStyles(
+  'nui-icon',
   () => import('./styles.css', { with: { type: 'css' } }),
 );
 

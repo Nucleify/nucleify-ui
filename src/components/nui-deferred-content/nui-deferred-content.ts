@@ -12,6 +12,7 @@ import {
 } from './logic.js';
 
 const styles = createComponentStyles(
+  'nui-deferred-content',
   () => import('./styles.css', { with: { type: 'css' } }),
 );
 

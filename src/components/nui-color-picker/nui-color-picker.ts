@@ -20,6 +20,7 @@ import {
 import type { ColorFormat, ColorValue } from './types.js';
 
 const styles = createComponentStyles(
+  'nui-color-picker',
   () => import('./styles.css', { with: { type: 'css' } }),
 );
 

@@ -15,6 +15,7 @@ import { OtpController } from './otp-controller.js';
 import type { InputOtpSize, InputOtpVariant } from './types.js';
 
 const styles = createComponentStyles(
+  'nui-input-otp',
   () => import('./styles.css', { with: { type: 'css' } }),
 );
 

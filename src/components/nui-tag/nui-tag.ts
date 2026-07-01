@@ -9,6 +9,7 @@ import { type NuiTagViewState, renderTag } from './logic.js';
 import type { TagSeverity } from './types.js';
 
 const styles = createComponentStyles(
+  'nui-tag',
   () => import('./styles.css', { with: { type: 'css' } }),
 );
 

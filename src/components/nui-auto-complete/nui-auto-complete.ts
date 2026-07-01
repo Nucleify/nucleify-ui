@@ -23,6 +23,7 @@ import type {
 } from './types.js';
 
 const styles = createComponentStyles(
+  'nui-auto-complete',
   () => import('./styles.css', { with: { type: 'css' } }),
 );
 

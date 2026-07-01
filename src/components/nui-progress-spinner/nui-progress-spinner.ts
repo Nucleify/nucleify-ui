@@ -12,6 +12,7 @@ import {
 } from './logic.js';
 
 const styles = createComponentStyles(
+  'nui-progress-spinner',
   () => import('./styles.css', { with: { type: 'css' } }),
 );
 

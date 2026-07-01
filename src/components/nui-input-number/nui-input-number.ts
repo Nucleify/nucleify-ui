@@ -21,6 +21,7 @@ import type {
 } from './types.js';
 
 const styles = createComponentStyles(
+  'nui-input-number',
   () => import('./styles.css', { with: { type: 'css' } }),
 );
 

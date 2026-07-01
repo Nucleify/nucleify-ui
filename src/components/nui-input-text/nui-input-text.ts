@@ -13,6 +13,7 @@ import type {
 } from './types.js';
 
 const styles = createComponentStyles(
+  'nui-input-text',
   () => import('./styles.css', { with: { type: 'css' } }),
 );
 

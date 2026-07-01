@@ -13,6 +13,7 @@ import {
 import type { ToastMessage, ToastPosition, ToastProps } from './types.js';
 
 const styles = createComponentStyles(
+  'nui-toast',
   () => import('./styles.css', { with: { type: 'css' } }),
 );
 

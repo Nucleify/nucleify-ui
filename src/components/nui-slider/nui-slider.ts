@@ -14,6 +14,7 @@ import { SliderController } from './slider-controller.js';
 import type { SliderOrientation, SliderValue } from './types.js';
 
 const styles = createComponentStyles(
+  'nui-slider',
   () => import('./styles.css', { with: { type: 'css' } }),
 );
 

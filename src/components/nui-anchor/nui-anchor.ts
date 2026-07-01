@@ -14,6 +14,7 @@ import { type NuiAnchorViewState, renderAnchor } from './logic.js';
 import type { AnchorRel, AnchorTarget } from './types.js';
 
 const styles = createComponentStyles(
+  'nui-anchor',
   () => import('./styles.css', { with: { type: 'css' } }),
 );
 

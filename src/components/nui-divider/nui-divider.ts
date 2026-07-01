@@ -9,6 +9,7 @@ import { type NuiDividerViewState, renderDivider } from './logic.js';
 import type { DividerAlign, DividerLayout, DividerType } from './types.js';
 
 const styles = createComponentStyles(
+  'nui-divider',
   () => import('./styles.css', { with: { type: 'css' } }),
 );
 

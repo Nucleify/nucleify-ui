@@ -9,6 +9,7 @@ import { type NuiSkeletonViewState, renderSkeleton } from './logic.js';
 import type { SkeletonAnimation, SkeletonShape } from './types.js';
 
 const styles = createComponentStyles(
+  'nui-skeleton',
   () => import('./styles.css', { with: { type: 'css' } }),
 );
 

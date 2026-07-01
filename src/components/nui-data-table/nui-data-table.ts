@@ -18,6 +18,7 @@ import type {
 } from './types.js';
 
 const styles = createComponentStyles(
+  'nui-data-table',
   () => import('./styles.css', { with: { type: 'css' } }),
 );
 

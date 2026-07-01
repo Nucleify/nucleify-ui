@@ -8,6 +8,7 @@ import {
 import { type NuiScrollPanelViewState, renderScrollPanel } from './logic.js';
 
 const styles = createComponentStyles(
+  'nui-scroll-panel',
   () => import('./styles.css', { with: { type: 'css' } }),
 );
 

@@ -13,6 +13,7 @@ import {
 import type { TerminalHistoryItem, TerminalProps } from './types.js';
 
 const styles = createComponentStyles(
+  'nui-terminal',
   () => import('./styles.css', { with: { type: 'css' } }),
 );
 

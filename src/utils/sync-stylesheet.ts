@@ -1,4 +1,5 @@
 import type { PropertyValues } from 'lit';
+import { getComponentStyleOverride } from '../config.js';
 
 export type StylesheetLoader = () => Promise<{ default: CSSStyleSheet }>;
 
@@ -6,8 +7,31 @@ export interface SyncStylesOptions {
   unstyled?: boolean;
 }
 
-export function createComponentStyles(load: StylesheetLoader) {
+async function resolveStylesheet(
+  componentTag: string,
+  defaultLoad: StylesheetLoader,
+): Promise<CSSStyleSheet> {
+  const override = getComponentStyleOverride(componentTag);
+
+  if (override) {
+    if (override instanceof CSSStyleSheet) {
+      return override;
+    }
+
+    const module = await override();
+    return module.default;
+  }
+
+  const module = await defaultLoad();
+  return module.default;
+}
+
+export function createComponentStyles(
+  componentTag: string,
+  defaultLoad: StylesheetLoader,
+) {
   let stylesheet: CSSStyleSheet | null = null;
+  let activeSource: string | null = null;
 
   async function sync(
     renderRoot: Element | DocumentFragment,
@@ -22,9 +46,13 @@ export function createComponentStyles(load: StylesheetLoader) {
       return;
     }
 
-    if (!stylesheet) {
-      const module = await load();
-      stylesheet = module.default;
+    const sourceKey = getComponentStyleOverride(componentTag)
+      ? 'override'
+      : 'default';
+
+    if (!stylesheet || activeSource !== sourceKey) {
+      stylesheet = await resolveStylesheet(componentTag, defaultLoad);
+      activeSource = sourceKey;
     }
 
     renderRoot.adoptedStyleSheets = [stylesheet];

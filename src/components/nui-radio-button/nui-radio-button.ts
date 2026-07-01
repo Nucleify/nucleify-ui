@@ -9,6 +9,7 @@ import { type NuiRadioButtonViewState, renderRadioButton } from './logic.js';
 import type { RadioButtonSize, RadioButtonVariant } from './types.js';
 
 const styles = createComponentStyles(
+  'nui-radio-button',
   () => import('./styles.css', { with: { type: 'css' } }),
 );
 

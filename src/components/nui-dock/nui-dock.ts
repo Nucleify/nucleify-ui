@@ -9,6 +9,7 @@ import { type NuiDockViewState, renderDock } from './logic.js';
 import type { DockItem, DockPosition } from './types.js';
 
 const styles = createComponentStyles(
+  'nui-dock',
   () => import('./styles.css', { with: { type: 'css' } }),
 );
 

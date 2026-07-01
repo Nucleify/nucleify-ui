@@ -16,6 +16,7 @@ import {
 } from './logic.js';
 
 const styles = createComponentStyles(
+  'nui-rating',
   () => import('./styles.css', { with: { type: 'css' } }),
 );
 

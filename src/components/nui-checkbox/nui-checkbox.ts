@@ -9,6 +9,7 @@ import { type NuiCheckboxViewState, renderCheckbox } from './logic.js';
 import type { CheckboxSize } from './types.js';
 
 const styles = createComponentStyles(
+  'nui-checkbox',
   () => import('./styles.css', { with: { type: 'css' } }),
 );
 

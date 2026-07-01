@@ -10,6 +10,7 @@ import { type NuiDialogViewState, renderDialog } from './logic.js';
 import type { DialogPosition } from './types.js';
 
 const styles = createComponentStyles(
+  'nui-dialog',
   () => import('./styles.css', { with: { type: 'css' } }),
 );
 

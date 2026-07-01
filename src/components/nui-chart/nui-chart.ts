@@ -11,6 +11,7 @@ import { type NuiChartViewState, renderChart } from './logic.js';
 import type { ChartType } from './types.js';
 
 const styles = createComponentStyles(
+  'nui-chart',
   () => import('./styles.css', { with: { type: 'css' } }),
 );
 

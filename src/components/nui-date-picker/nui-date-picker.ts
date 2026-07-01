@@ -19,6 +19,7 @@ import {
 import type { DatePickerSize, DatePickerVariant } from './types.js';
 
 const styles = createComponentStyles(
+  'nui-date-picker',
   () => import('./styles.css', { with: { type: 'css' } }),
 );
 

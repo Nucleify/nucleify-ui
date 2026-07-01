@@ -9,6 +9,7 @@ import { type NuiBadgeViewState, renderBadge } from './logic.js';
 import type { BadgeSeverity, BadgeSize } from './types.js';
 
 const styles = createComponentStyles(
+  'nui-badge',
   () => import('./styles.css', { with: { type: 'css' } }),
 );
 

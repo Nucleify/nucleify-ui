@@ -13,6 +13,7 @@ import {
 import type { ProgressBarMode } from './types.js';
 
 const styles = createComponentStyles(
+  'nui-progress-bar',
   () => import('./styles.css', { with: { type: 'css' } }),
 );
 

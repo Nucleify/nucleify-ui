@@ -8,6 +8,7 @@ import {
 import { type NuiTileViewState, renderTile } from './logic.js';
 
 const styles = createComponentStyles(
+  'nui-tile',
   () => import('./styles.css', { with: { type: 'css' } }),
 );
 

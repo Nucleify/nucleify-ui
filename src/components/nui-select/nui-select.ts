@@ -13,6 +13,7 @@ import {
 import type { SelectOption } from './types.js';
 
 const styles = createComponentStyles(
+  'nui-select',
   () => import('./styles.css', { with: { type: 'css' } }),
 );
 

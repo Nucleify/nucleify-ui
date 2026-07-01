@@ -9,6 +9,7 @@ import { type NuiLabelViewState, renderLabel } from './logic.js';
 import type { LabelSize } from './types.js';
 
 const styles = createComponentStyles(
+  'nui-label',
   () => import('./styles.css', { with: { type: 'css' } }),
 );
 

@@ -13,6 +13,7 @@ import {
 import type { SwiperProps, SwiperSlideInterface } from './types.js';
 
 const styles = createComponentStyles(
+  'nui-swiper',
   () => import('./styles.css', { with: { type: 'css' } }),
 );
 

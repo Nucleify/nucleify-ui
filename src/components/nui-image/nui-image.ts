@@ -9,6 +9,7 @@ import { type NuiImageViewState, renderImage } from './logic.js';
 import type { ImageFetchPriority, ImageFit, ImageLoading } from './types.js';
 
 const styles = createComponentStyles(
+  'nui-image',
   () => import('./styles.css', { with: { type: 'css' } }),
 );
 

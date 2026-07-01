@@ -10,6 +10,7 @@ import { MaskController } from './mask-controller.js';
 import type { InputMaskSize, InputMaskVariant } from './types.js';
 
 const styles = createComponentStyles(
+  'nui-input-mask',
   () => import('./styles.css', { with: { type: 'css' } }),
 );
 

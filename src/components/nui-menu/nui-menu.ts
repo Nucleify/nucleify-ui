@@ -9,6 +9,7 @@ import { type NuiMenuViewProps, renderMenu } from './logic.js';
 import type { MenuItem } from './types.js';
 
 const styles = createComponentStyles(
+  'nui-menu',
   () => import('./styles.css', { with: { type: 'css' } }),
 );
 

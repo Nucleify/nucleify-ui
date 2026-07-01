@@ -10,6 +10,7 @@ import { clampKnobValue } from './knob-math.js';
 import { type NuiKnobViewState, renderKnob } from './logic.js';
 
 const styles = createComponentStyles(
+  'nui-knob',
   () => import('./styles.css', { with: { type: 'css' } }),
 );
 

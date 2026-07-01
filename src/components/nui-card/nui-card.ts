@@ -9,6 +9,7 @@ import { slotHasContent } from './card-slots.js';
 import { type NuiCardViewState, renderCard } from './logic.js';
 
 const styles = createComponentStyles(
+  'nui-card',
   () => import('./styles.css', { with: { type: 'css' } }),
 );
 

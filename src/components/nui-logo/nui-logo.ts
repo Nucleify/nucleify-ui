@@ -8,6 +8,7 @@ import {
 import { type NuiLogoViewState, renderLogo } from './logic.js';
 
 const styles = createComponentStyles(
+  'nui-logo',
   () => import('./styles.css', { with: { type: 'css' } }),
 );
 

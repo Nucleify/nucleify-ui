@@ -17,6 +17,7 @@ import type {
 } from './types.js';
 
 const styles = createComponentStyles(
+  'nui-button',
   () => import('./styles.css', { with: { type: 'css' } }),
 );
 

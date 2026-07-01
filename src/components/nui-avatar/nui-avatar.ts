@@ -9,6 +9,7 @@ import { type NuiAvatarViewState, renderAvatar } from './logic.js';
 import type { AvatarShape, AvatarSize } from './types.js';
 
 const styles = createComponentStyles(
+  'nui-avatar',
   () => import('./styles.css', { with: { type: 'css' } }),
 );
 

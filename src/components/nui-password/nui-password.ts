@@ -5,6 +5,7 @@ import { createComponentStyles } from '../../utils/sync-stylesheet.js';
 import { type NuiPasswordViewState, renderPassword } from './logic.js';
 
 const styles = createComponentStyles(
+  'nui-password',
   () => import('./styles.css', { with: { type: 'css' } }),
 );
 
