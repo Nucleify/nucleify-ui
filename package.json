@@ -50,7 +50,8 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "test:ui": "vitest --ui",
-    "slint": "stylelint \"src/**/*.css\" --allow-empty-input"
+    "slint": "stylelint \"src/**/*.css\" --allow-empty-input",
+    "pack:check": "node scripts/pack-check.mjs"
   },
   "dependencies": {
     "@web/dev-server": "^0.4.6",
