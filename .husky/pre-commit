@@ -4,3 +4,6 @@ npm run -s slint
 npm run -s build
 npm run -s test
 npm run -s pack:check
+npm run -s dedupe:check
+npm run -s lockfile:check
+npm run -s audit:check

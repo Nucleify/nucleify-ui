@@ -51,7 +51,10 @@
     "test:watch": "vitest",
     "test:ui": "vitest --ui",
     "slint": "node scripts/run-check.mjs stylelint npx stylelint \"src/**/*.css\" --allow-empty-input",
-    "pack:check": "node scripts/run-check.mjs pack-check node scripts/pack-check.mjs"
+    "pack:check": "node scripts/run-check.mjs pack-check node scripts/pack-check.mjs",
+    "dedupe:check": "node scripts/run-check.mjs dedupe npm dedupe --dry-run",
+    "lockfile:check": "node scripts/run-check.mjs lockfile node scripts/lockfile-check.mjs",
+    "audit:check": "node scripts/run-check.mjs audit npm audit --audit-level=high"
   },
   "dependencies": {
     "@web/dev-server": "^0.4.6",
