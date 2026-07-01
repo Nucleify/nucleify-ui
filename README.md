@@ -1,4 +1,11 @@
-# nucleify-ui
+# <div align="center"> <img src="https://github.com/Nucleify/Nucleify/blob/prod/public/img/logo.svg" width="70"> <br> nucleify-ui <br> </div>
+
+- **GitHub (this package)**: https://github.com/Nucleify/nucleify-ui
+- **GitHub (framework using this package)**: https://github.com/Nucleify/Nucleify
+
+If you like this project, consider leaving a ⭐ on GitHub. Thank you! <3
+
+---
 
 Lit 3 web component library. Import only the components you use — your bundler will include just those modules.
 
