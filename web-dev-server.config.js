@@ -1,5 +1,6 @@
 import { fileURLToPath } from 'node:url';
-import { esbuildPlugin } from '@web/dev-server-esbuild';
+import { fromRollup } from '@web/dev-server-rollup';
+import rollupEsbuild from 'rollup-plugin-esbuild';
 import { resolveTsImportsPlugin } from './resolve-ts-imports-plugin.js';
 
 export default {
@@ -11,10 +12,11 @@ export default {
   },
   plugins: [
     resolveTsImportsPlugin(fileURLToPath(new URL('.', import.meta.url))),
-    esbuildPlugin({
-      ts: true,
-      target: 'esnext',
-      tsconfig: fileURLToPath(new URL('./tsconfig.json', import.meta.url)),
-    }),
+    fromRollup(
+      rollupEsbuild({
+        target: 'esnext',
+        tsconfig: fileURLToPath(new URL('./tsconfig.json', import.meta.url)),
+      }),
+    ),
   ],
 };

@@ -58,7 +58,6 @@
   },
   "dependencies": {
     "@web/dev-server": "^0.4.6",
-    "@web/dev-server-esbuild": "^1.0.5",
     "chart.js": "^4.0.0",
     "iconify-icon": "^3.0.0",
     "lit": "^3.0.0"
@@ -66,10 +65,12 @@
   "devDependencies": {
     "@biomejs/biome": "^2.5.0",
     "@vitest/ui": "^4.1.9",
+    "@web/dev-server-rollup": "^0.6.4",
     "esbuild": "^0.28.1",
     "glob": "^11.1.0",
     "happy-dom": "^20.10.6",
     "husky": "^9.1.7",
+    "rollup-plugin-esbuild": "^6.2.1",
     "stylelint": "^17.14.0",
     "stylelint-config-standard": "^40.0.0",
     "stylelint-config-standard-scss": "^17.0.0",
