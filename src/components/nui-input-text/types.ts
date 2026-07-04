@@ -1,3 +1,4 @@
+import type { ValueEventDetail } from '../../types/component-events.js';
 import type { NuiType } from '../../types/nui-type.js';
 
 export type InputTextSize = 'small' | 'large';
@@ -34,4 +35,9 @@ export interface InputTextProps {
   unstyled?: boolean;
   nuiType?: NuiType;
   inputClass?: string;
+}
+
+export interface NuiInputTextEventMap {
+  input: CustomEvent<ValueEventDetail>;
+  change: CustomEvent<ValueEventDetail>;
 }

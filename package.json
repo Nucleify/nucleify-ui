@@ -32,9 +32,25 @@
       "import": "./dist/config.js"
     },
     "./styles/*": "./dist/styles/*",
+    "./types/component-events": {
+      "types": "./dist/types/component-events.d.ts",
+      "import": "./dist/types/component-events.js",
+      "default": "./dist/types/component-events.js"
+    },
+    "./types/nui-type": {
+      "types": "./dist/types/nui-type.d.ts",
+      "import": "./dist/types/nui-type.js",
+      "default": "./dist/types/nui-type.js"
+    },
+    "./components/nui-*/types": {
+      "types": "./dist/components/nui-*/types.d.ts",
+      "import": "./dist/components/nui-*/types.js",
+      "default": "./dist/components/nui-*/types.js"
+    },
     "./components/nui-*": {
       "types": "./dist/components/nui-*/nui-*.d.ts",
-      "import": "./dist/components/nui-*/nui-*.js"
+      "import": "./dist/components/nui-*/nui-*.js",
+      "default": "./dist/components/nui-*/nui-*.js"
     },
     "./package.json": "./package.json"
   },
@@ -47,6 +63,7 @@
     "prepublishOnly": "npm run build",
     "prepare": "node scripts/prepare.mjs",
     "typeslint": "node scripts/run-check.mjs tsc npx tsc -p tsconfig.json --noEmit",
+    "types:audit": "node scripts/run-check.mjs types-audit node scripts/audit-component-types.mjs",
     "test": "node scripts/run-check.mjs vitest npx vitest run",
     "test:watch": "vitest",
     "test:ui": "vitest --ui",

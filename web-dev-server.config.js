@@ -7,16 +7,19 @@ export default {
   open: true,
   watch: true,
   appIndex: 'index.html',
+  mimeTypes: {
+    '**/*.ts': 'js',
+    '**/*.tsx': 'js',
+  },
   nodeResolve: {
     exportConditions: ['development'],
   },
   plugins: [
     resolveTsImportsPlugin(fileURLToPath(new URL('.', import.meta.url))),
-    fromRollup(
-      rollupEsbuild({
-        target: 'esnext',
-        tsconfig: fileURLToPath(new URL('./tsconfig.json', import.meta.url)),
-      }),
-    ),
+    fromRollup(rollupEsbuild)({
+      target: 'esnext',
+      tsconfig: fileURLToPath(new URL('./tsconfig.json', import.meta.url)),
+      include: /\.(ts|tsx|js|jsx)$/,
+    }),
   ],
 };

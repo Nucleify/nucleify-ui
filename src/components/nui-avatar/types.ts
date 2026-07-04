@@ -1,3 +1,4 @@
+import type { OriginalEventDetail } from '../../types/component-events.js';
 import type { NuiType } from '../../types/nui-type.js';
 
 export type AvatarSize = 'large' | 'xlarge';
@@ -15,4 +16,8 @@ export interface AvatarProps {
   unstyled?: boolean;
   nuiType?: NuiType;
   avatarClass?: string;
+}
+
+export interface NuiAvatarEventMap {
+  error: CustomEvent<OriginalEventDetail>;
 }

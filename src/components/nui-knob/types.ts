@@ -1,3 +1,4 @@
+import type { ValueEventDetail } from '../../types/component-events.js';
 import type { NuiType } from '../../types/nui-type.js';
 
 export interface KnobProps {
@@ -20,4 +21,9 @@ export interface KnobProps {
   unstyled?: boolean;
   nuiType?: NuiType;
   knobClass?: string;
+}
+
+export interface NuiKnobEventMap {
+  input: CustomEvent<ValueEventDetail<number>>;
+  change: CustomEvent<ValueEventDetail<number>>;
 }

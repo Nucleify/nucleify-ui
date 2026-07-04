@@ -1,3 +1,4 @@
+import type { ValueEventDetail } from '../../types/component-events.js';
 import type { NuiType } from '../../types/nui-type.js';
 
 export interface TabListInterface {
@@ -20,4 +21,8 @@ export interface TabsProps {
 
 export interface NuiTabsViewState extends TabsProps {
   activeValue: string | number;
+}
+
+export interface NuiTabsEventMap {
+  'nui-change': CustomEvent<ValueEventDetail<string | number>>;
 }

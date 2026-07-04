@@ -75,6 +75,80 @@ import 'nucleify-ui/components/nui-button';
 applyTheme('nuxt', 'dark');
 ```
 
+## TypeScript
+
+The library ships full `.d.ts` declarations for every component: props, `HTMLElementTagNameMap`, typed custom events, and slot JSDoc.
+
+### Component props
+
+Register the component, then use typed DOM references:
+
+```typescript
+import 'nucleify-ui/components/nui-button';
+import 'nucleify-ui/components/nui-dialog';
+
+const button = document.querySelector('nui-button')!;
+button.label = 'Save';
+button.severity = 'danger';
+
+const dialog = document.querySelector('nui-dialog')!;
+dialog.visible = true;
+dialog.position = 'center';
+```
+
+Import helper types from the component `types` subpath:
+
+```typescript
+import type { ButtonProps } from 'nucleify-ui/components/nui-button/types';
+import type { DialogProps, DialogPosition } from 'nucleify-ui/components/nui-dialog/types';
+```
+
+### Custom events
+
+Components that emit custom events expose a typed `*EventMap` and typed `addEventListener` / `removeEventListener`:
+
+```typescript
+import 'nucleify-ui/components/nui-dialog';
+
+import type { NuiDialogEventMap } from 'nucleify-ui/components/nui-dialog/types';
+
+const dialog = document.querySelector('nui-dialog')!;
+
+dialog.addEventListener('change', (event) => {
+  event.detail.visible;
+  event.detail.originalEvent;
+});
+
+dialog.addEventListener('show', () => {
+  // ...
+});
+
+// Event map type for handlers or wrappers
+type DialogChange = NuiDialogEventMap['change'];
+```
+
+Shared event detail helpers live in `nucleify-ui/types/component-events`:
+
+```typescript
+import type {
+  ValueEventDetail,
+  ValueChangeEventDetail,
+  OriginalEventDetail,
+} from 'nucleify-ui/types/component-events';
+```
+
+### Shared types
+
+```typescript
+import type { NuiType } from 'nucleify-ui/types/nui-type';
+import { applyTheme, type Palette, type ThemeMode } from 'nucleify-ui/theme';
+import {
+  nucleifyStyles,
+  type NuiComponentTag,
+  type NuiStylesMap,
+} from 'nucleify-ui/config';
+```
+
 ## Override component CSS
 
 Pass a map of component tags to CSS file paths. Call **before** importing components.
@@ -154,6 +228,8 @@ npm install
 npm run start     # or npm run playground
 npm run build
 npm run check
+npm run test      # includes component type audit
+npm run types:audit
 ```
 
 ## Package exports
@@ -163,5 +239,8 @@ npm run check
 | `nucleify-ui` | Theme helpers, config API, shared types |
 | `nucleify-ui/config` | `nucleifyStyles()` — CSS overrides |
 | `nucleify-ui/theme` | `applyTheme()` |
+| `nucleify-ui/types/component-events` | Shared custom event detail types |
+| `nucleify-ui/types/nui-type` | `NuiType`, `nuiTypeProperty` |
 | `nucleify-ui/styles/*` | CSS token files |
 | `nucleify-ui/components/nui-*` | Individual web components |
+| `nucleify-ui/components/nui-*/types` | Component props, unions, `*EventMap` |

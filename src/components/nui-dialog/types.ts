@@ -1,3 +1,8 @@
+import type {
+  OriginalEventDetail,
+  VisibleChangeEventDetail,
+} from '../../types/component-events.js';
+
 export type DialogPosition =
   | 'center'
   | 'top'
@@ -21,4 +26,10 @@ export interface DialogProps {
   width?: string;
   dialogClass?: string;
   unstyled?: boolean;
+}
+
+export interface NuiDialogEventMap {
+  show: CustomEvent;
+  hide: CustomEvent<OriginalEventDetail>;
+  change: CustomEvent<VisibleChangeEventDetail>;
 }

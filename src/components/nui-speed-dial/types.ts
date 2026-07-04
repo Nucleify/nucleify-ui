@@ -1,3 +1,8 @@
+import type {
+  ItemClickEventDetail,
+  OriginalEventDetail,
+  VisibleChangeEventDetail,
+} from '../../types/component-events.js';
 import type { NuiType } from '../../types/nui-type.js';
 
 export interface SpeedDialMenuItem {
@@ -46,4 +51,12 @@ export interface SpeedDialProps {
   ariaLabel?: string;
   unstyled?: boolean;
   nuiType?: NuiType;
+}
+
+export interface NuiSpeedDialEventMap {
+  show: CustomEvent<OriginalEventDetail>;
+  hide: CustomEvent<OriginalEventDetail>;
+  change: CustomEvent<VisibleChangeEventDetail>;
+  click: CustomEvent<OriginalEventDetail>;
+  'item-click': CustomEvent<ItemClickEventDetail<SpeedDialMenuItem>>;
 }

@@ -1,5 +1,6 @@
 npm run -s check
 npm run -s typeslint
+npm run -s types:audit
 npm run -s slint
 npm run -s build
 npm run -s test

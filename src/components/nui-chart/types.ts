@@ -28,3 +28,12 @@ export interface ChartSelectDetail {
   element: unknown;
   dataset: unknown;
 }
+
+export interface ChartLoadedDetail {
+  chart: unknown;
+}
+
+export interface NuiChartEventMap {
+  select: CustomEvent<ChartSelectDetail>;
+  loaded: CustomEvent<ChartLoadedDetail>;
+}

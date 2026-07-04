@@ -1,3 +1,4 @@
+import type { ValueChangeEventDetail } from '../../types/component-events.js';
 import type { NuiType } from '../../types/nui-type.js';
 
 export type SelectButtonPrimitive = string | number;
@@ -28,4 +29,8 @@ export interface SelectButtonProps {
   unstyled?: boolean;
   nuiType?: NuiType;
   selectButtonClass?: string;
+}
+
+export interface NuiSelectButtonEventMap {
+  change: CustomEvent<ValueChangeEventDetail<SelectButtonValue>>;
 }

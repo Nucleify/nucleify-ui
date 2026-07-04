@@ -1,3 +1,4 @@
+import type { ValueEventDetail } from '../../types/component-events.js';
 import type { NuiType } from '../../types/nui-type.js';
 
 export type SelectOption = {
@@ -18,4 +19,9 @@ export interface SelectProps {
   selectClass?: string;
   unstyled?: boolean;
   nuiType?: NuiType;
+}
+
+export interface NuiSelectEventMap {
+  'nui-select-open': CustomEvent;
+  'nui-change': CustomEvent<ValueEventDetail>;
 }

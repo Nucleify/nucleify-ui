@@ -1,3 +1,4 @@
+import type { NodeEventDetail } from '../../types/component-events.js';
 import type { NuiType } from '../../types/nui-type.js';
 
 export interface TreeNode {
@@ -19,4 +20,10 @@ export interface TreeProps {
 
 export interface NuiTreeViewState extends TreeProps {
   // Add any rendering-specific state properties here if needed
+}
+
+export interface NuiTreeEventMap {
+  'nui-node-expand': CustomEvent<NodeEventDetail<TreeNode>>;
+  'nui-node-collapse': CustomEvent<NodeEventDetail<TreeNode>>;
+  'nui-node-select': CustomEvent<NodeEventDetail<TreeNode>>;
 }

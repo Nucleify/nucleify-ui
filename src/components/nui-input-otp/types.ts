@@ -1,3 +1,7 @@
+import type {
+  OriginalEventDetail,
+  ValueChangeEventDetail,
+} from '../../types/component-events.js';
 import type { NuiType } from '../../types/nui-type.js';
 
 export type InputOtpSize = 'small' | 'large';
@@ -21,4 +25,11 @@ export interface InputOtpProps {
   inputClass?: string;
   ariaLabel?: string;
   ariaLabelledby?: string;
+}
+
+export interface NuiInputOtpEventMap {
+  focus: CustomEvent<OriginalEventDetail>;
+  blur: CustomEvent<OriginalEventDetail>;
+  input: CustomEvent<ValueChangeEventDetail>;
+  change: CustomEvent<ValueChangeEventDetail>;
 }

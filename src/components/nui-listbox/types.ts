@@ -1,3 +1,4 @@
+import type { ValueEventDetail } from '../../types/component-events.js';
 import type { NuiType } from '../../types/nui-type.js';
 
 export type ListboxPrimitive = string | number;
@@ -29,4 +30,9 @@ export interface ListboxProps {
   unstyled?: boolean;
   nuiType?: NuiType;
   listboxClass?: string;
+}
+
+export interface NuiListboxEventMap {
+  input: CustomEvent<ValueEventDetail<ListboxValue>>;
+  change: CustomEvent<ValueEventDetail<ListboxValue>>;
 }

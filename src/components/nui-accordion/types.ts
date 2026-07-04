@@ -1,3 +1,5 @@
+import type { ValueChangeEventDetail } from '../../types/component-events.js';
+
 export type AccordionPanelValue = string | number;
 
 export interface AccordionPanel {
@@ -20,4 +22,8 @@ export interface AccordionProps {
   accordionClass?: string;
   unstyled?: boolean;
   nuiType?: string;
+}
+
+export interface NuiAccordionEventMap {
+  change: CustomEvent<ValueChangeEventDetail<AccordionValue>>;
 }

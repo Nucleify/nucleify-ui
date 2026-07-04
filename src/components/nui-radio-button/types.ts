@@ -1,3 +1,4 @@
+import type { CheckedValueEventDetail } from '../../types/component-events.js';
 import type { NuiType } from '../../types/nui-type.js';
 
 export type RadioButtonSize = 'small' | 'large';
@@ -20,4 +21,8 @@ export interface RadioButtonProps {
   unstyled?: boolean;
   nuiType?: NuiType;
   radioButtonClass?: string;
+}
+
+export interface NuiRadioButtonEventMap {
+  change: CustomEvent<CheckedValueEventDetail<string | boolean>>;
 }

@@ -1,3 +1,4 @@
+import type { ValueChangeEventDetail } from '../../types/component-events.js';
 import type { NuiType } from '../../types/nui-type.js';
 
 export type AutoCompletePrimitive = string | number;
@@ -36,4 +37,8 @@ export interface AutoCompleteProps {
   unstyled?: boolean;
   nuiType?: NuiType;
   autoCompleteClass?: string;
+}
+
+export interface NuiAutoCompleteEventMap {
+  change: CustomEvent<ValueChangeEventDetail>;
 }

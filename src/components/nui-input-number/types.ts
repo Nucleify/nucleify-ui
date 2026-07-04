@@ -1,3 +1,4 @@
+import type { ValueEventDetail } from '../../types/component-events.js';
 import type { NuiType } from '../../types/nui-type.js';
 
 export type InputNumberSize = 'small' | 'large';
@@ -39,4 +40,9 @@ export interface InputNumberProps {
   ariaLabelledby?: string;
   incrementIcon?: string;
   decrementIcon?: string;
+}
+
+export interface NuiInputNumberEventMap {
+  input: CustomEvent<ValueEventDetail<number | null>>;
+  change: CustomEvent<ValueEventDetail<number | null>>;
 }

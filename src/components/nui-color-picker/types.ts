@@ -1,3 +1,8 @@
+import type {
+  ValueChangeEventDetail,
+  ValueEventDetail,
+} from '../../types/component-events.js';
+
 export type ColorFormat = 'hex' | 'rgb' | 'hsb';
 
 export interface ColorRgb {
@@ -26,4 +31,11 @@ export interface ColorPickerProps {
   tabindex?: number;
   colorPickerClass?: string;
   unstyled?: boolean;
+}
+
+export interface NuiColorPickerEventMap {
+  hide: CustomEvent;
+  show: CustomEvent;
+  input: CustomEvent<ValueEventDetail<ColorValue>>;
+  change: CustomEvent<ValueChangeEventDetail<ColorValue>>;
 }

@@ -1,3 +1,4 @@
+import type { ValueEventDetail } from '../../types/component-events.js';
 import type { NuiType } from '../../types/nui-type.js';
 
 export interface PasswordProps {
@@ -11,4 +12,10 @@ export interface PasswordProps {
   feedback?: boolean;
   nuiType?: NuiType;
   passwordClass?: string;
+}
+
+export interface NuiPasswordEventMap {
+  input: CustomEvent<ValueEventDetail>;
+  'update:modelValue': CustomEvent<string>;
+  change: CustomEvent<ValueEventDetail>;
 }

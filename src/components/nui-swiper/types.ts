@@ -1,3 +1,4 @@
+import type { IndexEventDetail } from '../../types/component-events.js';
 import type { NuiType } from '../../types/nui-type.js';
 
 export interface SwiperSlideInterface {
@@ -19,4 +20,8 @@ export interface SwiperProps {
   autoplayDelay?: number;
   unstyled?: boolean;
   nuiType?: NuiType;
+}
+
+export interface NuiSwiperEventMap {
+  'nui-change': CustomEvent<IndexEventDetail>;
 }

@@ -1,3 +1,8 @@
+import type {
+  ValueChangeEventDetail,
+  ValueEventDetail,
+} from '../../types/component-events.js';
+
 export type DatePickerSize = 'small' | 'large';
 export type DatePickerVariant = 'outlined' | 'filled';
 
@@ -26,4 +31,11 @@ export interface CalendarDay {
   date: Date;
   inMonth: boolean;
   iso: string;
+}
+
+export interface NuiDatePickerEventMap {
+  show: CustomEvent;
+  hide: CustomEvent;
+  change: CustomEvent<ValueChangeEventDetail>;
+  input: CustomEvent<ValueEventDetail>;
 }

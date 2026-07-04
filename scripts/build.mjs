@@ -54,37 +54,7 @@ async function rewriteCssImports() {
   }
 }
 
-async function emitComponentTypes() {
-  const componentFiles = await glob('components/nui-*/nui-*.ts', {
-    cwd: srcDir,
-  });
-
-  for (const relativePath of componentFiles) {
-    const componentName = path.basename(relativePath, '.ts');
-    const className = componentName
-      .split('-')
-      .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
-      .join('');
-
-    const declaration = `import { LitElement } from 'lit';
-
-declare class ${className} extends LitElement {}
-
-export { ${className} };
-`;
-
-    const outPath = path.join(
-      distDir,
-      path.dirname(relativePath),
-      `${componentName}.d.ts`,
-    );
-    await mkdir(path.dirname(outPath), { recursive: true });
-    await writeFile(outPath, declaration);
-  }
-}
-
-async function emitEntryTypes() {
-  const entries = ['index.ts', 'config.ts', 'theme.ts', 'types/nui-type.ts'];
+async function emitLibraryTypes() {
   const { execFile } = await import('node:child_process');
   const { promisify } = await import('node:util');
   const execFileAsync = promisify(execFile);
@@ -93,22 +63,16 @@ async function emitEntryTypes() {
     process.execPath,
     [
       path.join(rootDir, 'node_modules/typescript/bin/tsc'),
-      ...entries.map((entry) => path.join('src', entry)),
-      '--declaration',
-      '--emitDeclarationOnly',
-      '--outDir',
-      distDir,
-      '--module',
-      'esnext',
-      '--target',
-      'es2021',
-      '--moduleResolution',
-      'bundler',
-      '--experimentalDecorators',
-      '--skipLibCheck',
+      '-p',
+      path.join(rootDir, 'tsconfig.build.json'),
     ],
     { cwd: rootDir },
   );
+
+  const { augmentComponentDeclarations } = await import(
+    './augment-component-declarations.mjs'
+  );
+  await augmentComponentDeclarations();
 }
 
 const libraryEntries = await glob('**/*.ts', {
@@ -137,7 +101,6 @@ await rewriteCssImports();
 await cp(path.join(srcDir, 'styles'), path.join(distDir, 'styles'), {
   recursive: true,
 });
-await emitComponentTypes();
-await emitEntryTypes();
+await emitLibraryTypes();
 
 console.log(`Built ${libraryEntries.length} library modules into dist/`);

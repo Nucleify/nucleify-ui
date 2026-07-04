@@ -1,3 +1,7 @@
+import type {
+  ValueChangeEventDetail,
+  ValueEventDetail,
+} from '../../types/component-events.js';
 import type { NuiType } from '../../types/nui-type.js';
 
 export type SliderOrientation = 'horizontal' | 'vertical';
@@ -19,4 +23,9 @@ export interface SliderProps {
   unstyled?: boolean;
   nuiType?: NuiType;
   sliderClass?: string;
+}
+
+export interface NuiSliderEventMap {
+  slideend: CustomEvent<ValueChangeEventDetail<SliderValue>>;
+  change: CustomEvent<ValueEventDetail<SliderValue>>;
 }

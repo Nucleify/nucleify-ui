@@ -1,3 +1,4 @@
+import type { OriginalEventDetail } from '../../types/component-events.js';
 import type { NuiType } from '../../types/nui-type.js';
 
 export type ImageFit = 'contain' | 'cover' | 'fill' | 'none' | 'scale-down';
@@ -19,4 +20,8 @@ export interface ImageProps {
   imageStyle?: string;
   unstyled?: boolean;
   nuiType?: NuiType;
+}
+
+export interface NuiImageEventMap {
+  error: CustomEvent<OriginalEventDetail>;
 }

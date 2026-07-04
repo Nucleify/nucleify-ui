@@ -1,3 +1,7 @@
+import type {
+  OriginalEventDetail,
+  ValueEventDetail,
+} from '../../types/component-events.js';
 import type { NuiType } from '../../types/nui-type.js';
 
 export type InputMaskSize = 'small' | 'large';
@@ -24,4 +28,9 @@ export interface InputMaskProps {
   unstyled?: boolean;
   nuiType?: NuiType;
   inputClass?: string;
+}
+
+export interface NuiInputMaskEventMap {
+  input: CustomEvent<ValueEventDetail>;
+  complete: CustomEvent<OriginalEventDetail>;
 }

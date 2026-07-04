@@ -38,6 +38,19 @@ async function main() {
     await runIn(tmpDir, 'npm', ['install', tarballPath]);
     await runIn(tmpDir, 'npm', ['install', 'happy-dom']);
 
+    const { createRequire } = await import('node:module');
+    const requireFromPkg = createRequire(path.join(tmpDir, 'package.json'));
+    const typeSubpaths = [
+      'nucleify-ui/components/nui-button/types',
+      'nucleify-ui/components/nui-dialog/types',
+      'nucleify-ui/types/component-events',
+      'nucleify-ui/types/nui-type',
+    ];
+
+    for (const subpath of typeSubpaths) {
+      requireFromPkg.resolve(subpath);
+    }
+
     const smoke = `
 import { Window } from 'happy-dom';
 

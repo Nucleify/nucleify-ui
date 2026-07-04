@@ -43,3 +43,10 @@ export interface DataTableRowClickDetail {
   data: DataTableRow;
   index: number;
 }
+
+export interface NuiDataTableEventMap {
+  sort: CustomEvent<DataTableSortDetail>;
+  'row-click': CustomEvent<DataTableRowClickDetail>;
+  page: CustomEvent<DataTablePageDetail>;
+  filter: CustomEvent<DataTableFilterDetail>;
+}

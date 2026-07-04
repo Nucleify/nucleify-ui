@@ -1,3 +1,4 @@
+import type { ItemClickEventDetail } from '../../types/component-events.js';
 import type { NuiType } from '../../types/nui-type.js';
 
 export interface MenuItem {
@@ -18,4 +19,10 @@ export interface MenuProps {
   unstyled?: boolean;
   nuiType?: NuiType;
   menuClass?: string;
+}
+
+export interface NuiMenuEventMap {
+  show: CustomEvent;
+  hide: CustomEvent;
+  select: CustomEvent<ItemClickEventDetail<MenuItem>>;
 }

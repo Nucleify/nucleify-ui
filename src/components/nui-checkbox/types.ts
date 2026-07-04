@@ -1,3 +1,4 @@
+import type { CheckedEventDetail } from '../../types/component-events.js';
 import type { NuiType } from '../../types/nui-type.js';
 
 export type CheckboxSize = 'small' | 'large';
@@ -18,4 +19,8 @@ export interface CheckboxProps {
   unstyled?: boolean;
   nuiType?: NuiType;
   checkboxClass?: string;
+}
+
+export interface NuiCheckboxEventMap {
+  change: CustomEvent<CheckedEventDetail>;
 }

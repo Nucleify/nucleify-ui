@@ -1,3 +1,4 @@
+import type { ValueEventDetail } from '../../types/component-events.js';
 import type { NuiType } from '../../types/nui-type.js';
 
 export type TextareaSize = 'small' | 'large';
@@ -27,4 +28,9 @@ export interface TextareaProps {
   unstyled?: boolean;
   nuiType?: NuiType;
   textareaClass?: string;
+}
+
+export interface NuiTextareaEventMap {
+  input: CustomEvent<ValueEventDetail>;
+  change: CustomEvent<ValueEventDetail>;
 }
