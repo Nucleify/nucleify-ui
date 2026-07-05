@@ -1,4 +1,7 @@
-# <div align="center"> <img src="https://github.com/Nucleify/Nucleify/blob/prod/public/img/logo.svg" width="70"> <br> nucleify-ui <br> </div>
+<div align="center">
+  <img src="https://github.com/Nucleify/Nucleify/blob/prod/public/img/logo.svg" width="70" alt="Nucleify logo">
+  <h1>nucleify-ui</h1>
+</div>
 
 - **GitHub (this package)**: https://github.com/Nucleify/nucleify-ui
 - **GitHub (framework using this package)**: https://github.com/Nucleify/Nucleify
