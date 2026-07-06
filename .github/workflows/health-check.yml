@@ -99,6 +99,9 @@ jobs:
       - name: Install Node.js Dependencies
         run: npm ci
 
+      - name: Build
+        run: npm run build
+
       - name: Components types audit
         run: npm run types:audit
 

@@ -1,4 +1,4 @@
-import { readFile } from 'node:fs/promises';
+import { access, readFile } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { glob } from 'glob';
@@ -21,6 +21,15 @@ function escapeRegExp(value) {
 export async function auditComponentTypes(rootDir = defaultRootDir()) {
   const srcDir = path.join(rootDir, 'src');
   const distDir = path.join(rootDir, 'dist');
+
+  try {
+    await access(distDir);
+  } catch {
+    console.error(
+      'dist/ not found. Run `npm run build` before `npm run types:audit`.',
+    );
+    process.exit(1);
+  }
 
   const componentFiles = await glob('components/nui-*/nui-*.ts', {
     cwd: srcDir,
