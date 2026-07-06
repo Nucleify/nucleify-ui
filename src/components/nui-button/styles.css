@@ -108,8 +108,8 @@
 }
 
 .nui-button-badge[severity="secondary"] {
-  background: var(--nui-primary-secondary-color);
-  color: var(--nui-primary-text-color);
+  background: var(--nui-secondary-color);
+  color: var(--nui-secondary-on-color);
 }
 
 .nui-button-badge[severity="success"] {
@@ -162,14 +162,19 @@
 }
 
 .nui-button[severity="secondary"] {
-  background: var(--nui-primary-secondary-color);
-  color: var(--nui-primary-text-color);
-  border-color: var(--nui-card-border);
+  background: var(--nui-secondary-color);
+  color: var(--nui-secondary-on-color);
+  border-color: var(--nui-secondary-border-color);
 }
 
 .nui-button[severity="secondary"]:hover:not(:disabled) {
-  background: var(--nui-primary-selected-color);
-  border-color: var(--nui-primary-border-color);
+  background: var(--nui-secondary-hover-color);
+  border-color: var(--nui-secondary-hover-color);
+}
+
+.nui-button[severity="secondary"]:active:not(:disabled) {
+  background: var(--nui-secondary-active-color);
+  border-color: var(--nui-secondary-active-color);
 }
 
 .nui-button[severity="success"] {
@@ -251,15 +256,55 @@
 .nui-button[variant="outlined"]:not([severity]):hover:not(:disabled),
 .nui-button[variant="outlined"][severity="primary"]:hover:not(:disabled) {
   background: var(--nui-primary-highlight-color);
-}
-
-.nui-button[variant="outlined"][severity="secondary"] {
-  color: var(--nui-primary-text-color);
-  border-color: var(--nui-card-border);
+  border-color: var(--nui-primary-color);
+  color: var(--nui-primary-color);
 }
 
 .nui-button[variant="outlined"][severity="secondary"]:hover:not(:disabled) {
-  background: var(--nui-primary-highlight-color);
+  background: var(--nui-secondary-highlight-color);
+  border-color: var(--nui-secondary-border-color);
+  color: var(--nui-secondary-on-color);
+}
+
+.nui-button[variant="outlined"][severity="success"]:hover:not(:disabled) {
+  background: var(--nui-success-highlight-color);
+  border-color: var(--nui-success-color);
+  color: var(--nui-success-color);
+}
+
+.nui-button[variant="outlined"][severity="info"]:hover:not(:disabled) {
+  background: var(--nui-info-highlight-color);
+  border-color: var(--nui-info-color);
+  color: var(--nui-info-color);
+}
+
+.nui-button[variant="outlined"][severity="warn"]:hover:not(:disabled) {
+  background: var(--nui-warn-highlight-color);
+  border-color: var(--nui-warn-color);
+  color: var(--nui-warn-color);
+}
+
+.nui-button[variant="outlined"][severity="help"]:hover:not(:disabled) {
+  background: var(--nui-help-highlight-color);
+  border-color: var(--nui-help-color);
+  color: var(--nui-help-color);
+}
+
+.nui-button[variant="outlined"][severity="danger"]:hover:not(:disabled) {
+  background: var(--nui-danger-highlight-color);
+  border-color: var(--nui-danger-color);
+  color: var(--nui-danger-color);
+}
+
+.nui-button[variant="outlined"][severity="contrast"]:hover:not(:disabled) {
+  background: var(--nui-contrast-highlight-color);
+  border-color: var(--nui-contrast-color);
+  color: var(--nui-contrast-color);
+}
+
+.nui-button[variant="outlined"][severity="secondary"] {
+  color: var(--nui-secondary-on-color);
+  border-color: var(--nui-secondary-border-color);
 }
 
 .nui-button[variant="outlined"][severity="success"] {
@@ -307,7 +352,7 @@
 
 .nui-button[variant="text"][severity="secondary"],
 .nui-button[variant="link"][severity="secondary"] {
-  color: var(--nui-primary-text-color);
+  color: var(--nui-secondary-on-color);
 }
 
 .nui-button[variant="text"][severity="success"],
@@ -338,6 +383,11 @@
 .nui-button[variant="text"][severity="contrast"],
 .nui-button[variant="link"][severity="contrast"] {
   color: var(--nui-contrast-color);
+}
+
+.nui-button[variant="text"][severity="secondary"]:hover:not(:disabled),
+.nui-button[variant="link"][severity="secondary"]:hover:not(:disabled) {
+  background: var(--nui-secondary-highlight-color);
 }
 
 .nui-button[variant="text"]:hover:not(:disabled),

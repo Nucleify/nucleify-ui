@@ -107,7 +107,11 @@ function renderPreview(props: PlaygroundProps): TemplateResult {
           showFooter
             ? html`
                 <div slot="footer">
-                  <button type="button" class="nui-card-cancel">Cancel</button>
+                  <nui-button
+                    label="Cancel"
+                    variant="text"
+                    severity="secondary"
+                  ></nui-button>
                   <nui-button label="Save"></nui-button>
                 </div>
               `

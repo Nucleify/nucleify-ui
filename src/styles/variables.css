@@ -44,18 +44,37 @@
   /* Severity */
   --nui-success-color: #22c55e;
   --nui-success-hover-color: #16a34a;
+  --nui-success-highlight-color: rgb(34 197 94 / 12%);
   --nui-info-color: #3b82f6;
   --nui-info-hover-color: #2563eb;
+  --nui-info-highlight-color: rgb(59 130 246 / 12%);
   --nui-warn-color: #f59e0b;
   --nui-warn-hover-color: #d97706;
+  --nui-warn-highlight-color: rgb(245 158 11 / 12%);
   --nui-help-color: #a855f7;
   --nui-help-hover-color: #9333ea;
+  --nui-help-highlight-color: rgb(168 85 247 / 12%);
   --invalid-color: #ef4444;
   --nui-danger-color: var(--invalid-color);
   --nui-danger-hover-color: #dc2626;
+  --nui-danger-highlight-color: rgb(239 68 68 / 12%);
   --nui-contrast-color: #18181b;
   --nui-contrast-hover-color: #27272a;
   --nui-contrast-text-color: #fafafa;
+  --nui-contrast-highlight-color: rgb(24 24 27 / 10%);
+  --nui-secondary-color: #e4e4e7;
+  --nui-secondary-hover-color: #d4d4d8;
+  --nui-secondary-active-color: #a1a1aa;
+  --nui-secondary-on-color: #52525b;
+  --nui-secondary-border-color: #d4d4d8;
+  --nui-secondary-highlight-color: #f4f4f5;
+
+  /* Card (bento) */
+  --nui-card-border-radius: 1rem;
+  --nui-card-backdrop-blur: 12px;
+
+  /* Float label */
+  --nui-float-label-in-padding-top: calc(var(--spacing-md) + var(--spacing-xs));
 }
 
 /* Primary palettes */
@@ -159,6 +178,20 @@
   --nui-secondary-text-color: #a1a1aa;
   --nui-white-text-color: #f5f4f4;
   --nui-white-text-rgb: 245, 244, 244;
+}
+
+.nui-theme-dark-nuxt,
+.nui-theme-dark-next {
+  --nui-secondary-color: #3f3f46;
+  --nui-secondary-hover-color: #52525b;
+  --nui-secondary-active-color: #71717a;
+  --nui-secondary-on-color: #e4e4e7;
+  --nui-secondary-border-color: #52525b;
+  --nui-secondary-highlight-color: rgb(255 255 255 / 6%);
+  --nui-contrast-color: #fafafa;
+  --nui-contrast-hover-color: #e4e4e7;
+  --nui-contrast-text-color: #18181b;
+  --nui-contrast-highlight-color: rgb(255 255 255 / 8%);
 }
 
 /* Invalid / error colors */

@@ -7,9 +7,10 @@
   flex-direction: column;
   overflow: hidden;
   border: var(--border-width) solid var(--nui-card-border);
-  border-radius: var(--border-radius-sm);
-  background: var(--nui-bg-dark-color);
-  box-shadow: 0 1px 3px var(--nui-card-box-shadow);
+  border-radius: var(--nui-card-border-radius);
+  background: var(--nui-card-background);
+  backdrop-filter: blur(var(--nui-card-backdrop-blur));
+  -webkit-backdrop-filter: blur(var(--nui-card-backdrop-blur));
   color: var(--nui-white-text-color);
   box-sizing: border-box;
 }
@@ -18,7 +19,7 @@
   display: block;
   overflow: hidden;
   height: 9rem;
-  background: var(--nui-bg-dark-color);
+  background: transparent;
 }
 
 .nui-card-header ::slotted(*) {
@@ -80,7 +81,7 @@
   gap: var(--spacing-xs);
   padding: var(--spacing-sm) var(--spacing-md);
   border-top: var(--border-width) solid var(--nui-card-border);
-  background: var(--nui-bg-dark-color);
+  background: transparent;
 }
 
 .nui-card-footer ::slotted(*) {
@@ -90,15 +91,20 @@
 }
 
 .nui-card-footer ::slotted(.nui-card-cancel) {
+  appearance: none;
+  -webkit-appearance: none;
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  margin: 0;
   padding: var(--spacing-xs) var(--spacing-md);
   border: var(--border-width) solid transparent;
   border-radius: var(--border-radius-sm);
   background: transparent;
-  color: var(--nui-primary-text-color);
+  box-shadow: none;
+  color: var(--nui-secondary-on-color);
   font: inherit;
+  font-family: inherit;
   font-size: var(--font-size-xs);
   font-weight: var(--font-weight-medium);
   line-height: 1.25;
@@ -107,7 +113,7 @@
 }
 
 .nui-card-footer ::slotted(.nui-card-cancel:hover) {
-  background: var(--nui-primary-highlight-color);
+  background: var(--nui-secondary-highlight-color);
 }
 
 .nui-card-footer ::slotted(.nui-card-cancel:focus-visible) {

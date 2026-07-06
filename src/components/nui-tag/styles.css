@@ -40,8 +40,8 @@
 }
 
 .nui-tag[severity="secondary"] {
-  background: var(--nui-primary-secondary-color);
-  color: var(--nui-primary-text-color);
+  background: var(--nui-secondary-color);
+  color: var(--nui-secondary-on-color);
 }
 
 .nui-tag[severity="success"] {

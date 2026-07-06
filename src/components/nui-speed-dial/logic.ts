@@ -39,6 +39,46 @@ function calculateTransitionDelay(
   return `${delay}ms`;
 }
 
+function polarToCenterStyle(
+  offsetX: number,
+  offsetY: number,
+): Record<string, string> {
+  return {
+    left: `calc(50% + ${offsetX}px)`,
+    top: `calc(50% + ${offsetY}px)`,
+  };
+}
+
+function getSemiCircleStartAngle(direction: SpeedDialDirection): number {
+  switch (direction) {
+    case 'down':
+      return 0;
+    case 'up':
+      return MATH_PI;
+    case 'left':
+      return MATH_PI / 2;
+    case 'right':
+      return -MATH_PI / 2;
+    default:
+      return MATH_PI;
+  }
+}
+
+function getQuarterCircleStartAngle(direction: SpeedDialDirection): number {
+  switch (direction) {
+    case 'down-right':
+      return 0;
+    case 'down-left':
+      return MATH_PI / 2;
+    case 'up-left':
+      return MATH_PI;
+    case 'up-right':
+      return (3 * MATH_PI) / 2;
+    default:
+      return 0;
+  }
+}
+
 function calculatePointStyle(
   type: SpeedDialType,
   direction: SpeedDialDirection,
@@ -53,67 +93,32 @@ function calculatePointStyle(
   const effectiveRadius = radius || total * 20;
 
   if (type === 'circle') {
-    const step = (2 * MATH_PI) / total;
-    const x = effectiveRadius * Math.cos(step * index);
-    const y = effectiveRadius * Math.sin(step * index);
+    const angle = (2 * MATH_PI * index) / total;
 
-    return {
-      left: `calc(50% + ${x}px)`,
-      top: `calc(50% + ${y}px)`,
-    };
+    return polarToCenterStyle(
+      effectiveRadius * Math.cos(angle),
+      effectiveRadius * Math.sin(angle),
+    );
   }
 
   if (type === 'semi-circle') {
     const step = MATH_PI / Math.max(total - 1, 1);
-    const x = effectiveRadius * Math.cos(step * index);
-    const y = effectiveRadius * Math.sin(step * index);
+    const angle = getSemiCircleStartAngle(direction) + step * index;
 
-    switch (direction) {
-      case 'up':
-        return {
-          left: `calc(50% + ${x}px)`,
-          bottom: `${y}px`,
-        };
-      case 'down':
-        return {
-          left: `calc(50% + ${x}px)`,
-          top: `${y}px`,
-        };
-      case 'left':
-        return {
-          right: `${y}px`,
-          top: `calc(50% + ${x}px)`,
-        };
-      case 'right':
-        return {
-          left: `${y}px`,
-          top: `calc(50% + ${x}px)`,
-        };
-      default:
-        return {
-          left: `calc(50% + ${x}px)`,
-          bottom: `${y}px`,
-        };
-    }
+    return polarToCenterStyle(
+      effectiveRadius * Math.cos(angle),
+      effectiveRadius * Math.sin(angle),
+    );
   }
 
   if (type === 'quarter-circle') {
     const step = MATH_PI / (2 * Math.max(total - 1, 1));
-    const x = effectiveRadius * Math.cos(step * index);
-    const y = effectiveRadius * Math.sin(step * index);
+    const angle = getQuarterCircleStartAngle(direction) + step * index;
 
-    switch (direction) {
-      case 'up-left':
-        return { right: `${x}px`, bottom: `${y}px` };
-      case 'up-right':
-        return { left: `${x}px`, bottom: `${y}px` };
-      case 'down-left':
-        return { right: `${y}px`, top: `${x}px` };
-      case 'down-right':
-        return { left: `${y}px`, top: `${x}px` };
-      default:
-        return { left: `${x}px`, bottom: `${y}px` };
-    }
+    return polarToCenterStyle(
+      effectiveRadius * Math.cos(angle),
+      effectiveRadius * Math.sin(angle),
+    );
   }
 
   return {};
