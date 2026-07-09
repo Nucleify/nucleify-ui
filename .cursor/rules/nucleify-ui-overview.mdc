@@ -30,7 +30,7 @@ src/
     views/
 ```
 
-Build: esbuild (`@web/dev-server-esbuild`) + `resolve-ts-imports-plugin.js` (`.js` → `.ts`).
+Build: esbuild + `scripts/resolve-ts-imports-plugin.mjs` (`.js` → `.ts`). Dev server: `scripts/web-dev-server.config.js` + `scripts/css-constructable-wds-plugin.js`.
 
 ## Konwencje
 

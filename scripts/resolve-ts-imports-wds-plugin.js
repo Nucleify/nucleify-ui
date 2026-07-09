@@ -1,6 +1,5 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
-import { fileURLToPath } from 'node:url';
 
 /**
  * Rewrites relative `.js` imports to `.ts` when the TypeScript source exists.
@@ -29,7 +28,3 @@ export function resolveTsImportsPlugin(rootDir) {
     },
   };
 }
-
-export default resolveTsImportsPlugin(
-  fileURLToPath(new URL('.', import.meta.url)),
-);

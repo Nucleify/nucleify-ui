@@ -1,8 +1,8 @@
 import { execFile } from 'node:child_process';
-import { mkdtemp, rm, writeFile } from 'node:fs/promises';
+import { access, mkdtemp, rm, writeFile } from 'node:fs/promises';
 import os from 'node:os';
 import path from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { fileURLToPath, pathToFileURL } from 'node:url';
 import { promisify } from 'node:util';
 
 const execFileAsync = promisify(execFile);
@@ -50,6 +50,25 @@ async function main() {
     for (const subpath of typeSubpaths) {
       requireFromPkg.resolve(subpath);
     }
+
+    const pkgRoot = path.dirname(
+      requireFromPkg.resolve('nucleify-ui/package.json'),
+    );
+    const playgroundFiles = [
+      'scripts/css-constructable-wds-plugin.js',
+      'scripts/web-dev-server.config.js',
+      'scripts/resolve-ts-imports-wds-plugin.js',
+      'tsconfig.json',
+      'bin/playground.js',
+    ];
+
+    for (const file of playgroundFiles) {
+      await access(path.join(pkgRoot, file));
+    }
+
+    await import(
+      pathToFileURL(path.join(pkgRoot, 'scripts/web-dev-server.config.js')).href
+    );
 
     const smoke = `
 import { Window } from 'happy-dom';
