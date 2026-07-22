@@ -24,6 +24,8 @@ export default {
       target: 'esnext',
       tsconfig: fileURLToPath(new URL('../tsconfig.json', import.meta.url)),
       include: /\.(ts|tsx|js|jsx)$/,
+      // Default excludes node_modules; playground sources live there after install.
+      exclude: [],
     }),
   ],
 };

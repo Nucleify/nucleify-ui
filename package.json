@@ -1,6 +1,6 @@
 {
   "name": "nucleify-ui",
-  "version": "0.3.4",
+  "version": "0.3.6",
   "description": "Lit 3 web component library with optional interactive playground.",
   "type": "module",
   "sideEffects": [
@@ -79,6 +79,7 @@
     "@web/dev-server": "0.4.6",
     "@web/dev-server-rollup": "0.6.4",
     "chart.js": "4.5.1",
+    "esbuild": "0.28.1",
     "iconify-icon": "3.0.0",
     "lit": "3.0.0",
     "rollup-plugin-esbuild": "6.2.1"
@@ -86,7 +87,6 @@
   "devDependencies": {
     "@biomejs/biome": "2.5.2",
     "@vitest/ui": "4.1.9",
-    "esbuild": "0.28.1",
     "glob": "11.1.0",
     "happy-dom": "20.10.6",
     "husky": "9.1.7",

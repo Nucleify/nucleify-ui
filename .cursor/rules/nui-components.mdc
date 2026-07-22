@@ -13,6 +13,7 @@ alwaysApply: false
 
 ```typescript
 const styles = createComponentStyles(
+  'nui-{name}',
   () => import('./styles.css', { with: { type: 'css' } }),
 );
 

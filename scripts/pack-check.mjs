@@ -66,25 +66,149 @@ async function main() {
       await access(path.join(pkgRoot, file));
     }
 
+    await access(
+      path.join(pkgRoot, 'dist/components/nui-button/styles.css.js'),
+    );
+    await access(path.join(pkgRoot, 'dist/styles/variables.css'));
+    await access(path.join(pkgRoot, 'dist/styles/global.css'));
+
     await import(
       pathToFileURL(path.join(pkgRoot, 'scripts/web-dev-server.config.js')).href
     );
 
     const smoke = `
 import { Window } from 'happy-dom';
+import { readFile } from 'node:fs/promises';
+import path from 'node:path';
+import { createRequire } from 'node:module';
+import { pathToFileURL } from 'node:url';
 
-const window = new Window();
-globalThis.window = window;
-globalThis.document = window.document;
-globalThis.customElements = window.customElements;
-globalThis.HTMLElement = window.HTMLElement;
+const window = new Window({ url: 'https://example.com/' });
+const g = globalThis;
+g.window = window;
+g.document = window.document;
+g.Document = window.Document;
+g.customElements = window.customElements;
+g.HTMLElement = window.HTMLElement;
+g.DocumentFragment = window.DocumentFragment;
+g.ShadowRoot = window.ShadowRoot;
+g.Element = window.Element;
+g.Node = window.Node;
+g.Event = window.Event;
+g.CustomEvent = window.CustomEvent;
+g.MutationObserver = window.MutationObserver;
+g.CSSStyleSheet = window.CSSStyleSheet;
+g.getComputedStyle = window.getComputedStyle.bind(window);
+g.requestAnimationFrame = (cb) => setTimeout(() => cb(Date.now()), 16);
+g.cancelAnimationFrame = (id) => clearTimeout(id);
 
-import { applyTheme } from 'nucleify-ui/theme';
-import { nucleifyStyles } from 'nucleify-ui/config';
-import 'nucleify-ui/components/nui-button';
+if (!('adoptedStyleSheets' in Document.prototype)) {
+  Object.defineProperty(Document.prototype, 'adoptedStyleSheets', {
+    configurable: true,
+    get() { return this.__adoptedStyleSheets ?? []; },
+    set(v) { this.__adoptedStyleSheets = Array.isArray(v) ? v : []; },
+  });
+}
+if (!('adoptedStyleSheets' in ShadowRoot.prototype)) {
+  Object.defineProperty(ShadowRoot.prototype, 'adoptedStyleSheets', {
+    configurable: true,
+    get() { return this.__adoptedStyleSheets ?? []; },
+    set(v) { this.__adoptedStyleSheets = Array.isArray(v) ? v : []; },
+  });
+}
+
+const requireFromPkg = createRequire(path.join(process.cwd(), 'package.json'));
+const pkgRoot = path.dirname(requireFromPkg.resolve('nucleify-ui/package.json'));
+
+// Packaged constructable CSS module must evaluate and expose real CSS text.
+const cssModule = await import(
+  pathToFileURL(path.join(pkgRoot, 'dist/components/nui-button/styles.css.js')).href
+);
+if (!(cssModule.default instanceof CSSStyleSheet)) {
+  throw new Error('styles.css.js did not export a CSSStyleSheet');
+}
+const packagedCss = await readFile(
+  path.join(pkgRoot, 'dist/components/nui-button/styles.css.js'),
+  'utf8',
+);
+if (!packagedCss.includes('.nui-button') || !packagedCss.includes('replaceSync')) {
+  throw new Error('packaged styles.css.js is missing expected button CSS');
+}
+
+const { applyTheme } = await import('nucleify-ui/theme');
+const { nucleifyStyles } = await import('nucleify-ui/config');
+await import('nucleify-ui/components/nui-button');
+await import('nucleify-ui/components/nui-file-upload');
 
 applyTheme('nuxt', 'dark');
-nucleifyStyles({ 'nui-button': '/styles/nui-button.css' });
+
+async function waitForSheets(el, predicate, label) {
+  for (let i = 0; i < 50; i++) {
+    await new Promise((r) => setTimeout(r, 20));
+    const sheets = el.shadowRoot?.adoptedStyleSheets ?? [];
+    if (predicate(sheets)) return sheets;
+  }
+  throw new Error(label);
+}
+
+const button = document.createElement('nui-button');
+button.setAttribute('label', 'Pack check');
+document.body.appendChild(button);
+await button.updateComplete;
+
+const defaultSheets = await waitForSheets(
+  button,
+  (sheets) => sheets.length === 1,
+  'nui-button did not adopt default styles from the installed package',
+);
+
+const override = new CSSStyleSheet();
+override.replaceSync('.nui-button { color: rgb(1, 2, 3); }');
+nucleifyStyles({ 'nui-button': override });
+
+button.unstyled = true;
+await button.updateComplete;
+await waitForSheets(
+  button,
+  (sheets) => sheets.length === 0,
+  'nui-button unstyled did not clear adoptedStyleSheets',
+);
+
+button.unstyled = false;
+await button.updateComplete;
+await waitForSheets(
+  button,
+  (sheets) => sheets[0] === override,
+  'nui-button did not apply CSSStyleSheet override',
+);
+
+const override2 = new CSSStyleSheet();
+override2.replaceSync('.nui-button { color: rgb(4, 5, 6); }');
+nucleifyStyles({ 'nui-button': override2 });
+
+button.unstyled = true;
+await button.updateComplete;
+button.unstyled = false;
+await button.updateComplete;
+await waitForSheets(
+  button,
+  (sheets) => sheets[0] === override2,
+  'nui-button did not refresh styles after nucleifyStyles override change',
+);
+
+const upload = document.createElement('nui-file-upload');
+document.body.appendChild(upload);
+await upload.updateComplete;
+await waitForSheets(
+  upload,
+  (sheets) => sheets.length === 1,
+  'nui-file-upload did not adopt styles (must use createComponentStyles, not static styles)',
+);
+
+if (defaultSheets === override2) {
+  throw new Error('unexpected shared stylesheet identity');
+}
+
 console.log('ok');
 `;
     const smokePath = path.join(tmpDir, 'smoke.mjs');

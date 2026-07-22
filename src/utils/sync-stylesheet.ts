@@ -31,7 +31,9 @@ export function createComponentStyles(
   defaultLoad: StylesheetLoader,
 ) {
   let stylesheet: CSSStyleSheet | null = null;
-  let activeSource: string | null = null;
+  let activeOverride: ReturnType<typeof getComponentStyleOverride> | null =
+    null;
+  let usingDefault = false;
 
   async function sync(
     renderRoot: Element | DocumentFragment,
@@ -46,13 +48,19 @@ export function createComponentStyles(
       return;
     }
 
-    const sourceKey = getComponentStyleOverride(componentTag)
-      ? 'override'
-      : 'default';
+    const override = getComponentStyleOverride(componentTag);
+    const needsReload = override
+      ? !stylesheet || activeOverride !== override
+      : !stylesheet || !usingDefault;
 
-    if (!stylesheet || activeSource !== sourceKey) {
+    if (needsReload) {
       stylesheet = await resolveStylesheet(componentTag, defaultLoad);
-      activeSource = sourceKey;
+      activeOverride = override ?? null;
+      usingDefault = !override;
+    }
+
+    if (!stylesheet) {
+      return;
     }
 
     renderRoot.adoptedStyleSheets = [stylesheet];

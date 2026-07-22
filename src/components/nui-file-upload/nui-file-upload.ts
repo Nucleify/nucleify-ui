@@ -1,9 +1,17 @@
-import { LitElement } from 'lit';
+import { LitElement, type PropertyValues } from 'lit';
 import { customElement, property, query, state } from 'lit/decorators.js';
 import { type NuiType, nuiTypeProperty } from '../../types/nui-type.js';
+import {
+  createComponentStyles,
+  syncStylesWhen,
+} from '../../utils/sync-stylesheet.js';
 import { formatBytes, renderFileUpload } from './logic.js';
-import styles from './styles.css' with { type: 'css' };
 import type { FileUploadItem, UploadMode } from './types.js';
+
+const styles = createComponentStyles(
+  'nui-file-upload',
+  () => import('./styles.css', { with: { type: 'css' } }),
+);
 
 @customElement('nui-file-upload')
 export class NuiFileUpload extends LitElement {
@@ -41,7 +49,15 @@ export class NuiFileUpload extends LitElement {
 
   @query('.nui-file-upload-input') private fileInput?: HTMLInputElement;
 
-  static styles = styles;
+  protected firstUpdated() {
+    void styles.sync(this.renderRoot, { unstyled: this.unstyled });
+  }
+
+  protected updated(changed: PropertyValues) {
+    syncStylesWhen(changed, 'unstyled', () =>
+      styles.sync(this.renderRoot, { unstyled: this.unstyled }),
+    );
+  }
 
   disconnectedCallback() {
     super.disconnectedCallback();
