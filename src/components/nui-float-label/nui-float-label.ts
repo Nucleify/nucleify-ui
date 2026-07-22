@@ -32,8 +32,13 @@ export class NuiFloatLabel
   @state() filled = false;
   @state() focused = false;
 
+  protected createRenderRoot() {
+    const root = super.createRenderRoot();
+    void styles.sync(root, { unstyled: this.unstyled });
+    return root;
+  }
+
   protected firstUpdated() {
-    void styles.sync(this.renderRoot, { unstyled: this.unstyled });
     this.bindHostEvents();
     this.syncState();
   }

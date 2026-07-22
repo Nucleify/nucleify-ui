@@ -22,8 +22,10 @@ export class NuiDock extends LitElement implements NuiDockViewState {
   @property({ type: String, attribute: 'dock-style' }) dockStyle = '';
   @nuiTypeProperty nuiType: NuiType = '';
 
-  protected firstUpdated() {
-    void styles.sync(this.renderRoot, { unstyled: this.unstyled });
+  protected createRenderRoot() {
+    const root = super.createRenderRoot();
+    void styles.sync(root, { unstyled: this.unstyled });
+    return root;
   }
 
   protected updated(changed: PropertyValues) {

@@ -41,8 +41,13 @@ export class NuiDialog extends LitElement implements NuiDialogViewState {
 
   private static readonly CLOSE_DURATION_MS = 250;
 
+  protected createRenderRoot() {
+    const root = super.createRenderRoot();
+    void styles.sync(root, { unstyled: this.unstyled });
+    return root;
+  }
+
   protected firstUpdated() {
-    void styles.sync(this.renderRoot, { unstyled: this.unstyled });
     void this.syncDialogOpenState();
   }
 

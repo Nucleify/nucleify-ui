@@ -230,6 +230,7 @@ This starts the interactive component playground from the installed package (por
 npm install
 npm run start     # or npm run playground
 npm run build
+npm run pack      # build + nucleify-ui-*.tgz
 npm run check
 npm run test      # includes component type audit
 npm run types:audit

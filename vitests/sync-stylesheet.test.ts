@@ -69,6 +69,51 @@ describe('createComponentStyles', () => {
     expect(root.adoptedStyleSheets[0]).toBe(second);
   });
 
+  it('preloads so sync can adopt without waiting on a cold import', async () => {
+    let loadCount = 0;
+    const defaultSheet = sheetWith('.host { color: red; }');
+    const styles = createComponentStyles('nui-test-preload', async () => {
+      loadCount += 1;
+      await new Promise((r) => setTimeout(r, 30));
+      return { default: defaultSheet };
+    });
+
+    await styles.preload();
+    expect(loadCount).toBe(1);
+
+    const host = document.createElement('div');
+    const root = host.attachShadow({ mode: 'open' });
+    document.body.appendChild(host);
+
+    await styles.sync(root);
+    expect(root.adoptedStyleSheets).toEqual([defaultSheet]);
+    expect(loadCount).toBe(1);
+  });
+
+  it('hides host while stylesheet is still loading', async () => {
+    let release!: () => void;
+    const gate = new Promise<void>((resolve) => {
+      release = resolve;
+    });
+    const defaultSheet = sheetWith('.host { color: red; }');
+    const styles = createComponentStyles('nui-test-pending', async () => {
+      await gate;
+      return { default: defaultSheet };
+    });
+
+    const host = document.createElement('div');
+    const root = host.attachShadow({ mode: 'open' });
+    document.body.appendChild(host);
+
+    const syncPromise = styles.sync(root);
+    expect(root.adoptedStyleSheets).toHaveLength(1);
+    expect(root.adoptedStyleSheets[0]).not.toBe(defaultSheet);
+
+    release();
+    await syncPromise;
+    expect(root.adoptedStyleSheets).toEqual([defaultSheet]);
+  });
+
   it('works for packaged-style sync on a real component', async () => {
     await import('../dist/components/nui-button/nui-button.js');
 

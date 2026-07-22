@@ -42,8 +42,10 @@ export class NuiAccordion extends LitElement implements NuiAccordionViewState {
 
   @state() lazyOpened = new Set<string>();
 
-  protected firstUpdated() {
-    void styles.sync(this.renderRoot, { unstyled: this.unstyled });
+  protected createRenderRoot() {
+    const root = super.createRenderRoot();
+    void styles.sync(root, { unstyled: this.unstyled });
+    return root;
   }
 
   protected updated(changed: PropertyValues) {

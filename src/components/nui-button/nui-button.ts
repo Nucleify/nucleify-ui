@@ -57,8 +57,10 @@ export class NuiButton extends LitElement implements NuiButtonViewState {
   @property({ type: String, attribute: 'button-class' }) buttonClass = '';
   @property({ type: String, attribute: 'button-style' }) buttonStyle = '';
 
-  protected firstUpdated() {
-    void styles.sync(this.renderRoot, { unstyled: this.unstyled });
+  protected createRenderRoot() {
+    const root = super.createRenderRoot();
+    void styles.sync(root, { unstyled: this.unstyled });
+    return root;
   }
 
   protected updated(changed: PropertyValues) {

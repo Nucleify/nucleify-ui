@@ -29,8 +29,10 @@ export class NuiImage extends LitElement implements NuiImageViewState {
   @nuiTypeProperty nuiType: NuiType = '';
   @state() previewVisible = false;
 
-  protected firstUpdated() {
-    void styles.sync(this.renderRoot, { unstyled: this.unstyled });
+  protected createRenderRoot() {
+    const root = super.createRenderRoot();
+    void styles.sync(root, { unstyled: this.unstyled });
+    return root;
   }
 
   protected updated(changed: PropertyValues) {

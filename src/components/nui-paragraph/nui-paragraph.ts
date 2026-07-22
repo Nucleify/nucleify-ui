@@ -20,8 +20,10 @@ export class NuiParagraph extends LitElement implements NuiParagraphViewState {
   @property({ type: String, attribute: 'paragraph-class' })
   paragraphClass = '';
 
-  protected firstUpdated() {
-    void styles.sync(this.renderRoot, { unstyled: this.unstyled });
+  protected createRenderRoot() {
+    const root = super.createRenderRoot();
+    void styles.sync(root, { unstyled: this.unstyled });
+    return root;
   }
 
   protected updated(changed: PropertyValues) {

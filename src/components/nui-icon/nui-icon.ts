@@ -18,8 +18,13 @@ export class NuiIcon extends LitElement {
     'svg';
   @nuiTypeProperty nuiType: NuiType = '';
 
+  protected createRenderRoot() {
+    const root = super.createRenderRoot();
+    void styles.sync(root);
+    return root;
+  }
+
   protected firstUpdated() {
-    void styles.sync(this.renderRoot);
     this.syncHostSize();
   }
 

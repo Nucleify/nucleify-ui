@@ -35,8 +35,10 @@ export class NuiPopover extends LitElement implements NuiPopoverViewState {
     window.removeEventListener('keydown', this.handleKeyDown);
   }
 
-  protected firstUpdated() {
-    void styles.sync(this.renderRoot);
+  protected createRenderRoot() {
+    const root = super.createRenderRoot();
+    void styles.sync(root);
+    return root;
   }
 
   toggle = () => {

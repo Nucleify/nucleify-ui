@@ -1,6 +1,6 @@
 {
   "name": "nucleify-ui",
-  "version": "0.3.6",
+  "version": "0.3.7",
   "description": "Lit 3 web component library with optional interactive playground.",
   "type": "module",
   "sideEffects": [
@@ -70,6 +70,7 @@
     "test:watch": "vitest",
     "test:ui": "vitest --ui",
     "slint": "node scripts/run-check.mjs stylelint npx stylelint \"src/**/*.css\" --allow-empty-input",
+    "pack": "rm -f nucleify-ui-*.tgz && npm run build && npm pack",
     "pack:check": "node scripts/run-check.mjs pack-check node scripts/pack-check.mjs",
     "dedupe:check": "node scripts/run-check.mjs dedupe npm dedupe --dry-run",
     "lockfile:check": "node scripts/run-check.mjs lockfile node scripts/lockfile-check.mjs",

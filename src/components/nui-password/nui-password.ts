@@ -27,8 +27,10 @@ export class NuiPassword extends LitElement implements NuiPasswordViewState {
   @state() focused = false;
   @state() showPasswordText = false;
 
-  protected firstUpdated() {
-    void styles.sync(this.renderRoot);
+  protected createRenderRoot() {
+    const root = super.createRenderRoot();
+    void styles.sync(root);
+    return root;
   }
 
   private handleInput = (event: Event): void => {

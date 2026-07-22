@@ -27,8 +27,10 @@ export class NuiSkeleton extends LitElement implements NuiSkeletonViewState {
   @property({ type: String, attribute: 'skeleton-class' })
   skeletonClass = '';
 
-  protected firstUpdated() {
-    void styles.sync(this.renderRoot, { unstyled: this.unstyled });
+  protected createRenderRoot() {
+    const root = super.createRenderRoot();
+    void styles.sync(root, { unstyled: this.unstyled });
+    return root;
   }
 
   protected updated(changed: PropertyValues) {

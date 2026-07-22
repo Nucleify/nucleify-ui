@@ -40,8 +40,13 @@ export class NuiTooltip extends LitElement implements NuiTooltipViewState {
   private hideTimer: ReturnType<typeof setTimeout> | null = null;
   private boundReposition = () => this.updatePosition();
 
+  protected createRenderRoot() {
+    const root = super.createRenderRoot();
+    void styles.sync(root, { unstyled: this.unstyled });
+    return root;
+  }
+
   protected firstUpdated() {
-    void styles.sync(this.renderRoot, { unstyled: this.unstyled });
     this.bindTriggerEvents();
     window.addEventListener('scroll', this.boundReposition, true);
     window.addEventListener('resize', this.boundReposition);

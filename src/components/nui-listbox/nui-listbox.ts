@@ -74,8 +74,13 @@ export class NuiListbox extends LitElement implements NuiListboxViewState {
     return filterOptions(this.options, this.filterValue, this.optionLabel);
   }
 
+  protected createRenderRoot() {
+    const root = super.createRenderRoot();
+    void styles.sync(root, { unstyled: this.unstyled });
+    return root;
+  }
+
   protected firstUpdated() {
-    void styles.sync(this.renderRoot, { unstyled: this.unstyled });
     this.initController();
     this.syncFocusedIndex();
   }

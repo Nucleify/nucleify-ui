@@ -63,10 +63,15 @@ export class NuiKnob extends LitElement implements NuiKnobViewState {
 
   private controller: KnobController | null = null;
 
-  protected firstUpdated() {
-    void styles.sync(this.renderRoot, { unstyled: this.unstyled }).then(() => {
+  protected createRenderRoot() {
+    const root = super.createRenderRoot();
+    void styles.sync(root, { unstyled: this.unstyled }).then(() => {
       this.requestUpdate();
     });
+    return root;
+  }
+
+  protected firstUpdated() {
     this.normalizeValue();
     this.initController();
   }

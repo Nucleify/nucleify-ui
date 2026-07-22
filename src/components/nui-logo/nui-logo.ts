@@ -24,8 +24,10 @@ export class NuiLogo extends LitElement implements NuiLogoViewState {
   @nuiTypeProperty nuiType: NuiType = '';
   @property({ type: String, attribute: 'logo-class' }) logoClass = '';
 
-  protected firstUpdated() {
-    void styles.sync(this.renderRoot, { unstyled: this.unstyled });
+  protected createRenderRoot() {
+    const root = super.createRenderRoot();
+    void styles.sync(root, { unstyled: this.unstyled });
+    return root;
   }
 
   protected updated(changed: PropertyValues) {

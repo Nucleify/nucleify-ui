@@ -33,8 +33,13 @@ export class NuiCheckbox extends LitElement implements NuiCheckboxViewState {
   @property({ type: String, attribute: 'checkbox-class' })
   checkboxClass = '';
 
+  protected createRenderRoot() {
+    const root = super.createRenderRoot();
+    void styles.sync(root, { unstyled: this.unstyled });
+    return root;
+  }
+
   protected firstUpdated() {
-    void styles.sync(this.renderRoot, { unstyled: this.unstyled });
     this.syncInputIndeterminate();
   }
 

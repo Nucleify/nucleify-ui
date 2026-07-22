@@ -17,8 +17,10 @@ const styles = createComponentStyles(
   () => import('./styles.css', { with: { type: 'css' } }),
 );
 
-protected firstUpdated() {
-  void styles.sync(this.renderRoot); // { unstyled } gdy komponent ma unstyled
+protected createRenderRoot() {
+  const root = super.createRenderRoot();
+  void styles.sync(root); // { unstyled } gdy komponent ma unstyled
+  return root;
 }
 
 protected updated(changed: PropertyValues) {

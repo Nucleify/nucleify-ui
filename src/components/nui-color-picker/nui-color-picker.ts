@@ -55,8 +55,13 @@ export class NuiColorPicker
   private outsideClickListener: ((event: MouseEvent) => void) | null = null;
   private escapeListener: ((event: KeyboardEvent) => void) | null = null;
 
+  protected createRenderRoot() {
+    const root = super.createRenderRoot();
+    void styles.sync(root, { unstyled: this.unstyled });
+    return root;
+  }
+
   protected firstUpdated() {
-    void styles.sync(this.renderRoot, { unstyled: this.unstyled });
     this.syncHsbFromValue();
     this.initController();
   }
