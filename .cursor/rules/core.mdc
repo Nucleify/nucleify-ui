@@ -1,0 +1,14 @@
+---
+description: Nucleify UI always-on core
+alwaysApply: true
+---
+
+# Core
+
+- Lit 3 + `nui-*` components under `src/components/`. Local imports use `.js` suffix.
+- Checks: `npm run check` after code edits. One agent; Ask for Q&A.
+- **Short chats** - one task per chat.
+- **Narrow tools** - no `@` whole dirs, no monorepo/log/CI dumps.
+- **Ask for Q&A** - `/ask` or Ask mode; Agent only when editing.
+- **One agent** - no spare subagents; no parallel explore+implement+review unless asked.
+

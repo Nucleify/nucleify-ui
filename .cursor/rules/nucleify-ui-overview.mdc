@@ -1,6 +1,7 @@
 ---
 description: Nucleify UI — struktura projektu i stack
-alwaysApply: true
+globs: src/**/*,scripts/**/*,*.ts,*.css
+alwaysApply: false
 ---
 
 # Nucleify UI
