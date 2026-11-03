@@ -32,15 +32,16 @@
   color: var(--nui-secondary-text-color);
 }
 
-.nui-input-mask-input:hover:not(:disabled):not(:read-only) {
-  border-color: var(--nui-primary-focus-color);
-}
-
 .nui-input-mask-input:focus,
 .nui-input-mask-input:focus-visible {
   outline: 0;
   outline-offset: 0;
+  border-color: var(--nui-primary-color);
   box-shadow: 0 0 0.5em var(--nui-primary-focus-color);
+}
+
+.nui-input-mask-input:focus:hover,
+.nui-input-mask-input:focus-visible:hover {
   border-color: var(--nui-primary-color);
 }
 

@@ -1,7 +1,21 @@
 import '../components/nui-heading/nui-heading.js';
 import { html, LitElement } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
-import { applyTheme, type Palette, type ThemeMode } from '../theme.js';
+import {
+  abyss,
+  apex,
+  applyPreset,
+  cosmos,
+  eclipse,
+  kinetic,
+  nucleus,
+  type Preset,
+  type PresetName,
+  prism,
+  quantum,
+  registerRainbowLoader,
+  type ThemeMode,
+} from '../themes/index.js';
 import {
   createInitialPropsState,
   getPlaygroundDefinition,
@@ -9,28 +23,62 @@ import {
 } from './registry.js';
 import styles from './styles.css' with { type: 'css' };
 import type { PlaygroundProps } from './types.js';
+import { GUIDE_PAGES, renderGuidePage } from './views/guide-page.js';
 import { renderHeader } from './views/header.js';
-import { renderNav } from './views/nav.js';
+import { type NavTabId, renderNav } from './views/nav.js';
 import { renderWorkspace } from './views/workspace.js';
+
+// Literal import so the dev server can resolve the optional nui-rainbow package.
+registerRainbowLoader(() => import('nui-rainbow'));
+
+const PRESET_MAP: Record<PresetName, Preset> = {
+  nucleus,
+  quantum,
+  kinetic,
+  cosmos,
+  apex,
+  eclipse,
+  prism,
+  abyss,
+};
+
+// Eagerly compile and inject initial theme so CSS variables are immediately available before render
+if (typeof document !== 'undefined') {
+  applyPreset(PRESET_MAP.nucleus, { mode: 'dark' });
+}
 
 @customElement('playground-app')
 export class PlaygroundApp extends LitElement {
   @state() private selectedTag = playgroundRegistry[0]?.tag ?? '';
-  @state() private palette: Palette = 'nuxt';
+  @state() private activeNavTab: NavTabId = 'components';
+  @state() private preset: PresetName = 'nucleus';
   @state() private mode: ThemeMode = 'dark';
+  @state() private navOpen = false;
   @state() private propsByTag: Record<string, PlaygroundProps> =
     createInitialPropsState();
 
   static styles = styles;
 
+  private handleKeydown = (event: KeyboardEvent) => {
+    if (event.key === 'Escape') {
+      this.navOpen = false;
+    }
+  };
+
+  disconnectedCallback() {
+    window.removeEventListener('keydown', this.handleKeydown);
+    super.disconnectedCallback();
+  }
+
   connectedCallback() {
     super.connectedCallback();
-    applyTheme(this.palette, this.mode);
+    window.addEventListener('keydown', this.handleKeydown);
+    applyPreset(PRESET_MAP[this.preset], { mode: this.mode });
   }
 
   updated(changed: Map<string, unknown>) {
-    if (changed.has('palette') || changed.has('mode')) {
-      applyTheme(this.palette, this.mode);
+    if (changed.has('preset') || changed.has('mode')) {
+      applyPreset(PRESET_MAP[this.preset], { mode: this.mode });
     }
   }
 
@@ -49,6 +97,7 @@ export class PlaygroundApp extends LitElement {
 
   private selectComponent(tag: string) {
     this.selectedTag = tag;
+    this.navOpen = false;
   }
 
   private updateProp(key: string, value: string | boolean) {
@@ -94,29 +143,51 @@ export class PlaygroundApp extends LitElement {
 
     return html`
       ${renderHeader(
-        this.palette,
+        this.preset,
         this.mode,
-        (palette) => {
-          this.palette = palette;
+        (preset) => {
+          this.preset = preset;
         },
         (mode) => {
           this.mode = mode;
         },
+        () => {
+          this.navOpen = !this.navOpen;
+        },
       )}
       <div class="layout">
-        ${renderNav(playgroundRegistry, this.selectedTag, (tag) =>
-          this.selectComponent(tag),
+        ${renderNav(
+          playgroundRegistry,
+          this.selectedTag,
+          (tag) => this.selectComponent(tag),
+          this.navOpen,
+          () => {
+            this.navOpen = false;
+          },
+          this.activeNavTab,
+          (tab) => {
+            this.activeNavTab = tab;
+            if (tab === 'guides' && !GUIDE_PAGES[this.selectedTag]) {
+              this.selectedTag = 'installation';
+            } else if (tab === 'resources' && !GUIDE_PAGES[this.selectedTag]) {
+              this.selectedTag = 'github';
+            } else if (tab === 'components' && !this.definition) {
+              this.selectedTag = playgroundRegistry[0]?.tag ?? '';
+            }
+          },
         )}
         <main>
           ${
-            definition
-              ? renderWorkspace(
-                  definition,
-                  this.currentProps,
-                  (key, value) => this.updateProp(key, value),
-                  () => this.resetProps(),
-                )
-              : html`<p class="empty">No component selected.</p>`
+            this.activeNavTab !== 'components' && GUIDE_PAGES[this.selectedTag]
+              ? renderGuidePage(GUIDE_PAGES[this.selectedTag])
+              : definition
+                ? renderWorkspace(
+                    definition,
+                    this.currentProps,
+                    (key, value) => this.updateProp(key, value),
+                    () => this.resetProps(),
+                  )
+                : html`<p class="empty">No component or page selected.</p>`
           }
         </main>
       </div>

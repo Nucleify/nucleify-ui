@@ -1,3 +1,4 @@
+import '../../components/nui-button/nui-button.js';
 import { html, nothing, type TemplateResult } from 'lit';
 import type { PlaygroundDefinition, PlaygroundProps } from '../types.js';
 import { renderPropsPanel } from './props-panel.js';
@@ -20,9 +21,14 @@ export function renderWorkspace(
           text=${definition.label}
           unstyled
         ></nui-heading>
-        <button class="reset-button" type="button" @click=${onReset}>
-          Reset attributes
-        </button>
+        <nui-button
+          class="reset-button"
+          label="Reset attributes"
+          severity="secondary"
+          outlined
+          size="small"
+          @click=${onReset}
+        ></nui-button>
       </div>
       ${
         definition.description

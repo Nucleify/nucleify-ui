@@ -39,8 +39,10 @@ export interface PlaygroundDefinition {
   getPreviewClass?: (props: PlaygroundProps) => string;
 }
 
+import type { PresetName } from '../themes/types/preset.js';
+
 export interface ThemeChangeDetail {
-  palette: 'nuxt' | 'next';
+  preset: PresetName;
   mode: 'light' | 'dark';
 }
 

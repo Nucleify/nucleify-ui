@@ -24,11 +24,11 @@
   align-items: center;
   justify-content: center;
   gap: var(--spacing-2xs);
-  margin: 0 0 0 calc(-1 * var(--border-width));
+  margin: 0;
   padding: var(--spacing-xs) var(--spacing-md);
-  border: var(--border-width) solid var(--nui-card-border);
-  border-radius: 0;
-  background: var(--nui-card-background);
+  border: 1px solid transparent;
+  border-radius: var(--border-radius-sm);
+  background: transparent;
   color: var(--nui-primary-text-color);
   font: inherit;
   font-size: var(--font-size-xs);
@@ -63,7 +63,6 @@
 }
 
 .nui-select-button-option:first-child {
-  margin-left: 0;
   border-top-left-radius: var(--border-radius-sm);
   border-bottom-left-radius: var(--border-radius-sm);
 }
@@ -73,16 +72,37 @@
   border-bottom-right-radius: var(--border-radius-sm);
 }
 
-.nui-select-button-option:focus-visible {
-  outline: var(--border-width-focus) solid var(--nui-primary-focus-color);
-  outline-offset: var(--outline-offset);
+.nui-select-button-option:hover:not(:disabled):not([selected]):not(:focus):not(
+  :focus-visible
+) {
+  background: var(--nui-primary-highlight-color, rgba(255, 255, 255, 0.06));
+  border-color: transparent;
+  color: var(--nui-primary-color);
+  z-index: 1;
+}
+
+.nui-select-button .nui-select-button-option:focus,
+.nui-select-button .nui-select-button-option:focus-visible,
+.nui-select-button .nui-select-button-option[selected]:focus,
+.nui-select-button .nui-select-button-option[selected]:focus-visible {
+  outline: 0;
+  border-color: var(--nui-focus-border-color, var(--nui-primary-color));
+  box-shadow: var(
+    --nui-focus-box-shadow,
+    0 0 0.5em var(--nui-primary-focus-color)
+  );
   z-index: 2;
 }
 
-.nui-select-button-option:hover:not(:disabled):not([selected]) {
-  background: var(--nui-primary-selected-color);
-  border-color: var(--nui-primary-border-color);
-  z-index: 1;
+.nui-select-button .nui-select-button-option:focus:hover,
+.nui-select-button .nui-select-button-option:focus-visible:hover,
+.nui-select-button .nui-select-button-option[selected]:focus:hover,
+.nui-select-button .nui-select-button-option[selected]:focus-visible:hover {
+  border-color: var(--nui-focus-border-color, var(--nui-primary-color));
+  box-shadow: var(
+    --nui-focus-box-shadow,
+    0 0 0.5em var(--nui-primary-focus-color)
+  );
 }
 
 .nui-select-button-option[selected] {
@@ -90,6 +110,7 @@
   background: var(--nui-primary-color);
   border-color: var(--nui-primary-color);
   color: var(--nui-primary-white-text-color);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
 }
 
 .nui-select-button-option[selected]:hover:not(:disabled) {

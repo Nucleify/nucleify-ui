@@ -37,7 +37,7 @@ Build: esbuild + `scripts/resolve-ts-imports-plugin.mjs` (`.js` → `.ts`). Dev 
 
 - Tagi: `nui-*`. Importy lokalne z sufiksem `.js`.
 - Ikony: `nui-icon` + Iconify (`mdi:check`, `lucide:heart`). Zależność: `iconify-icon`.
-- Tokeny: `--nui-*`. Body: `nui-primary-palette-{nuxt|next}` + `nui-theme-{light|dark}-{nuxt|next}`.
+- Tokeny: `--nui-*`. Body: `nui-preset-{preset}` + `nui-dark` / `nui-light`.
 - Stylowanie: atrybuty na elemencie w Shadow DOM (`severity`, `variant`), nie klasy `is-*`.
 - Puste atrybuty: `nothing` w logic, `whenString` / `whenBoolean` w playground.
 - Props hosta (`severity`, `nui-type`) przekazuj na wewnętrzny element interaktywny w `logic.ts`.

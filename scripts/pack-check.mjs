@@ -135,12 +135,12 @@ if (!packagedCss.includes('.nui-button') || !packagedCss.includes('replaceSync')
   throw new Error('packaged styles.css.js is missing expected button CSS');
 }
 
-const { applyTheme } = await import('nucleify-ui/theme');
+const { applyPreset, nucleus } = await import('nucleify-ui/themes');
 const { nucleifyStyles } = await import('nucleify-ui/config');
 await import('nucleify-ui/components/nui-button');
 await import('nucleify-ui/components/nui-file-upload');
 
-applyTheme('nuxt', 'dark');
+applyPreset(nucleus, { mode: 'dark' });
 
 async function waitForSheets(el, predicate, label) {
   for (let i = 0; i < 50; i++) {

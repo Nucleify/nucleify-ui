@@ -30,8 +30,12 @@
 }
 
 .nui-button:focus-visible {
-  outline: var(--border-width-focus) solid var(--nui-primary-focus-color);
-  outline-offset: var(--outline-offset);
+  outline: 0;
+  border-color: var(--nui-focus-border-color, var(--nui-primary-color));
+  box-shadow: var(
+    --nui-focus-box-shadow,
+    0 0 0.5em var(--nui-primary-focus-color)
+  );
 }
 
 .nui-button:disabled,

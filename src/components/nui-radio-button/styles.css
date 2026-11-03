@@ -97,6 +97,7 @@
 }
 
 .nui-radio-button-input:focus-visible + .nui-radio-button-box {
-  outline: var(--border-width-focus) solid var(--nui-primary-focus-color);
-  outline-offset: var(--outline-offset);
+  outline: 0;
+  border-color: var(--nui-primary-color);
+  box-shadow: 0 0 0.5em var(--nui-primary-focus-color);
 }

@@ -62,7 +62,7 @@ const DEMO_PANELS: TabPanelInterface[] = [
   {
     value: 'tab3',
     content:
-      'Components are built using LitElement and compiled to Web Components. They run natively in any modern browser and integrate seamlessly with Nuxt, React, Vite, and Next.js.',
+      'Components are built using LitElement and compiled to Web Components. They run natively in any modern browser and integrate seamlessly with React, Vue, Svelte, and Vite.',
   },
 ];
 

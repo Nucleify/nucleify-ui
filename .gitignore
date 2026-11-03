@@ -3,3 +3,5 @@ dist/
 .DS_Store
 *.tgz
 sandbox-consumer/
+plan.md
+plan*.md

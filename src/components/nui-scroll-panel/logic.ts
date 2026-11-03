@@ -19,11 +19,13 @@ export function renderScrollPanel(
   return html`
     <div
       class=${getContainerClass()}
+      part="container"
       nui-type=${state.nuiType || nothing}
       style="position:relative;width:100%;height:100%;display:flex;flex-direction:column;min-height:0;"
     >
       <div
         class="nui-scroll-panel-content"
+        part="content"
         style="flex:1;min-height:0;width:100%;overflow:auto;box-sizing:border-box;"
       >
         <slot></slot>

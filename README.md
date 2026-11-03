@@ -35,13 +35,23 @@ import 'nucleify-ui/components/nui-button';
 import 'nucleify-ui/components/nui-dialog';
 ```
 
-Apply theme tokens on `document.body`:
+Apply theme presets dynamically on `document.body`:
 
 ```typescript
-import { applyTheme } from 'nucleify-ui/theme';
+import { applyPreset, nucleus } from 'nucleify-ui/themes';
 
-applyTheme('nuxt', 'dark');
+applyPreset(nucleus, { mode: 'dark' });
 ```
+
+You can choose from 8 built-in presets:
+- `nucleus`: Balanced enterprise design system (Indigo & Slate)
+- `quantum`: Bento-style glassmorphic cybernetic theme (Emerald & Zinc)
+- `kinetic`: High-density technical terminal theme (Amber & True Black)
+- `cosmos`: Cyberpunk luminescence with neon glow (Electric Violet & Cyan)
+- `apex`: Crimson Noir & Deep Ruby luxury editorial theme (Rose & Obsidian)
+- `eclipse`: Pure achromatic monochrome black & white theme (Neutral)
+- `prism`: Dynamic chromatic rainbow spectrum (supports optional animated hue cycling via `nui-rainbow`)
+- `abyss`: Hydrodynamic oceanic bioluminescence (Cyan & Marine Depth)
 
 Load global styles in your app entry:
 
@@ -65,17 +75,17 @@ import 'nucleify-ui/components/nui-button';
 import 'nucleify-ui/components/nui-dialog';
 ```
 
-With Vite or esbuild, unused components stay out of the client bundle. `lit`, `iconify-icon`, and (optionally) `chart.js` should be installed once in your app — they are peer dependencies.
+With Vite or esbuild, unused components stay out of the client bundle. `lit`, `iconify-icon`, and (optionally) `chart.js` and `nui-rainbow` should be installed once in your app — they are peer dependencies (`nui-rainbow` is only required if you choose to use the `prism` preset with active rainbow animations).
 
 Example Vite entry:
 
 ```typescript
 import 'nucleify-ui/styles/variables.css';
 import 'nucleify-ui/styles/global.css';
-import { applyTheme } from 'nucleify-ui/theme';
+import { applyPreset, nucleus } from 'nucleify-ui/themes';
 import 'nucleify-ui/components/nui-button';
 
-applyTheme('nuxt', 'dark');
+applyPreset(nucleus, { mode: 'dark' });
 ```
 
 ## TypeScript

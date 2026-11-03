@@ -42,16 +42,19 @@
   color: var(--nui-secondary-text-color);
 }
 
-.nui-input-number-input:hover:not(:disabled):not(:read-only) {
-  border-color: var(--nui-primary-focus-color);
-}
-
 .nui-input-number-input:focus,
 .nui-input-number-input:focus-visible,
 :host(:focus-within) .nui-input-number-input:not(:disabled):not(:read-only) {
   outline: 0;
   outline-offset: 0;
+  border-color: var(--nui-primary-color);
   box-shadow: 0 0 0.5em var(--nui-primary-focus-color);
+}
+
+.nui-input-number-input:focus:hover,
+.nui-input-number-input:focus-visible:hover,
+:host(:focus-within)
+  .nui-input-number-input:not(:disabled):not(:read-only):hover {
   border-color: var(--nui-primary-color);
 }
 

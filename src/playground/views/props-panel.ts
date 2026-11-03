@@ -1,3 +1,9 @@
+import '../../components/nui-checkbox/nui-checkbox.js';
+import '../../components/nui-heading/nui-heading.js';
+import '../../components/nui-input-text/nui-input-text.js';
+import '../../components/nui-label/nui-label.js';
+import '../../components/nui-select/nui-select.js';
+import '../../components/nui-textarea/nui-textarea.js';
 import { html, type TemplateResult } from 'lit';
 import type { PlaygroundControl, PlaygroundProps } from '../types.js';
 import { groupControlsBySection } from '../types.js';
@@ -46,14 +52,14 @@ function renderControlField(
   if (control.type === 'boolean') {
     return html`
       <div class="prop-field">
-        <label for=${control.key}>${control.label}</label>
-        <input
-          id=${control.key}
-          type="checkbox"
+        <nui-label value=${control.label}></nui-label>
+        <nui-checkbox
+          input-id=${control.key}
+          aria-label=${control.label}
           .checked=${Boolean(value)}
-          @change=${(event: Event) =>
-            onChange(control.key, (event.target as HTMLInputElement).checked)}
-        />
+          @change=${(event: CustomEvent<{ checked: boolean }>) =>
+            onChange(control.key, event.detail.checked)}
+        ></nui-checkbox>
       </div>
     `;
   }
@@ -63,22 +69,14 @@ function renderControlField(
 
     return html`
       <div class="prop-field">
-        <label for=${control.key}>${control.label}</label>
-        <select
-          id=${control.key}
-          @change=${(event: Event) =>
-            onChange(control.key, (event.target as HTMLSelectElement).value)}
-        >
-          ${control.options?.map(
-            (option) =>
-              html`<option
-                value=${option.value}
-                ?selected=${option.value === current}
-              >
-                ${option.label}
-              </option>`,
-          )}
-        </select>
+        <nui-label value=${control.label}></nui-label>
+        <nui-select
+          fluid
+          .value=${current}
+          .options=${control.options ?? []}
+          @nui-change=${(event: CustomEvent<{ value: string }>) =>
+            onChange(control.key, event.detail.value)}
+        ></nui-select>
       </div>
     `;
   }
@@ -86,30 +84,33 @@ function renderControlField(
   if (control.type === 'textarea') {
     return html`
       <div class="prop-field${control.fullWidth ? ' prop-field--full' : ''}">
-        <label for=${control.key}>${control.label}</label>
-        <textarea
-          id=${control.key}
+        <nui-label value=${control.label}></nui-label>
+        <nui-textarea
+          fluid
+          textarea-id=${control.key}
+          aria-label=${control.label}
           rows=${control.rows ?? 4}
           .value=${String(value ?? '')}
           placeholder=${control.placeholder ?? ''}
-          @input=${(event: Event) =>
-            onChange(control.key, (event.target as HTMLTextAreaElement).value)}
-        ></textarea>
+          @input=${(event: CustomEvent<{ value: string }>) =>
+            onChange(control.key, event.detail.value)}
+        ></nui-textarea>
       </div>
     `;
   }
 
   return html`
     <div class="prop-field">
-      <label for=${control.key}>${control.label}</label>
-      <input
-        id=${control.key}
-        type="text"
+      <nui-label value=${control.label}></nui-label>
+      <nui-input-text
+        fluid
+        input-id=${control.key}
+        aria-label=${control.label}
         .value=${String(value ?? '')}
         placeholder=${control.placeholder ?? ''}
-        @input=${(event: Event) =>
-          onChange(control.key, (event.target as HTMLInputElement).value)}
-      />
+        @input=${(event: CustomEvent<{ value: string }>) =>
+          onChange(control.key, event.detail.value)}
+      ></nui-input-text>
     </div>
   `;
 }

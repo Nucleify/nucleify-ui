@@ -104,10 +104,6 @@
   box-sizing: border-box;
 }
 
-.nui-accordion-panel[expanded]:not(:last-child) .nui-accordion-content {
-  border-bottom: var(--border-width) solid var(--nui-card-border);
-}
-
 .nui-accordion-content[hidden] {
   display: none;
 }

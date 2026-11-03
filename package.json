@@ -1,6 +1,6 @@
 {
   "name": "nucleify-ui",
-  "version": "0.3.7",
+  "version": "1.0.0",
   "description": "Lit 3 web component library with optional interactive playground.",
   "type": "module",
   "sideEffects": [
@@ -28,6 +28,42 @@
     "./theme": {
       "types": "./dist/theme.d.ts",
       "import": "./dist/theme.js"
+    },
+    "./themes": {
+      "types": "./dist/themes/index.d.ts",
+      "import": "./dist/themes/index.js"
+    },
+    "./themes/nucleus": {
+      "types": "./dist/themes/presets/nucleus/index.d.ts",
+      "import": "./dist/themes/presets/nucleus/index.js"
+    },
+    "./themes/quantum": {
+      "types": "./dist/themes/presets/quantum/index.d.ts",
+      "import": "./dist/themes/presets/quantum/index.js"
+    },
+    "./themes/kinetic": {
+      "types": "./dist/themes/presets/kinetic/index.d.ts",
+      "import": "./dist/themes/presets/kinetic/index.js"
+    },
+    "./themes/cosmos": {
+      "types": "./dist/themes/presets/cosmos/index.d.ts",
+      "import": "./dist/themes/presets/cosmos/index.js"
+    },
+    "./themes/apex": {
+      "types": "./dist/themes/presets/apex/index.d.ts",
+      "import": "./dist/themes/presets/apex/index.js"
+    },
+    "./themes/eclipse": {
+      "types": "./dist/themes/presets/eclipse/index.d.ts",
+      "import": "./dist/themes/presets/eclipse/index.js"
+    },
+    "./themes/prism": {
+      "types": "./dist/themes/presets/prism/index.d.ts",
+      "import": "./dist/themes/presets/prism/index.js"
+    },
+    "./themes/abyss": {
+      "types": "./dist/themes/presets/abyss/index.d.ts",
+      "import": "./dist/themes/presets/abyss/index.js"
     },
     "./config": {
       "types": "./dist/config.d.ts",
@@ -91,6 +127,7 @@
     "glob": "11.1.0",
     "happy-dom": "^21.0.4",
     "husky": "9.1.7",
+    "nui-rainbow": "file:../nui-rainbow",
     "stylelint": "17.14.0",
     "stylelint-config-standard": "40.0.0",
     "stylelint-config-standard-scss": "17.0.0",
@@ -101,10 +138,14 @@
   "peerDependencies": {
     "chart.js": "4.5.1",
     "iconify-icon": "3.0.0",
-    "lit": "3.0.0"
+    "lit": "3.0.0",
+    "nui-rainbow": ">=0.2.0"
   },
   "peerDependenciesMeta": {
     "chart.js": {
+      "optional": true
+    },
+    "nui-rainbow": {
       "optional": true
     }
   },

@@ -48,15 +48,16 @@
   color: var(--nui-secondary-text-color);
 }
 
-.nui-date-picker-input:hover:not(:disabled):not(:read-only) {
-  border-color: var(--nui-primary-focus-color);
-}
-
 .nui-date-picker-input:focus,
 .nui-date-picker-input:focus-visible {
   outline: 0;
   outline-offset: 0;
+  border-color: var(--nui-primary-color);
   box-shadow: 0 0 0.5em var(--nui-primary-focus-color);
+}
+
+.nui-date-picker-input:focus:hover,
+.nui-date-picker-input:focus-visible:hover {
   border-color: var(--nui-primary-color);
 }
 
@@ -102,7 +103,6 @@
 }
 
 .nui-date-picker-trigger:hover:not(:disabled) {
-  border-color: var(--nui-primary-focus-color);
   background: var(--nui-primary-highlight-color);
 }
 
@@ -157,7 +157,6 @@
 }
 
 .nui-date-picker-nav:hover {
-  border-color: var(--nui-primary-focus-color);
   background: var(--nui-primary-highlight-color);
 }
 

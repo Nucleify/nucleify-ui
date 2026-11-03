@@ -38,14 +38,15 @@
     box-shadow var(--transition-fast) ease;
 }
 
-.nui-select:hover:not(:disabled) {
-  border-color: var(--nui-primary-focus-color);
-}
-
 .nui-select:focus,
 .nui-select:focus-visible {
   outline: 0;
+  border-color: var(--nui-primary-color);
   box-shadow: 0 0 0.5em var(--nui-primary-focus-color);
+}
+
+.nui-select:focus:hover,
+.nui-select:focus-visible:hover {
   border-color: var(--nui-primary-color);
 }
 

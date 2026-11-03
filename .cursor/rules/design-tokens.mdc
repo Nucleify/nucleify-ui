@@ -20,14 +20,14 @@ Paleta (`body`): `--nui-primary-color`, `--nui-primary-hover-color`, …
 
 Layout/UI: `--nui-bg-dark-color`, `--nui-card-border`, `--nui-white-text-color`, …
 
-## Motywy na `body`
+## Presety i motywy na `body`
 
 ```
-nui-primary-palette-{nuxt|next}
-nui-theme-{light|dark}-{nuxt|next}
+nui-preset-{nucleus|quantum|kinetic|cosmos|apex|eclipse|prism|abyss}
+nui-dark / nui-light
 ```
 
-Przełączanie: `applyTheme()` w `theme.ts` (playground header).
+Przełączanie: `applyPreset()` w `src/themes/index.ts` (playground header).
 
 ## Stylowanie komponentów
 

@@ -50,14 +50,14 @@
 .nui-tile-header {
   margin: 0;
   font-size: var(--font-size-xs);
-  color: var(--nui-primary-white-text-color);
+  color: var(--nui-secondary-text-color);
 }
 
 .nui-tile-count {
   margin: 0;
   font-size: var(--font-size-sm);
   font-weight: var(--font-weight-medium);
-  color: var(--nui-primary-white-text-color);
+  color: var(--nui-white-text-color);
 }
 
 .nui-tile-icon-container {
@@ -69,11 +69,13 @@
   height: 2.2em;
   border-radius: var(--border-radius-sm);
   background: var(--nui-primary-selected-color);
+  color: var(--nui-primary-color);
 }
 
 .nui-tile-icon {
   --nui-icon-width: 1.5em;
   --nui-icon-height: 1.5em;
+  color: var(--nui-primary-color);
 }
 
 .nui-tile:hover .nui-tile-icon {
@@ -95,7 +97,7 @@
 .nui-tile-text-secondary {
   margin: 0;
   font-size: var(--font-size-2xs);
-  color: var(--nui-primary-white-text-color);
+  color: var(--nui-secondary-text-color);
 }
 
 @media (min-width: 360px) {

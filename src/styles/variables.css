@@ -1,5 +1,8 @@
-/* Font sizes */
 :root {
+  /* Font families */
+  --font-family-base: "Instrument Sans", system-ui, -apple-system, sans-serif;
+  --font-family-mono: "JetBrains Mono", ui-monospace, monospace;
+
   --font-size-2xs: 12px;
   --font-size-xs: 16px;
   --font-size-sm: 24px;
@@ -31,15 +34,20 @@
   /* Border */
   --border-width: 1px;
   --border-width-focus: 2px;
-  --border-radius-sm: var(--spacing-2xs);
-  --border-radius-md: var(--spacing-xs);
-  --border-radius-lg: var(--spacing-sm);
+  --border-radius-none: 0px;
+  --border-radius-2xs: 2px;
+  --border-radius-xs: 4px;
+  --border-radius-sm: 6px;
+  --border-radius-md: 8px;
+  --border-radius-lg: 12px;
+  --border-radius-xl: 16px;
+  --border-radius-full: 9999px;
   --outline-offset: 2px;
 
   /* Transition */
   --transition-fast: 0.15s;
   --transition-medium: 0.25s;
-  --transition-slow: 0.4s;
+  --transition-slow: 0.35s;
 
   /* Severity */
   --nui-success-color: #22c55e;
@@ -58,140 +66,47 @@
   --nui-danger-color: var(--invalid-color);
   --nui-danger-hover-color: #dc2626;
   --nui-danger-highlight-color: rgb(239 68 68 / 12%);
-  --nui-contrast-color: #18181b;
-  --nui-contrast-hover-color: #27272a;
-  --nui-contrast-text-color: #fafafa;
-  --nui-contrast-highlight-color: rgb(24 24 27 / 10%);
-  --nui-secondary-color: #e4e4e7;
-  --nui-secondary-hover-color: #d4d4d8;
-  --nui-secondary-active-color: #a1a1aa;
-  --nui-secondary-on-color: #52525b;
-  --nui-secondary-border-color: #d4d4d8;
-  --nui-secondary-highlight-color: #f4f4f5;
 
   /* Card (bento) */
-  --nui-card-border-radius: 1rem;
+  --nui-card-border-radius: var(--border-radius-lg);
   --nui-card-backdrop-blur: 12px;
 
   /* Float label */
   --nui-float-label-in-padding-top: calc(var(--spacing-md) + var(--spacing-xs));
-}
 
-/* Primary palettes */
-.nui-primary-palette-nuxt {
-  --nui-primary-color: #10b981;
-  --nui-primary-color-rgb: 16, 185, 129;
-  --nui-primary-dark-color: #125148;
-  --nui-primary-hover-color: #1bbd79;
-  --nui-primary-focus-color: #10b98180;
-  --nui-primary-secondary-color: #10b98135;
-  --nui-primary-selected-color: #10b98126;
-  --nui-primary-highlight-color: #10b98115;
-  --nui-primary-color-darker: #0d9668;
-}
-
-.nui-primary-palette-next {
-  --nui-primary-color: #60a5fa;
-  --nui-primary-color-rgb: 96, 165, 250;
-  --nui-primary-dark-color: #1e40af;
-  --nui-primary-hover-color: #3b82f6;
-  --nui-primary-focus-color: #60a5fa80;
-  --nui-primary-secondary-color: #60a5fa35;
-  --nui-primary-selected-color: #60a5fa26;
-  --nui-primary-highlight-color: #60a5fa15;
-  --nui-primary-color-darker: #4d94e8;
-}
-
-/* Light themes */
-.nui-theme-light-nuxt {
-  --nui-primary-border-color: #d1d5db;
-  --nui-primary-white-text-color: #000;
-  --nui-primary-white-green-text-color: #047857;
-  --nui-bg-dark-color: #fff;
-  --nui-bg-black-color: #fffd;
-  --nui-bg-dark-green-color: #eafff6;
-  --nui-bg-green-color-05: #10b98118;
-  --nui-card-background: #ffffffe6;
-  --nui-card-border: #d4d4d8;
-  --nui-card-box-shadow: #c5cbc8;
-  --nui-content-background: #fffc;
-  --nui-dark-text-color: #14332a;
-  --nui-primary-text-color: #1a3d30;
-  --nui-secondary-text-color: #2d5a49;
-  --nui-white-text-color: #0f2e23;
-  --nui-white-text-rgb: 15, 46, 35;
-}
-
-.nui-theme-light-next {
-  --nui-primary-border-color: #d1d5db;
-  --nui-primary-white-text-color: #000;
-  --nui-primary-white-green-text-color: #1d4ed8;
-  --nui-bg-dark-color: #fff;
-  --nui-bg-black-color: #fffd;
-  --nui-bg-dark-green-color: #eff6ff;
-  --nui-bg-green-color-05: #60a5fa18;
-  --nui-card-background: #ffffffe6;
-  --nui-card-border: #d4d4d8;
-  --nui-card-box-shadow: #c5cbc8;
-  --nui-content-background: #fffc;
-  --nui-dark-text-color: #1e293b;
-  --nui-primary-text-color: #1e3a5f;
-  --nui-secondary-text-color: #334155;
-  --nui-white-text-color: #0f172a;
-  --nui-white-text-rgb: 15, 23, 42;
-}
-
-/* Dark themes */
-.nui-theme-dark-nuxt {
-  --nui-primary-border-color: #f5f5f5;
-  --nui-primary-white-text-color: #e6e6e6;
-  --nui-primary-white-green-text-color: #cce4dd;
-  --nui-bg-dark-color: #080808;
-  --nui-bg-black-color: #000a;
-  --nui-bg-dark-green-color: #020806;
-  --nui-bg-green-color-05: #10b98108;
-  --nui-card-background: #13131399;
-  --nui-card-border: #3f3f46;
-  --nui-card-box-shadow: #5e6662;
-  --nui-content-background: #0a0a0a99;
-  --nui-dark-text-color: #d1d5db;
-  --nui-primary-text-color: #9ca3af;
-  --nui-secondary-text-color: #a1a1aa;
-  --nui-white-text-color: #f5f4f4;
-  --nui-white-text-rgb: 245, 244, 244;
-}
-
-.nui-theme-dark-next {
-  --nui-primary-border-color: #f5f5f5;
-  --nui-primary-white-text-color: #e6e6e6;
-  --nui-primary-white-green-text-color: #bfdbfe;
-  --nui-bg-dark-color: #080808;
-  --nui-bg-black-color: #000a;
-  --nui-bg-dark-green-color: #02040c;
-  --nui-bg-green-color-05: #60a5fa08;
-  --nui-card-background: #13131399;
-  --nui-card-border: #3f3f46;
-  --nui-card-box-shadow: #5e6662;
-  --nui-content-background: #0a0a0a99;
-  --nui-dark-text-color: #d1d5db;
-  --nui-primary-text-color: #9ca3af;
-  --nui-secondary-text-color: #a1a1aa;
-  --nui-white-text-color: #f5f4f4;
-  --nui-white-text-rgb: 245, 244, 244;
-}
-
-.nui-theme-dark-nuxt,
-.nui-theme-dark-next {
-  --nui-secondary-color: #3f3f46;
-  --nui-secondary-hover-color: #52525b;
-  --nui-secondary-active-color: #71717a;
-  --nui-secondary-on-color: #e4e4e7;
-  --nui-secondary-border-color: #52525b;
-  --nui-secondary-highlight-color: rgb(255 255 255 / 6%);
-  --nui-contrast-color: #fafafa;
-  --nui-contrast-hover-color: #e4e4e7;
-  --nui-contrast-text-color: #18181b;
-  --nui-contrast-highlight-color: rgb(255 255 255 / 8%);
+  /* Default theme tokens (Nucleus Dark fallback to prevent FOUC / unstyled flash) */
+  --nui-primary-color: #818cf8;
+  --nui-primary-color-rgb: 129, 140, 248;
+  --nui-primary-dark-color: #6366f1;
+  --nui-primary-hover-color: #6366f1;
+  --nui-primary-focus-color: rgba(129, 140, 248, 0.5);
+  --nui-primary-secondary-color: rgba(129, 140, 248, 0.2);
+  --nui-primary-selected-color: rgba(129, 140, 248, 0.15);
+  --nui-primary-highlight-color: rgba(129, 140, 248, 0.1);
+  --nui-primary-color-darker: #4f46e5;
+  --nui-primary-border-color: #3730a3;
+  --nui-primary-white-text-color: #0b0f19;
+  --nui-primary-white-green-text-color: #818cf8;
+  --nui-bg-dark-color: #0b0f19;
+  --nui-card-background: #111827;
+  --nui-card-border: #1f2937;
+  --nui-card-box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.4);
+  --nui-content-background: #0f172a;
+  --nui-dark-text-color: #e2e8f0;
+  --nui-primary-text-color: #cbd5e1;
+  --nui-secondary-text-color: #94a3b8;
+  --nui-white-text-color: #f8fafc;
+  --nui-white-text-rgb: 248, 250, 252;
+  --nui-secondary-color: #1f2937;
+  --nui-secondary-hover-color: #374151;
+  --nui-secondary-active-color: #4b5563;
+  --nui-secondary-on-color: #e5e7eb;
+  --nui-secondary-border-color: #374151;
+  --nui-secondary-highlight-color: rgba(255, 255, 255, 0.06);
+  --nui-contrast-color: #f8fafc;
+  --nui-contrast-hover-color: #e2e8f0;
+  --nui-contrast-text-color: #0f172a;
+  --nui-contrast-highlight-color: rgba(255, 255, 255, 0.08);
 }
 
 /* Invalid / error colors */

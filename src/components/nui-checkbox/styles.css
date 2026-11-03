@@ -39,6 +39,7 @@
   transition:
     background var(--transition-fast) ease,
     border-color var(--transition-fast) ease,
+    box-shadow var(--transition-fast) ease,
     color var(--transition-fast) ease;
   box-sizing: border-box;
   pointer-events: none;
@@ -77,6 +78,7 @@
 }
 
 .nui-checkbox-input:focus-visible + .nui-checkbox-box {
-  outline: var(--border-width-focus) solid var(--nui-primary-focus-color);
-  outline-offset: var(--outline-offset);
+  outline: 0;
+  border-color: var(--nui-primary-color);
+  box-shadow: 0 0 0.5em var(--nui-primary-focus-color);
 }

@@ -1,3 +1,4 @@
+import './playground/playground-app.js';
 import './components/nui-accordion/nui-accordion.js';
 import './components/nui-anchor/nui-anchor.js';
 import './components/nui-auto-complete/nui-auto-complete.js';
@@ -52,4 +53,3 @@ import './components/nui-tree/nui-tree.js';
 import './components/nui-textarea/nui-textarea.js';
 import './components/nui-tile/nui-tile.js';
 import './components/nui-tooltip/nui-tooltip.js';
-import './playground/playground-app.js';

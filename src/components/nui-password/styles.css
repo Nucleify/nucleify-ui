@@ -40,15 +40,16 @@
   color: var(--nui-secondary-text-color);
 }
 
-.nui-password-input:hover:not(:disabled):not(:read-only) {
-  border-color: var(--nui-primary-focus-color);
-}
-
 .nui-password-input:focus,
 .nui-password-input:focus-visible {
   outline: 0;
   outline-offset: 0;
+  border-color: var(--nui-primary-color);
   box-shadow: 0 0 0.5em var(--nui-primary-focus-color);
+}
+
+.nui-password-input:focus:hover,
+.nui-password-input:focus-visible:hover {
   border-color: var(--nui-primary-color);
 }
 

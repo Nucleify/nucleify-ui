@@ -80,7 +80,7 @@
 }
 
 .nui-data-table[striped-rows] tbody tr:nth-child(even) {
-  background: var(--nui-primary-highlight-color);
+  background: rgba(var(--nui-primary-color-rgb, 129, 140, 248), 0.04);
 }
 
 .nui-data-table[striped-rows] tbody tr:nth-child(odd) {
@@ -88,7 +88,7 @@
 }
 
 .nui-data-table[row-hover] tbody tr.nui-data-table-row:hover {
-  background: var(--nui-primary-selected-color);
+  background: rgba(var(--nui-primary-color-rgb, 129, 140, 248), 0.08);
 }
 
 .nui-data-table-row {
