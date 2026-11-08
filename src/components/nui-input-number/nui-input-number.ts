@@ -174,6 +174,26 @@ export class NuiInputNumber
     }
   }
 
+  private emitValue(emitChange = false): void {
+    this.dispatchEvent(
+      new CustomEvent('input', {
+        detail: { value: this.value },
+        bubbles: true,
+        composed: true,
+      }),
+    );
+
+    if (emitChange) {
+      this.dispatchEvent(
+        new CustomEvent('change', {
+          detail: { value: this.value },
+          bubbles: true,
+          composed: true,
+        }),
+      );
+    }
+  }
+
   private normalizeValue(): void {
     if (this.value === null) {
       if (!this.allowEmpty) {
@@ -182,6 +202,7 @@ export class NuiInputNumber
         this.value = fallback;
         this.syncingValue = false;
         this.syncDisplayFromValue(true);
+        this.emitValue();
       }
 
       return;
@@ -197,6 +218,7 @@ export class NuiInputNumber
     this.value = clamped;
     this.syncingValue = false;
     this.syncDisplayFromValue(true);
+    this.emitValue();
   }
 
   private isInputFocused(): boolean {
@@ -264,27 +286,11 @@ export class NuiInputNumber
     this.inputValue = formatNumber(nextValue, this.getFormatConfig());
     this.syncingValue = false;
     this.updateStepState();
-
-    this.dispatchEvent(
-      new CustomEvent('input', {
-        detail: { value: this.value },
-        bubbles: true,
-        composed: true,
-      }),
-    );
-
-    if (emitChange) {
-      this.dispatchEvent(
-        new CustomEvent('change', {
-          detail: { value: this.value },
-          bubbles: true,
-          composed: true,
-        }),
-      );
-    }
+    this.emitValue(emitChange);
   }
 
   private handleInput = (event: Event): void => {
+    event.stopPropagation();
     const input = event.target as HTMLInputElement;
     this.inputValue = input.value;
     const parsed = parseNumber(this.inputValue, this.getFormatConfig());
@@ -293,21 +299,23 @@ export class NuiInputNumber
       return;
     }
 
-    this.syncingValue = true;
-    this.value = parsed;
-    this.syncingValue = false;
-    this.updateStepState();
+    const nextValue =
+      parsed === null ? null : clampNumber(parsed, this.min, this.max);
 
-    this.dispatchEvent(
-      new CustomEvent('input', {
-        detail: { value: this.value },
-        bubbles: true,
-        composed: true,
-      }),
-    );
+    this.syncingValue = true;
+    this.value = nextValue;
+    this.syncingValue = false;
+
+    if (nextValue !== null && nextValue !== parsed) {
+      this.inputValue = formatNumber(nextValue, this.getFormatConfig());
+    }
+
+    this.updateStepState();
+    this.emitValue();
   };
 
   private handleChange = (event: Event): void => {
+    event.stopPropagation();
     const input = event.target as HTMLInputElement;
     const parsed = parseNumber(input.value, this.getFormatConfig());
     this.commitValue(parsed, true);

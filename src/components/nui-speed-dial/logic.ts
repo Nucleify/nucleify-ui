@@ -9,6 +9,9 @@ import type {
 
 const MATH_PI = Math.PI;
 
+/** Half of (trigger 3rem − action 2rem) — matches PrimeVue item.diff centering. */
+const ITEM_DIFF_PX = 8;
+
 export interface NuiSpeedDialViewState extends SpeedDialProps {
   open: boolean;
   listId: string;
@@ -39,46 +42,14 @@ function calculateTransitionDelay(
   return `${delay}ms`;
 }
 
-function polarToCenterStyle(
-  offsetX: number,
-  offsetY: number,
-): Record<string, string> {
-  return {
-    left: `calc(50% + ${offsetX}px)`,
-    top: `calc(50% + ${offsetY}px)`,
-  };
+function pxWithDiff(value: number): string {
+  return `calc(${value}px + ${ITEM_DIFF_PX}px)`;
 }
 
-function getSemiCircleStartAngle(direction: SpeedDialDirection): number {
-  switch (direction) {
-    case 'down':
-      return 0;
-    case 'up':
-      return MATH_PI;
-    case 'left':
-      return MATH_PI / 2;
-    case 'right':
-      return -MATH_PI / 2;
-    default:
-      return MATH_PI;
-  }
-}
-
-function getQuarterCircleStartAngle(direction: SpeedDialDirection): number {
-  switch (direction) {
-    case 'down-right':
-      return 0;
-    case 'down-left':
-      return MATH_PI / 2;
-    case 'up-left':
-      return MATH_PI;
-    case 'up-right':
-      return (3 * MATH_PI) / 2;
-    default:
-      return 0;
-  }
-}
-
+/**
+ * Point styles mirror PrimeVue SpeedDial.calculatePointStyle.
+ * @see https://primevue.dev/speeddial/
+ */
 function calculatePointStyle(
   type: SpeedDialType,
   direction: SpeedDialDirection,
@@ -93,32 +64,60 @@ function calculatePointStyle(
   const effectiveRadius = radius || total * 20;
 
   if (type === 'circle') {
-    const angle = (2 * MATH_PI * index) / total;
+    const step = (2 * MATH_PI) / total;
 
-    return polarToCenterStyle(
-      effectiveRadius * Math.cos(angle),
-      effectiveRadius * Math.sin(angle),
-    );
+    return {
+      left: pxWithDiff(effectiveRadius * Math.cos(step * index)),
+      top: pxWithDiff(effectiveRadius * Math.sin(step * index)),
+    };
   }
 
   if (type === 'semi-circle') {
     const step = MATH_PI / Math.max(total - 1, 1);
-    const angle = getSemiCircleStartAngle(direction) + step * index;
+    const x = pxWithDiff(effectiveRadius * Math.cos(step * index));
+    const y = pxWithDiff(effectiveRadius * Math.sin(step * index));
 
-    return polarToCenterStyle(
-      effectiveRadius * Math.cos(angle),
-      effectiveRadius * Math.sin(angle),
-    );
+    if (direction === 'up') {
+      return { left: x, bottom: y };
+    }
+
+    if (direction === 'down') {
+      return { left: x, top: y };
+    }
+
+    if (direction === 'left') {
+      return { right: y, top: x };
+    }
+
+    if (direction === 'right') {
+      return { left: y, top: x };
+    }
+
+    return { left: x, bottom: y };
   }
 
   if (type === 'quarter-circle') {
     const step = MATH_PI / (2 * Math.max(total - 1, 1));
-    const angle = getQuarterCircleStartAngle(direction) + step * index;
+    const x = pxWithDiff(effectiveRadius * Math.cos(step * index));
+    const y = pxWithDiff(effectiveRadius * Math.sin(step * index));
 
-    return polarToCenterStyle(
-      effectiveRadius * Math.cos(angle),
-      effectiveRadius * Math.sin(angle),
-    );
+    if (direction === 'up-left') {
+      return { right: x, bottom: y };
+    }
+
+    if (direction === 'up-right') {
+      return { left: x, bottom: y };
+    }
+
+    if (direction === 'down-left') {
+      return { right: y, top: x };
+    }
+
+    if (direction === 'down-right') {
+      return { left: y, top: x };
+    }
+
+    return { right: x, bottom: y };
   }
 
   return {};
@@ -137,18 +136,10 @@ function calculateItemStyle(
     total,
     state.radius ?? 0,
   );
-  const isRadial = state.type !== 'linear';
 
   return {
     transitionDelay: calculateTransitionDelay(index, total, state.open, stepMs),
     ...pointStyle,
-    ...(isRadial
-      ? {
-          transform: state.open
-            ? 'translate(-50%, -50%) scale(1)'
-            : 'translate(-50%, -50%) scale(0.4)',
-        }
-      : {}),
   };
 }
 
@@ -172,8 +163,8 @@ export function renderSpeedDial(
 
   const containerClass = [
     'nui-speed-dial',
-    `nui-speed-dial-direction-${direction}`,
-    `nui-speed-dial-type-${type}`,
+    `nui-speed-dial-${type}`,
+    type !== 'circle' ? `nui-speed-dial-direction-${direction}` : '',
     state.open ? 'nui-speed-dial-open' : '',
     state.speedDialClass,
   ]
@@ -210,6 +201,22 @@ export function renderSpeedDial(
     }
 
     <div class=${containerClass} nui-type=${state.nuiType || nothing}>
+      <button
+        type="button"
+        class=${buttonClass}
+        ?disabled=${state.disabled}
+        aria-expanded=${state.open ? 'true' : 'false'}
+        aria-haspopup="menu"
+        aria-controls=${state.listId}
+        aria-label=${state.ariaLabel || nothing}
+        @click=${handlers.onToggle}
+        @keydown=${handlers.onButtonKeyDown}
+      >
+        <span class="nui-speed-dial-icon-wrap nui-speed-dial-button-icon-wrap">
+          <nui-icon icon=${currentIcon} aria-hidden="true"></nui-icon>
+        </span>
+      </button>
+
       <ul
         id=${state.listId}
         class="nui-speed-dial-list"
@@ -245,22 +252,6 @@ export function renderSpeedDial(
           `;
         })}
       </ul>
-
-      <button
-        type="button"
-        class=${buttonClass}
-        ?disabled=${state.disabled}
-        aria-expanded=${state.open ? 'true' : 'false'}
-        aria-haspopup="menu"
-        aria-controls=${state.listId}
-        aria-label=${state.ariaLabel || nothing}
-        @click=${handlers.onToggle}
-        @keydown=${handlers.onButtonKeyDown}
-      >
-        <span class="nui-speed-dial-icon-wrap nui-speed-dial-button-icon-wrap">
-          <nui-icon icon=${currentIcon} aria-hidden="true"></nui-icon>
-        </span>
-      </button>
     </div>
   `;
 }

@@ -17,20 +17,9 @@
   display: flex;
   align-items: stretch;
   width: 100%;
-}
-
-.nui-date-picker-input {
-  flex: 1 1 auto;
-  min-width: 0;
-  min-height: 2.5625rem;
-  margin: 0;
-  padding: var(--spacing-xs) var(--spacing-sm);
   border: var(--border-width) solid var(--nui-card-border);
   border-radius: var(--border-radius-sm);
   background: var(--nui-card-background);
-  color: var(--nui-white-text-color);
-  font: inherit;
-  line-height: 1.25;
   box-sizing: border-box;
   box-shadow: 0 0 0 0.5rem transparent;
   transition:
@@ -38,10 +27,45 @@
     box-shadow var(--transition-fast) ease;
 }
 
+.nui-date-picker-input-wrapper:focus-within,
+.nui-date-picker[open] .nui-date-picker-input-wrapper {
+  border-color: var(--nui-primary-color);
+  box-shadow: 0 0 0.5em var(--nui-primary-focus-color);
+}
+
+:host([invalid]) .nui-date-picker-input-wrapper {
+  border-color: var(--nui-danger-color);
+}
+
+:host([invalid]) .nui-date-picker-input-wrapper:focus-within,
+:host([invalid]) .nui-date-picker[open] .nui-date-picker-input-wrapper {
+  border-color: var(--nui-danger-color);
+  box-shadow: 0 0 0.5em var(--nui-danger-color);
+}
+
+:host([variant="filled"]) .nui-date-picker-input-wrapper {
+  background: var(--nui-content-background);
+}
+
+.nui-date-picker-input {
+  flex: 1 1 auto;
+  min-width: 0;
+  min-height: 2.4375rem;
+  margin: 0;
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border: 0;
+  border-radius: calc(var(--border-radius-sm) - var(--border-width));
+  background: transparent;
+  color: var(--nui-white-text-color);
+  font: inherit;
+  line-height: 1.25;
+  box-sizing: border-box;
+}
+
 :host([show-icon]) .nui-date-picker-input {
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
-  border-right: 0;
+  border-right: var(--border-width) solid var(--nui-card-border);
 }
 
 .nui-date-picker-input::placeholder {
@@ -51,37 +75,15 @@
 .nui-date-picker-input:focus,
 .nui-date-picker-input:focus-visible {
   outline: 0;
-  outline-offset: 0;
-  border-color: var(--nui-primary-color);
-  box-shadow: 0 0 0.5em var(--nui-primary-focus-color);
-}
-
-.nui-date-picker-input:focus:hover,
-.nui-date-picker-input:focus-visible:hover {
-  border-color: var(--nui-primary-color);
-}
-
-:host([invalid]) .nui-date-picker-input {
-  border-color: var(--nui-danger-color);
-}
-
-:host([invalid]) .nui-date-picker-input:focus,
-:host([invalid]) .nui-date-picker-input:focus-visible {
-  box-shadow: 0 0 0.5em var(--nui-danger-color);
-  border-color: var(--nui-danger-color);
-}
-
-:host([variant="filled"]) .nui-date-picker-input {
-  background: var(--nui-content-background);
 }
 
 :host([size="small"]) .nui-date-picker-input {
-  min-height: 2rem;
+  min-height: 1.875rem;
   font-size: 0.875rem;
 }
 
 :host([size="large"]) .nui-date-picker-input {
-  min-height: 3rem;
+  min-height: 2.875rem;
   font-size: 1.125rem;
 }
 
@@ -90,25 +92,62 @@
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  min-width: 2.5625rem;
-  padding: 0 var(--spacing-sm);
-  border: var(--border-width) solid var(--nui-card-border);
-  border-radius: 0 var(--border-radius-sm) var(--border-radius-sm) 0;
-  background: var(--nui-card-background);
+  width: 2.625rem;
+  padding: 0;
+  border: 0;
+  border-radius: 0 calc(var(--border-radius-sm) - var(--border-width))
+    calc(var(--border-radius-sm) - var(--border-width)) 0;
+  background: transparent;
   color: var(--nui-primary-text-color);
+  font: inherit;
+  line-height: 0;
   cursor: pointer;
-  transition:
-    border-color var(--transition-fast) ease,
-    background var(--transition-fast) ease;
+  transition: background var(--transition-fast) ease;
+}
+
+.nui-date-picker-trigger-icon {
+  --nui-icon-width: 1.25rem;
+  --nui-icon-height: 1.25rem;
+  font-size: 1.25rem;
+  transform: translateY(1px);
+}
+
+:host([size="small"]) .nui-date-picker-trigger {
+  width: 2.125rem;
+}
+
+:host([size="small"]) .nui-date-picker-trigger-icon {
+  --nui-icon-width: 1.0625rem;
+  --nui-icon-height: 1.0625rem;
+  font-size: 1.0625rem;
+}
+
+:host([size="large"]) .nui-date-picker-trigger {
+  width: 3rem;
+}
+
+:host([size="large"]) .nui-date-picker-trigger-icon {
+  --nui-icon-width: 1.375rem;
+  --nui-icon-height: 1.375rem;
+  font-size: 1.375rem;
+}
+
+.nui-date-picker-trigger:focus,
+.nui-date-picker-trigger:focus-visible {
+  outline: 0;
 }
 
 .nui-date-picker-trigger:hover:not(:disabled) {
   background: var(--nui-primary-highlight-color);
 }
 
+:host([disabled]) .nui-date-picker-input-wrapper {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
 :host([disabled]) .nui-date-picker-input,
 :host([disabled]) .nui-date-picker-trigger {
-  opacity: 0.65;
   cursor: not-allowed;
 }
 
@@ -117,12 +156,13 @@
   top: calc(100% + var(--spacing-2xs));
   left: 0;
   z-index: 30;
-  width: min(100%, 18rem);
-  padding: var(--spacing-sm);
+  width: 20rem;
+  max-width: calc(100vw - 2rem);
+  padding: 0.9375rem;
   border: var(--border-width) solid var(--nui-card-border);
   border-radius: var(--border-radius-sm);
-  background: var(--nui-bg-dark-color);
-  box-shadow: 0 4px 12px rgb(0 0 0 / 18%);
+  background: var(--nui-card-background);
+  box-shadow: var(--nui-card-box-shadow, 0 8px 24px rgb(0 0 0 / 18%));
   box-sizing: border-box;
 }
 
@@ -131,76 +171,163 @@
   align-items: center;
   justify-content: space-between;
   gap: var(--spacing-xs);
-  margin-bottom: var(--spacing-sm);
+  margin-bottom: 0.75rem;
 }
 
 .nui-date-picker-title {
   flex: 1 1 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
+}
+
+.nui-date-picker-title-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.3125rem 0.5625rem;
+  border: var(--border-width) solid transparent;
+  border-radius: var(--border-radius-sm);
+  background: transparent;
   color: var(--nui-white-text-color);
-  font-size: var(--font-size-2xs);
+  font: inherit;
+  font-size: 1.0625rem;
   font-weight: var(--font-weight-semibold);
-  text-align: center;
+  line-height: 1.25;
+  cursor: pointer;
+  transition:
+    background var(--transition-fast) ease,
+    color var(--transition-fast) ease,
+    border-color var(--transition-fast) ease;
+}
+
+.nui-date-picker-title-btn:hover {
+  background: var(--nui-primary-highlight-color);
+  color: var(--nui-primary-color);
+}
+
+.nui-date-picker-title-btn:focus-visible {
+  outline: 0;
+  border-color: var(--nui-primary-color);
+  box-shadow: 0 0 0.5em var(--nui-primary-focus-color);
 }
 
 .nui-date-picker-nav {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 2rem;
-  height: 2rem;
+  width: 2.25rem;
+  height: 2.25rem;
   padding: 0;
   border: var(--border-width) solid var(--nui-card-border);
   border-radius: var(--border-radius-sm);
   background: transparent;
   color: var(--nui-white-text-color);
+  font-size: 1.0625rem;
   cursor: pointer;
+  transition:
+    background var(--transition-fast) ease,
+    color var(--transition-fast) ease,
+    border-color var(--transition-fast) ease;
 }
 
 .nui-date-picker-nav:hover {
   background: var(--nui-primary-highlight-color);
+  color: var(--nui-primary-color);
+}
+
+.nui-date-picker-nav:focus-visible {
+  outline: 0;
+  border-color: var(--nui-primary-color);
+  box-shadow: 0 0 0.5em var(--nui-primary-focus-color);
 }
 
 .nui-date-picker-weekdays,
 .nui-date-picker-days {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  gap: var(--spacing-2xs);
+  gap: 0.25rem;
+}
+
+.nui-date-picker-weekdays {
+  margin-bottom: 0.3125rem;
 }
 
 .nui-date-picker-weekday {
+  padding: 0.25rem 0;
   color: var(--nui-secondary-text-color);
-  font-size: 0.75rem;
+  font-size: 0.875rem;
+  font-weight: var(--font-weight-medium);
   text-align: center;
 }
 
-.nui-date-picker-day {
+.nui-date-picker-months {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.375rem;
+}
+
+.nui-date-picker-years {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.375rem;
+}
+
+.nui-date-picker-day,
+.nui-date-picker-cell {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-height: 2rem;
   padding: 0;
-  border: 0;
+  border: var(--border-width) solid transparent;
   border-radius: var(--border-radius-sm);
   background: transparent;
   color: var(--nui-white-text-color);
   font: inherit;
-  font-size: 0.875rem;
   cursor: pointer;
+  transition:
+    background var(--transition-fast) ease,
+    color var(--transition-fast) ease,
+    border-color var(--transition-fast) ease;
 }
 
-.nui-date-picker-day:hover:not([selected]) {
+.nui-date-picker-day {
+  min-height: 2.375rem;
+  font-size: 1rem;
+}
+
+.nui-date-picker-cell {
+  min-height: 2.625rem;
+  padding: 0 0.5rem;
+  font-size: 1rem;
+  font-weight: var(--font-weight-medium);
+}
+
+.nui-date-picker-day:hover:not([selected]),
+.nui-date-picker-cell:hover:not([selected]) {
   background: var(--nui-primary-highlight-color);
+}
+
+.nui-date-picker-day:focus-visible,
+.nui-date-picker-cell:focus-visible {
+  outline: 0;
+  border-color: var(--nui-primary-color);
+  box-shadow: 0 0 0.5em var(--nui-primary-focus-color);
 }
 
 .nui-date-picker-day[outside] {
   color: var(--nui-secondary-text-color);
 }
 
-.nui-date-picker-day[today]:not([selected]) {
-  border: var(--border-width) solid var(--nui-primary-color);
+.nui-date-picker-day[today]:not([selected]),
+.nui-date-picker-cell[today]:not([selected]) {
+  border-color: var(--nui-primary-color);
 }
 
-.nui-date-picker-day[selected] {
+.nui-date-picker-day[selected],
+.nui-date-picker-cell[selected] {
   background: var(--nui-primary-color);
+  border-color: var(--nui-primary-color);
   color: var(--nui-primary-white-text-color);
 }

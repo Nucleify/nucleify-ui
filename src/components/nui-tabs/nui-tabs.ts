@@ -77,9 +77,47 @@ export class NuiTabs extends LitElement implements TabsProps {
     );
   }
 
+  private handleTabKeydown(event: KeyboardEvent, currentIndex: number) {
+    const lists = this.lists || [];
+    if (lists.length === 0) return;
+
+    let targetIndex = -1;
+
+    switch (event.key) {
+      case 'ArrowRight':
+      case 'ArrowDown':
+        targetIndex = (currentIndex + 1) % lists.length;
+        break;
+      case 'ArrowLeft':
+      case 'ArrowUp':
+        targetIndex = (currentIndex - 1 + lists.length) % lists.length;
+        break;
+      case 'Home':
+        targetIndex = 0;
+        break;
+      case 'End':
+        targetIndex = lists.length - 1;
+        break;
+      default:
+        return;
+    }
+
+    event.preventDefault();
+    const targetItem = lists[targetIndex];
+    if (targetItem) {
+      this.handleTabClick(targetItem.value);
+      queueMicrotask(() => {
+        const buttons =
+          this.renderRoot.querySelectorAll<HTMLButtonElement>('button.nui-tab');
+        buttons[targetIndex]?.focus();
+      });
+    }
+  }
+
   private get _handlers(): NuiTabsHandlers {
     return {
       onTabClick: (val) => this.handleTabClick(val),
+      onTabKeydown: (event, index) => this.handleTabKeydown(event, index),
     };
   }
 

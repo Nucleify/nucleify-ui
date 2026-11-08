@@ -22,9 +22,14 @@ export class NuiToast extends LitElement implements ToastProps {
   @property({ type: String, reflect: true }) position: ToastPosition =
     'top-right';
   @property({ type: Boolean }) unstyled = false;
+  @property({ type: Boolean }) multiple = false;
   @nuiTypeProperty nuiType: NuiType = '';
 
   @state() messages: ToastMessage[] = [];
+
+  private _messageTimers = new Map<string, ReturnType<typeof setTimeout>>();
+  private _pendingShowTimer: ReturnType<typeof setTimeout> | null = null;
+  private _pendingShowToken = 0;
 
   private _globalAddHandler = (e: Event) => {
     const customEvent = e as CustomEvent<ToastMessage>;
@@ -33,13 +38,20 @@ export class NuiToast extends LitElement implements ToastProps {
     }
   };
 
+  private _globalClearHandler = () => {
+    this.clear();
+  };
+
   connectedCallback() {
     super.connectedCallback();
     window.addEventListener('nui-toast-add', this._globalAddHandler);
+    window.addEventListener('nui-toast-clear', this._globalClearHandler);
   }
 
   disconnectedCallback() {
     window.removeEventListener('nui-toast-add', this._globalAddHandler);
+    window.removeEventListener('nui-toast-clear', this._globalClearHandler);
+    this.clear();
     super.disconnectedCallback();
   }
 
@@ -55,22 +67,81 @@ export class NuiToast extends LitElement implements ToastProps {
     );
   }
 
+  public clear() {
+    if (this._pendingShowTimer) {
+      clearTimeout(this._pendingShowTimer);
+      this._pendingShowTimer = null;
+    }
+    this._pendingShowToken++;
+    for (const timer of this._messageTimers.values()) {
+      clearTimeout(timer);
+    }
+    this._messageTimers.clear();
+    this.messages = [];
+  }
+
   public add(message: ToastMessage) {
+    if (this.multiple) {
+      this._appendMessage(message);
+      return;
+    }
+
+    // Single mode: dismiss any existing toast before showing the new one
+    if (this.messages.length > 0) {
+      // Trigger closing animation on existing messages
+      this.messages = this.messages.map((m) => ({ ...m, closing: true }));
+
+      // Clear existing auto-dismiss timers since dismissal is active now
+      for (const timer of this._messageTimers.values()) {
+        clearTimeout(timer);
+      }
+      this._messageTimers.clear();
+
+      if (this._pendingShowTimer) {
+        clearTimeout(this._pendingShowTimer);
+        this._pendingShowTimer = null;
+      }
+
+      const token = ++this._pendingShowToken;
+      // Wait for CSS toast-fade-out (200ms) so old toast completely vanishes first
+      this._pendingShowTimer = setTimeout(() => {
+        if (token !== this._pendingShowToken) return;
+        this._pendingShowTimer = null;
+        this.messages = [];
+        this._appendMessage(message);
+      }, 200);
+      return;
+    }
+
+    // No existing messages, show immediately
+    this._appendMessage(message);
+  }
+
+  private _appendMessage(message: ToastMessage) {
     const id =
       message.id || `toast-${Math.random().toString(36).substring(2, 9)}`;
     const life = message.life !== undefined ? message.life : 3000;
     const newMessage = { ...message, id, closing: false };
 
-    this.messages = [...this.messages, newMessage];
+    this.messages = this.multiple
+      ? [...this.messages, newMessage]
+      : [newMessage];
 
     if (life > 0) {
-      setTimeout(() => {
+      const timer = setTimeout(() => {
         this.dismiss(id);
       }, life);
+      this._messageTimers.set(id, timer);
     }
   }
 
   public dismiss(id: string) {
+    const timer = this._messageTimers.get(id);
+    if (timer) {
+      clearTimeout(timer);
+      this._messageTimers.delete(id);
+    }
+
     this.messages = this.messages.map((m) => {
       if (m.id === id) {
         return { ...m, closing: true };

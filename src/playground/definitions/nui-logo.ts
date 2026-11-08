@@ -1,4 +1,5 @@
 import { html, type TemplateResult } from 'lit';
+import { DEFAULT_LOGO_COMBINED_SVG } from '../../components/nui-logo/logo-paths.js';
 import {
   formatUsageFromDefaults,
   type PlaygroundControl,
@@ -9,6 +10,9 @@ import {
 } from '../types.js';
 
 const ATTRIBUTE_NAMES: Record<string, string> = {
+  dimensions: 'dimensions',
+  svg: 'svg',
+  mode: 'mode',
   useSymbol: 'use-symbol',
   lighterColorClass: 'lighter-color-class',
   darkerColorClass: 'darker-color-class',
@@ -17,7 +21,9 @@ const ATTRIBUTE_NAMES: Record<string, string> = {
 };
 
 export const NUI_LOGO_DEFAULTS: PlaygroundProps = {
-  dimensions: '44',
+  dimensions: '80',
+  svg: DEFAULT_LOGO_COMBINED_SVG,
+  mode: '',
   useSymbol: false,
   lighterColorClass: '',
   darkerColorClass: '',
@@ -32,7 +38,26 @@ const CONTROLS: PlaygroundControl[] = [
     label: 'dimensions',
     type: 'text',
     section: 'Layout',
-    placeholder: '44',
+    placeholder: '80',
+  },
+  {
+    key: 'svg',
+    label: 'svg (SVG string or markup with dark/light variants)',
+    type: 'textarea',
+    section: 'Content',
+    rows: 10,
+    fullWidth: true,
+  },
+  {
+    key: 'mode',
+    label: 'mode',
+    type: 'select',
+    section: 'Appearance',
+    options: [
+      { label: '(automatic by theme)', value: '' },
+      { label: 'dark', value: 'dark' },
+      { label: 'light', value: 'light' },
+    ],
   },
   {
     key: 'lighterColorClass',
@@ -71,6 +96,11 @@ function renderPreview(props: PlaygroundProps): TemplateResult {
   return html`
     <nui-logo
       .dimensions=${Number(props.dimensions)}
+      .svg=${String(props.svg ?? '')}
+      .lighterColorClass=${String(props.lighterColorClass ?? '')}
+      .darkerColorClass=${String(props.darkerColorClass ?? '')}
+      .logoClass=${String(props.logoClass ?? '')}
+      mode=${whenString(props.mode)}
       lighter-color-class=${whenString(props.lighterColorClass)}
       darker-color-class=${whenString(props.darkerColorClass)}
       logo-class=${whenString(props.logoClass)}

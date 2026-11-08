@@ -162,8 +162,16 @@ function handleKnobChange(
     return;
   }
 
-  const value = (event as CustomEvent<{ value: number }>).detail.value;
-  handlers.onPropChange('value', String(value));
+  const detail = (event as CustomEvent<{ value?: number }>).detail;
+  if (
+    !detail ||
+    typeof detail !== 'object' ||
+    typeof detail.value !== 'number'
+  ) {
+    return;
+  }
+
+  handlers.onPropChange('value', String(detail.value));
 }
 
 function renderPreview(

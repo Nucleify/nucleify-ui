@@ -5,6 +5,7 @@ import type {
 
 export type DatePickerSize = 'small' | 'large';
 export type DatePickerVariant = 'outlined' | 'filled';
+export type DatePickerCalendarView = 'date' | 'month' | 'year';
 
 export interface DatePickerProps {
   value?: string;

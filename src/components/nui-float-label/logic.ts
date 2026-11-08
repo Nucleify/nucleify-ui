@@ -24,6 +24,7 @@ export function renderFloatLabel(
 ): TemplateResult {
   return html`
     <div
+      part="root"
       class=${getFloatLabelClass(state.floatLabelClass)}
       variant=${state.variant}
       nui-type=${state.nuiType || nothing}

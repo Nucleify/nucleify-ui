@@ -3,8 +3,12 @@ const INPUT_SELECTORS = [
   'nui-textarea',
   'nui-input-number',
   'nui-input-mask',
+  'nui-password',
+  'nui-auto-complete',
+  'nui-select',
   'input',
   'textarea',
+  'select',
 ].join(', ');
 
 function readControlValue(control: Element): string {
@@ -48,6 +52,31 @@ export function isFloatLabelFilled(root: HTMLElement): boolean {
 
   if (!control) {
     return false;
+  }
+
+  // If control has a placeholder, it must float to avoid overlapping placeholder text
+  if (
+    control.hasAttribute('placeholder') &&
+    control.getAttribute('placeholder')?.trim()
+  ) {
+    return true;
+  }
+
+  const inner = control.shadowRoot?.querySelector('input, textarea, select');
+  if (
+    inner?.hasAttribute('placeholder') &&
+    inner.getAttribute('placeholder')?.trim()
+  ) {
+    return true;
+  }
+
+  // Check autofill
+  try {
+    if (inner?.matches(':-webkit-autofill') || inner?.matches(':autofill')) {
+      return true;
+    }
+  } catch {
+    // Ignore selector syntax error on older or unsupported engines
   }
 
   return readControlValue(control).trim().length > 0;

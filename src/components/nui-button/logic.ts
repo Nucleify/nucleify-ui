@@ -103,6 +103,7 @@ export function renderIcon(
 ): TemplateResult {
   return html`
     <nui-icon
+      part="icon"
       class="nui-button-icon ${iconWrapperClass}"
       icon=${icon}
       aria-hidden="true"
@@ -118,6 +119,7 @@ export function renderLoadingIcon(
 
   return html`
     <nui-icon
+      part="loading-icon"
       class="nui-button-loading ${iconClass}"
       icon=${icon}
       aria-hidden="true"
@@ -134,6 +136,7 @@ export function renderMedia(
 
   return html`
     <img
+      part="media"
       class="nui-button-media"
       src=${state.src}
       alt=${state.alt}
@@ -150,6 +153,7 @@ export function renderBadge(
 
   return html`
     <span
+      part="badge"
       class="nui-button-badge ${state.badgeClass}"
       severity=${state.badgeSeverity}
     >
@@ -163,7 +167,7 @@ export function renderLabel(label: string): TemplateResult | typeof nothing {
     return nothing;
   }
 
-  return html`<span class="nui-button-label">${label}</span>`;
+  return html`<span part="label" class="nui-button-label">${label}</span>`;
 }
 
 export function renderButton(state: NuiButtonViewState): TemplateResult {
@@ -176,6 +180,7 @@ export function renderButton(state: NuiButtonViewState): TemplateResult {
 
   return html`
     <button
+      part="button"
       class=${getButtonClass(state.buttonClass)}
       style=${inlineStyles || nothing}
       type=${state.type}

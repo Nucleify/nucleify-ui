@@ -94,4 +94,88 @@ describe('all components (behavior)', () => {
     const found = el.shadowRoot?.querySelector(selector);
     expect(found, `${tag} should contain ${selector}`).toBeTruthy();
   });
+
+  it.each([
+    ['nui-textarea', '.nui-textarea-input', '[{"index":0}]'],
+    ['nui-input-text', '.nui-input-text-input', 'hello'],
+  ])('%s stops composed native input events from leaking past custom input event', async (tag, selector, sampleValue) => {
+    await import(`../dist/components/${tag}/${tag}.js`);
+
+    const el = document.createElement(tag) as HTMLElement;
+    await render(el);
+
+    const received: unknown[] = [];
+    el.addEventListener('input', (event) => {
+      received.push((event as CustomEvent).detail);
+    });
+
+    const inner = el.shadowRoot?.querySelector(selector) as
+      | HTMLInputElement
+      | HTMLTextAreaElement;
+    inner.value = sampleValue;
+    inner.dispatchEvent(
+      new InputEvent('input', { bubbles: true, composed: true }),
+    );
+
+    expect(received).toEqual([{ value: sampleValue }]);
+  });
+
+  it('nui-date-picker switches between month and year views from header buttons', async () => {
+    await import('../dist/components/nui-date-picker/nui-date-picker.js');
+
+    const el = document.createElement('nui-date-picker') as HTMLElement & {
+      value: string;
+      updateComplete: Promise<boolean>;
+    };
+    el.value = '2026-11-06';
+    await render(el);
+
+    const trigger = el.shadowRoot?.querySelector(
+      '.nui-date-picker-trigger',
+    ) as HTMLButtonElement;
+    trigger.click();
+    await el.updateComplete;
+
+    const monthBtn = el.shadowRoot?.querySelector(
+      'button[aria-label="Choose month"]',
+    ) as HTMLButtonElement;
+    expect(monthBtn).toBeTruthy();
+    monthBtn.click();
+    await el.updateComplete;
+
+    const monthCells = el.shadowRoot?.querySelectorAll(
+      '.nui-date-picker-months .nui-date-picker-cell',
+    );
+    expect(monthCells?.length).toBe(12);
+    (monthCells?.[2] as HTMLButtonElement).click(); // March (index 2)
+    await el.updateComplete;
+
+    const yearBtn = el.shadowRoot?.querySelector(
+      'button[aria-label="Choose year"]',
+    ) as HTMLButtonElement;
+    expect(yearBtn?.textContent?.trim()).toBe('2026');
+    yearBtn.click();
+    await el.updateComplete;
+
+    const yearCells = [
+      ...(el.shadowRoot?.querySelectorAll(
+        '.nui-date-picker-years .nui-date-picker-cell',
+      ) ?? []),
+    ] as HTMLButtonElement[];
+    expect(yearCells.length).toBe(10);
+    const target2024 = yearCells.find(
+      (btn) => btn.textContent?.trim() === '2024',
+    );
+    expect(target2024).toBeTruthy();
+    target2024?.click();
+    await el.updateComplete;
+
+    const firstInMonthDay = el.shadowRoot?.querySelector(
+      '.nui-date-picker-day:not([outside])',
+    ) as HTMLButtonElement;
+    firstInMonthDay.click();
+    await el.updateComplete;
+
+    expect(el.value).toBe('2024-03-01');
+  });
 });

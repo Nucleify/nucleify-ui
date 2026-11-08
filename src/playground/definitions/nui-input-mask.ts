@@ -3,6 +3,7 @@ import {
   formatUsageFromDefaults,
   type PlaygroundControl,
   type PlaygroundDefinition,
+  type PlaygroundPreviewHandlers,
   type PlaygroundProps,
   whenBoolean,
   whenString,
@@ -141,10 +142,29 @@ const CONTROLS: PlaygroundControl[] = [
   },
 ];
 
-function renderPreview(props: PlaygroundProps): TemplateResult {
+function handleValueChange(
+  event: Event,
+  handlers?: PlaygroundPreviewHandlers,
+): void {
+  if (!handlers) {
+    return;
+  }
+
+  const detail = (event as CustomEvent<{ value?: string }>).detail;
+  if (!detail || typeof detail !== 'object' || !('value' in detail)) {
+    return;
+  }
+
+  handlers.onPropChange('value', String(detail.value ?? ''));
+}
+
+function renderPreview(
+  props: PlaygroundProps,
+  handlers?: PlaygroundPreviewHandlers,
+): TemplateResult {
   return html`
     <nui-input-mask
-      value=${whenString(props.value)}
+      .value=${String(props.value ?? '')}
       mask=${whenString(props.mask)}
       slot-char=${whenString(props.slotChar)}
       placeholder=${whenString(props.placeholder)}
@@ -163,6 +183,7 @@ function renderPreview(props: PlaygroundProps): TemplateResult {
       ?invalid=${whenBoolean(props.invalid)}
       ?fluid=${whenBoolean(props.fluid)}
       ?unstyled=${whenBoolean(props.unstyled)}
+      @input=${(event: Event) => handleValueChange(event, handlers)}
     ></nui-input-mask>
   `;
 }

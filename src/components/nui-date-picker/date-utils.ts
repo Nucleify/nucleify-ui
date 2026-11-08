@@ -91,6 +91,32 @@ export function getMonthLabel(date: Date): string {
   }).format(date);
 }
 
+export function getMonthName(date: Date): string {
+  return new Intl.DateTimeFormat(undefined, {
+    month: 'long',
+  }).format(date);
+}
+
+export function getShortMonthLabels(): string[] {
+  const formatter = new Intl.DateTimeFormat(undefined, { month: 'short' });
+
+  return Array.from({ length: 12 }, (_, month) =>
+    formatter.format(new Date(2024, month, 1)),
+  );
+}
+
+export function getDecadeRange(year: number): {
+  start: number;
+  end: number;
+  years: number[];
+} {
+  const start = Math.floor(year / 10) * 10;
+  const end = start + 9;
+  const years = Array.from({ length: 10 }, (_, index) => start + index);
+
+  return { start, end, years };
+}
+
 export function getWeekdayLabels(): string[] {
   const formatter = new Intl.DateTimeFormat(undefined, { weekday: 'short' });
   const base = new Date(2024, 0, 7);

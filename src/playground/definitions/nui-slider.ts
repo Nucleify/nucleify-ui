@@ -125,11 +125,21 @@ function handleSliderChange(
     return;
   }
 
-  const value = (event as CustomEvent<{ value: SliderValue }>).detail.value;
+  const detail = (event as CustomEvent<{ value?: SliderValue }>).detail;
+  if (!detail || typeof detail !== 'object' || !('value' in detail)) {
+    return;
+  }
+
+  const value = detail.value;
 
   if (Array.isArray(value)) {
-    handlers.onPropChange('value', String(value[0]));
-    handlers.onPropChange('valueHigh', String(value[1]));
+    handlers.onPropChange('value', String(value[0] ?? ''));
+    handlers.onPropChange('valueHigh', String(value[1] ?? ''));
+    return;
+  }
+
+  if (value === null || value === undefined) {
+    handlers.onPropChange('value', '');
     return;
   }
 

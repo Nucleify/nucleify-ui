@@ -242,9 +242,12 @@ function handleAutoCompleteChange(
     return;
   }
 
-  const value = (event as CustomEvent<{ value: string }>).detail.value;
+  const detail = (event as CustomEvent<{ value?: string }>).detail;
+  if (!detail || typeof detail !== 'object' || !('value' in detail)) {
+    return;
+  }
 
-  handlers.onPropChange('value', String(value ?? ''));
+  handlers.onPropChange('value', String(detail.value ?? ''));
 }
 
 function renderPreview(

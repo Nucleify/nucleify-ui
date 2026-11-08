@@ -1,4 +1,5 @@
 import { html, nothing, type TemplateResult } from 'lit';
+import { live } from 'lit/directives/live.js';
 import type { NuiType } from '../../types/nui-type.js';
 import type { CheckboxSize } from './types.js';
 
@@ -61,18 +62,20 @@ export function renderCheckbox(
 
   return html`
     <label
+      part="root"
       class=${getCheckboxClass(state.checkboxClass)}
       size=${state.size || nothing}
       nui-type=${state.nuiType || nothing}
       ?disabled=${state.disabled || nothing}
     >
       <input
+        part="input"
         class="nui-checkbox-input"
         type="checkbox"
         id=${state.inputId || nothing}
         name=${state.name || nothing}
         value=${state.value || nothing}
-        .checked=${state.checked}
+        .checked=${live(state.checked)}
         ?disabled=${state.disabled || nothing}
         ?readonly=${state.readonly || nothing}
         ?required=${state.required || nothing}
@@ -83,6 +86,7 @@ export function renderCheckbox(
         @change=${onChange}
       />
       <span
+        part="box"
         class="nui-checkbox-box"
         ?checked=${isActive || nothing}
         ?indeterminate=${state.indeterminate || nothing}

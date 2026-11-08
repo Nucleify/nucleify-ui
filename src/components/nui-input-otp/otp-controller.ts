@@ -51,7 +51,13 @@ export class OtpController {
   private handleInput = (event: Event): void => {
     const input = this.getInput(event.target);
 
-    if (!input || this.options.getReadonly() || this.options.getDisabled()) {
+    if (!input) {
+      return;
+    }
+
+    event.stopPropagation();
+
+    if (this.options.getReadonly() || this.options.getDisabled()) {
       return;
     }
 
@@ -99,12 +105,22 @@ export class OtpController {
       case 'ArrowDown':
         event.preventDefault();
         break;
-      case 'Backspace':
+      case 'Backspace': {
+        const index = Number(input.dataset.index ?? '0');
         if (input.value.length === 0) {
-          this.moveToPrev(input);
+          const inputs = this.getInputs();
+          const prev = inputs[index - 1];
+          if (prev) {
+            const tokens = [...this.options.getTokens()];
+            tokens[index - 1] = '';
+            this.options.setTokens(tokens, event);
+            prev.focus();
+            prev.select();
+          }
           event.preventDefault();
         }
         break;
+      }
       case 'ArrowRight':
         this.moveToNext(input);
         event.preventDefault();
@@ -173,34 +189,41 @@ export class OtpController {
       return;
     }
 
-    const paste = event.clipboardData.getData('text');
+    const rawPaste = event.clipboardData.getData('text') ?? '';
     const length = this.options.getLength();
-
-    if (!paste.length) {
-      return;
-    }
-
-    const pastedCode = paste.slice(0, length);
     const integerOnly = this.options.getIntegerOnly();
 
-    if (integerOnly && !/^\d+$/.test(pastedCode)) {
-      event.preventDefault();
+    // Clean up pasted code: strip whitespace/hyphens if numeric, otherwise trim
+    const cleanPaste = integerOnly
+      ? rawPaste.replace(/\D/g, '')
+      : rawPaste.trim().replace(/\s+/g, '');
+
+    if (!cleanPaste.length) {
       return;
     }
 
-    const tokens = pastedCode.split('').slice(0, length);
+    event.preventDefault();
 
-    while (tokens.length < length) {
-      tokens.push('');
+    const startIndex = Number(input.dataset.index ?? '0');
+    const targetStart = cleanPaste.length >= length ? 0 : startIndex;
+    const pastedCode = cleanPaste.slice(0, length - targetStart);
+
+    const tokens = [...this.options.getTokens()];
+    let lastFilledIndex = targetStart;
+
+    for (let i = 0; i < pastedCode.length && targetStart + i < length; i++) {
+      tokens[targetStart + i] = pastedCode[i];
+      lastFilledIndex = targetStart + i;
     }
 
     this.options.setTokens(tokens, event);
-    event.preventDefault();
 
-    const nextIndex = Math.min(pastedCode.length, length - 1);
-    const inputs = this.getInputs();
-    inputs[nextIndex]?.focus();
-    inputs[nextIndex]?.select();
+    queueMicrotask(() => {
+      const inputs = this.getInputs();
+      const targetInput = inputs[lastFilledIndex] ?? inputs[length - 1];
+      targetInput?.focus();
+      targetInput?.select();
+    });
   };
 
   private getInputs(): HTMLInputElement[] {

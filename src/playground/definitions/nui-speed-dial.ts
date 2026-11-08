@@ -10,6 +10,41 @@ import {
   whenString,
 } from '../types.js';
 
+const MAX_ITEMS = 8;
+
+/** Playground-editable item shape (JSON). */
+interface SpeedDialPlaygroundItem {
+  icon?: string;
+  tooltip?: string;
+  /** Navigate to URL on click. */
+  href?: string;
+  /**
+   * Demo action id or message:
+   * - `log:message` → console.log
+   * - `alert:message` → alert
+   * - anything else → console.log with the raw string
+   */
+  command?: string;
+}
+
+const DEFAULT_ITEMS: SpeedDialPlaygroundItem[] = [
+  {
+    icon: 'mdi:account',
+    tooltip: 'Profile',
+    href: 'https://github.com/Nucleify/nucleify-ui',
+  },
+  {
+    icon: 'mdi:sync',
+    tooltip: 'Refresh',
+    command: 'log:Refreshed',
+  },
+  {
+    icon: 'mdi:delete',
+    tooltip: 'Delete',
+    command: 'alert:Delete clicked',
+  },
+];
+
 const ATTRIBUTE_NAMES: Record<string, string> = {
   buttonClass: 'button-class',
   maskClass: 'mask-class',
@@ -23,10 +58,22 @@ const ATTRIBUTE_NAMES: Record<string, string> = {
   nuiType: 'nui-type',
 };
 
+const LINEAR_DIRECTIONS = [
+  { value: 'up', label: 'up' },
+  { value: 'down', label: 'down' },
+  { value: 'left', label: 'left' },
+  { value: 'right', label: 'right' },
+];
+
+const QUARTER_DIRECTIONS = [
+  { value: 'up-left', label: 'up-left' },
+  { value: 'up-right', label: 'up-right' },
+  { value: 'down-left', label: 'down-left' },
+  { value: 'down-right', label: 'down-right' },
+];
+
 export const NUI_SPEED_DIAL_DEFAULTS: PlaygroundProps = {
-  item1Icon: 'mdi:account',
-  item2Icon: 'mdi:sync',
-  item3Icon: 'mdi:delete',
+  model: JSON.stringify(DEFAULT_ITEMS, null, 2),
   direction: 'up',
   type: 'linear',
   radius: '0',
@@ -46,40 +93,48 @@ export const NUI_SPEED_DIAL_DEFAULTS: PlaygroundProps = {
   nuiType: '',
 };
 
+function directionOptionsForType(
+  type: string,
+): { value: string; label: string }[] {
+  if (type === 'quarter-circle') {
+    return QUARTER_DIRECTIONS;
+  }
+
+  if (type === 'circle') {
+    return [{ value: 'up', label: '(n/a for circle)' }];
+  }
+
+  return LINEAR_DIRECTIONS;
+}
+
+function defaultDirectionForType(type: string): string {
+  if (type === 'quarter-circle') {
+    return 'up-left';
+  }
+
+  return 'up';
+}
+
 const CONTROLS: PlaygroundControl[] = [
   {
-    key: 'item1Icon',
-    label: 'item 1 icon',
+    key: 'model',
+    label: 'model (JSON, max 8) — icon, tooltip, href | command',
+    type: 'textarea',
+    section: 'Content',
+    rows: 14,
+    fullWidth: true,
+    placeholder: `[
+  { "icon": "mdi:account", "tooltip": "Profile", "href": "https://example.com" },
+  { "icon": "mdi:sync", "tooltip": "Refresh", "command": "log:Refreshed" }
+]`,
+  },
+  { key: 'showIcon', label: 'show-icon', type: 'text', section: 'Content' },
+  { key: 'hideIcon', label: 'hide-icon', type: 'text', section: 'Content' },
+  {
+    key: 'ariaLabel',
+    label: 'aria-label',
     type: 'text',
     section: 'Content',
-  },
-  {
-    key: 'item2Icon',
-    label: 'item 2 icon',
-    type: 'text',
-    section: 'Content',
-  },
-  {
-    key: 'item3Icon',
-    label: 'item 3 icon',
-    type: 'text',
-    section: 'Content',
-  },
-  {
-    key: 'direction',
-    label: 'direction',
-    type: 'select',
-    section: 'Layout',
-    options: [
-      { value: 'up', label: 'up' },
-      { value: 'down', label: 'down' },
-      { value: 'left', label: 'left' },
-      { value: 'right', label: 'right' },
-      { value: 'up-left', label: 'up-left' },
-      { value: 'up-right', label: 'up-right' },
-      { value: 'down-left', label: 'down-left' },
-      { value: 'down-right', label: 'down-right' },
-    ],
   },
   {
     key: 'type',
@@ -92,6 +147,13 @@ const CONTROLS: PlaygroundControl[] = [
       { value: 'semi-circle', label: 'semi-circle' },
       { value: 'quarter-circle', label: 'quarter-circle' },
     ],
+  },
+  {
+    key: 'direction',
+    label: 'direction',
+    type: 'select',
+    section: 'Layout',
+    options: LINEAR_DIRECTIONS,
   },
   {
     key: 'radius',
@@ -118,14 +180,6 @@ const CONTROLS: PlaygroundControl[] = [
     type: 'text',
     section: 'Appearance',
   },
-  { key: 'showIcon', label: 'show-icon', type: 'text', section: 'Content' },
-  { key: 'hideIcon', label: 'hide-icon', type: 'text', section: 'Content' },
-  {
-    key: 'ariaLabel',
-    label: 'aria-label',
-    type: 'text',
-    section: 'Content',
-  },
   { key: 'visible', label: 'visible', type: 'boolean', section: 'State' },
   { key: 'disabled', label: 'disabled', type: 'boolean', section: 'State' },
   {
@@ -144,6 +198,71 @@ const CONTROLS: PlaygroundControl[] = [
   { key: 'unstyled', label: 'unstyled', type: 'boolean', section: 'Modifiers' },
 ];
 
+function parsePlaygroundItems(value: unknown): SpeedDialPlaygroundItem[] {
+  if (typeof value !== 'string' || !value.trim()) {
+    return DEFAULT_ITEMS;
+  }
+
+  try {
+    const parsed = JSON.parse(value) as unknown;
+    if (!Array.isArray(parsed)) {
+      return DEFAULT_ITEMS;
+    }
+
+    return parsed
+      .filter((item): item is Record<string, unknown> => {
+        return (
+          Boolean(item) && typeof item === 'object' && !Array.isArray(item)
+        );
+      })
+      .slice(0, MAX_ITEMS)
+      .map((item) => ({
+        icon: typeof item.icon === 'string' ? item.icon : undefined,
+        tooltip: typeof item.tooltip === 'string' ? item.tooltip : undefined,
+        href: typeof item.href === 'string' ? item.href : undefined,
+        command: typeof item.command === 'string' ? item.command : undefined,
+      }));
+  } catch {
+    return DEFAULT_ITEMS;
+  }
+}
+
+function runCommand(command: string) {
+  if (command.startsWith('log:')) {
+    console.log(command.slice(4));
+    return;
+  }
+
+  if (command.startsWith('alert:')) {
+    window.alert(command.slice(6));
+    return;
+  }
+
+  console.log('Speed dial command:', command);
+}
+
+function toMenuItems(items: SpeedDialPlaygroundItem[]): SpeedDialMenuItem[] {
+  return items.map((item) => {
+    const href = item.href?.trim();
+    const command = item.command?.trim();
+
+    return {
+      label: item.tooltip || item.icon || 'Action',
+      icon: item.icon,
+      command: () => {
+        if (href) {
+          window.open(href, '_blank', 'noopener,noreferrer');
+          return;
+        }
+
+        if (command) {
+          runCommand(command);
+        }
+      },
+    };
+  });
+}
+
 function handleItemClick(event: Event) {
   const detail = (event as CustomEvent<{ item: SpeedDialMenuItem }>).detail;
   console.log('Speed dial item clicked:', detail.item);
@@ -157,19 +276,56 @@ function handleChange(
     return;
   }
 
-  const visible = (event as CustomEvent<{ visible: boolean }>).detail.visible;
-  handlers.onPropChange('visible', visible);
+  const detail = (event as CustomEvent<{ visible?: boolean }>).detail;
+  if (!detail || typeof detail !== 'object' || !('visible' in detail)) {
+    return;
+  }
+
+  handlers.onPropChange('visible', Boolean(detail.visible));
+}
+
+function handlePropChange(
+  key: string,
+  value: string | boolean,
+  props: PlaygroundProps,
+): Partial<Record<string, string | boolean | undefined>> | undefined {
+  if (key !== 'type') {
+    return undefined;
+  }
+
+  const type = String(value);
+  const allowed = directionOptionsForType(type).map((option) => option.value);
+  const currentDirection = String(props.direction ?? '');
+  const patch: Partial<Record<string, string | boolean | undefined>> = {};
+
+  if (!allowed.includes(currentDirection)) {
+    patch.direction = defaultDirectionForType(type);
+  }
+
+  if (
+    (type === 'circle' ||
+      type === 'semi-circle' ||
+      type === 'quarter-circle') &&
+    (props.radius === '' || props.radius === '0')
+  ) {
+    patch.radius = '80';
+  }
+
+  return Object.keys(patch).length ? patch : undefined;
 }
 
 function renderPreview(
   props: PlaygroundProps,
   handlers?: PlaygroundPreviewHandlers,
 ): TemplateResult {
-  const items: SpeedDialMenuItem[] = [
-    { label: 'Add', icon: String(props.item1Icon || 'mdi:plus') },
-    { label: 'Update', icon: String(props.item2Icon || 'mdi:sync') },
-    { label: 'Delete', icon: String(props.item3Icon || 'mdi:delete') },
-  ];
+  const items = toMenuItems(parsePlaygroundItems(props.model));
+  const type = String(props.type || 'linear');
+  const directionControl = CONTROLS.find(
+    (control) => control.key === 'direction',
+  );
+  if (directionControl) {
+    directionControl.options = directionOptionsForType(type);
+  }
 
   return html`
     <div class="speed-dial-preview">
@@ -207,12 +363,16 @@ export const nuiSpeedDialPlayground: PlaygroundDefinition = {
   defaults: NUI_SPEED_DIAL_DEFAULTS,
   controls: CONTROLS,
   renderPreview,
+  onPropChange: handlePropChange,
   getPreviewClass: () => 'speed-dial-preview-host',
-  formatUsage: (props) =>
-    formatUsageFromDefaults(
+  formatUsage: (props) => {
+    const { model: _model, ...usageProps } = props;
+
+    return formatUsageFromDefaults(
       'nui-speed-dial',
-      props,
+      usageProps,
       NUI_SPEED_DIAL_DEFAULTS,
       ATTRIBUTE_NAMES,
-    ),
+    );
+  },
 };

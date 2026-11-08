@@ -1,5 +1,6 @@
 import '../nui-icon/nui-icon.js';
 import { html, nothing, type TemplateResult } from 'lit';
+import { live } from 'lit/directives/live.js';
 import type { NuiType } from '../../types/nui-type.js';
 
 export interface NuiPasswordViewState {
@@ -107,11 +108,12 @@ export function renderPassword(
   };
 
   return html`
-    <div class=${getContainerClass()} nui-type=${state.nuiType || nothing}>
+    <div part="root" class=${getContainerClass()} nui-type=${state.nuiType || nothing}>
       <input
+        part="input"
         class="nui-password-input"
         type=${inputType}
-        .value=${state.modelValue}
+        .value=${live(state.modelValue)}
         placeholder=${state.placeholder || nothing}
         ?disabled=${state.disabled}
         @input=${handlers.onInput}
@@ -124,6 +126,7 @@ export function renderPassword(
         state.toggleMask
           ? html`
             <button
+              part="toggle-button"
               class="nui-password-toggle"
               type="button"
               tabindex="-1"
@@ -144,6 +147,7 @@ export function renderPassword(
         isOverlayVisible
           ? html`
             <div
+              part="overlay"
               class="nui-password-overlay"
               id=${state.id ? `${state.id}_panel` : nothing}
             >

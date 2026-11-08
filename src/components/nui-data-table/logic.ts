@@ -1,4 +1,5 @@
 import { html, nothing, type TemplateResult } from 'lit';
+import { live } from 'lit/directives/live.js';
 import type { NuiType } from '../../types/nui-type.js';
 import {
   filterRows,
@@ -88,7 +89,7 @@ function renderFilterControl(
       <nui-select
         class="nui-data-table-filter-control"
         variant="borderless"
-        .value=${value}
+        .value=${live(value)}
         .options=${[
           { label: 'All', value: '' },
           ...options.map((option) => ({ label: option, value: option })),
@@ -112,7 +113,7 @@ function renderFilterControl(
       class="nui-data-table-filter-control"
       variant="borderless"
       type="search"
-      .value=${value}
+      .value=${live(value)}
       placeholder="Filter"
       fluid
       @click=${(event: Event) => event.stopPropagation()}

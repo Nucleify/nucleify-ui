@@ -2,11 +2,12 @@
   display: inline-block;
   vertical-align: middle;
   color: var(--nui-secondary-text-color);
+  font-size: var(--nui-label-font-size, var(--font-size-2xs));
 }
 
 .nui-label {
   display: inline-block;
-  font-size: var(--font-size-2xs);
+  font-size: inherit;
   font-weight: var(--font-weight-medium);
   line-height: 1.5;
   color: inherit;

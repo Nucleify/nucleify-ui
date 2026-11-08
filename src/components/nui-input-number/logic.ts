@@ -1,4 +1,5 @@
 import { html, nothing, type TemplateResult } from 'lit';
+import { live } from 'lit/directives/live.js';
 import type { NuiType } from '../../types/nui-type.js';
 import type {
   InputNumberButtonLayout,
@@ -125,7 +126,7 @@ export function renderInputNumber(
       id=${state.inputId || nothing}
       name=${state.name || nothing}
       placeholder=${state.placeholder || nothing}
-      .value=${state.inputValue}
+      .value=${live(state.inputValue)}
       ?disabled=${state.disabled || nothing}
       ?readonly=${state.readonly || nothing}
       ?required=${state.required || nothing}

@@ -8,6 +8,58 @@
   display: block;
 }
 
+.nui-logo-container {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 0;
+}
+
+.nui-logo-pair {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 0;
+}
+
+.nui-logo-variant {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 0;
+}
+
+/* Default / Dark mode */
+.nui-logo--light {
+  display: none;
+}
+
+.nui-logo--dark {
+  display: inline-flex;
+}
+
+/* Light mode hiding/showing */
+.nui-logo-container[mode="light"] .nui-logo--dark,
+:host([mode="light"]) .nui-logo--dark {
+  display: none;
+}
+
+.nui-logo-container[mode="light"] .nui-logo--light,
+:host([mode="light"]) .nui-logo--light {
+  display: inline-flex;
+}
+
+/* Explicit dark mode */
+.nui-logo-container[mode="dark"] .nui-logo--dark,
+:host([mode="dark"]) .nui-logo--dark {
+  display: inline-flex;
+}
+
+.nui-logo-container[mode="dark"] .nui-logo--light,
+:host([mode="dark"]) .nui-logo--light {
+  display: none;
+}
+
 .nui-logo-lighter {
   fill: var(--logo-lighter-color, #10b981);
 }

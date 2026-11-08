@@ -1,5 +1,10 @@
 import '../../components/nui-scroll-panel/nui-scroll-panel.js';
-import { html, type TemplateResult } from 'lit';
+import { html, nothing, type TemplateResult } from 'lit';
+import {
+  COMPONENT_CATEGORIES,
+  type ComponentCategoryId,
+  getComponentCategory,
+} from '../categories.js';
 import type { PlaygroundDefinition } from '../types.js';
 
 export type NavTabId = 'guides' | 'components' | 'resources';
@@ -85,116 +90,31 @@ export const RESOURCES_SECTIONS: NavSection[] = [
 
 export function buildComponentSections(
   definitions: PlaygroundDefinition[],
+  categoryFilter: ComponentCategoryId = 'all',
 ): NavSection[] {
-  const formTags = new Set([
-    'nui-auto-complete',
-    'nui-checkbox',
-    'nui-color-picker',
-    'nui-date-picker',
-    'nui-float-label',
-    'nui-input-mask',
-    'nui-input-number',
-    'nui-input-otp',
-    'nui-input-text',
-    'nui-knob',
-    'nui-listbox',
-    'nui-password',
-    'nui-radio-button',
-    'nui-rating',
-    'nui-select',
-    'nui-select-button',
-    'nui-slider',
-    'nui-textarea',
-  ]);
-
-  const buttonTags = new Set(['nui-button', 'nui-speed-dial', 'nui-anchor']);
-
-  const panelTags = new Set([
-    'nui-accordion',
-    'nui-card',
-    'nui-divider',
-    'nui-scroll-panel',
-    'nui-tabs',
-    'nui-terminal',
-    'nui-tile',
-  ]);
-
-  const overlayTags = new Set(['nui-dialog', 'nui-popover', 'nui-tooltip']);
-
-  const menuTags = new Set(['nui-dock', 'nui-menu', 'nui-tree']);
-
-  const mediaTags = new Set([
-    'nui-avatar',
-    'nui-badge',
-    'nui-chart',
-    'nui-heading',
-    'nui-icon',
-    'nui-image',
-    'nui-logo',
-    'nui-paragraph',
-    'nui-skeleton',
-    'nui-swiper',
-    'nui-tag',
-  ]);
-
-  const sections: NavSection[] = [
-    {
-      title: 'FORM',
-      items: definitions
-        .filter((d) => formTags.has(d.tag))
-        .map((d) => ({ id: d.tag, label: d.label, tag: d.tag })),
-    },
-    {
-      title: 'BUTTON',
-      items: definitions
-        .filter((d) => buttonTags.has(d.tag))
-        .map((d) => ({ id: d.tag, label: d.label, tag: d.tag })),
-    },
-    {
-      title: 'DATA',
-      items: definitions
-        .filter((d) => d.tag === 'nui-data-table')
-        .map((d) => ({ id: d.tag, label: d.label, tag: d.tag })),
-    },
-    {
-      title: 'PANEL',
-      items: definitions
-        .filter((d) => panelTags.has(d.tag))
-        .map((d) => ({ id: d.tag, label: d.label, tag: d.tag })),
-    },
-    {
-      title: 'OVERLAY',
-      items: definitions
-        .filter((d) => overlayTags.has(d.tag))
-        .map((d) => ({ id: d.tag, label: d.label, tag: d.tag })),
-    },
-    {
-      title: 'MENU',
-      items: definitions
-        .filter((d) => menuTags.has(d.tag))
-        .map((d) => ({ id: d.tag, label: d.label, tag: d.tag })),
-    },
-    {
-      title: 'MEDIA & DISPLAY',
-      items: definitions
-        .filter((d) => mediaTags.has(d.tag))
-        .map((d) => ({ id: d.tag, label: d.label, tag: d.tag })),
-    },
+  const categories: {
+    id: Exclude<ComponentCategoryId, 'all'>;
+    title: string;
+  }[] = [
+    { id: 'forms', title: 'FORMS & INPUTS' },
+    { id: 'data', title: 'DATA & ANALYTICS' },
+    { id: 'layout', title: 'LAYOUT & NAVIGATION' },
+    { id: 'feedback', title: 'FEEDBACK & STATUS' },
   ];
 
-  // Any remaining components not yet placed in a group
-  const covered = new Set(
-    sections.flatMap((s) => s.items.map((i) => i.tag).filter(Boolean)),
-  );
-  const others = definitions.filter((d) => !covered.has(d.tag));
-  if (others.length > 0) {
-    sections.push({
-      title: 'MISC',
-      items: others.map((d) => ({ id: d.tag, label: d.label, tag: d.tag })),
-    });
-  }
+  const targetCategories =
+    categoryFilter === 'all'
+      ? categories
+      : categories.filter((c) => c.id === categoryFilter);
 
-  return sections;
+  return targetCategories
+    .map((cat) => ({
+      title: cat.title,
+      items: definitions
+        .filter((d) => getComponentCategory(d.tag) === cat.id)
+        .map((d) => ({ id: d.tag, label: d.label, tag: d.tag })),
+    }))
+    .filter((section) => section.items.length > 0);
 }
 
 export function renderNav(
@@ -205,13 +125,15 @@ export function renderNav(
   onClose: () => void,
   activeTab: NavTabId = 'components',
   onTabChange?: (tab: NavTabId) => void,
+  activeCategory: ComponentCategoryId = 'all',
+  onCategoryChange?: (category: ComponentCategoryId) => void,
 ): TemplateResult {
   const sections: NavSection[] =
     activeTab === 'guides'
       ? GUIDES_SECTIONS
       : activeTab === 'resources'
         ? RESOURCES_SECTIONS
-        : buildComponentSections(definitions);
+        : buildComponentSections(definitions, activeCategory);
 
   return html`
     <div
@@ -252,6 +174,29 @@ export function renderNav(
 
       <div class="nav-divider"></div>
 
+      ${
+        activeTab === 'components'
+          ? html`
+              <div class="nav-category-filter">
+                <div class="nav-category-pills">
+                  ${COMPONENT_CATEGORIES.map((cat) => {
+                    const isActive = activeCategory === cat.id;
+                    return html`
+                      <button
+                        class="nav-category-pill ${isActive ? 'is-active' : ''}"
+                        type="button"
+                        @click=${() => onCategoryChange?.(cat.id)}
+                      >
+                        ${cat.label}
+                      </button>
+                    `;
+                  })}
+                </div>
+              </div>
+            `
+          : ''
+      }
+
       <nui-scroll-panel class="nav-scroll-panel">
         <nav class="nav-items-scroll">
           ${sections.map(
@@ -269,6 +214,8 @@ export function renderNav(
                       <button
                         class="nav-item ${isSelected ? 'is-selected' : ''}"
                         type="button"
+                        data-nav-id=${item.tag ?? item.id}
+                        aria-current=${isSelected ? 'page' : nothing}
                         @click=${() => {
                           if (item.tag) {
                             onSelect(item.tag);

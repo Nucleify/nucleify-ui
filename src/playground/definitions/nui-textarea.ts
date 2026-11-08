@@ -3,6 +3,7 @@ import {
   formatUsageFromDefaults,
   type PlaygroundControl,
   type PlaygroundDefinition,
+  type PlaygroundPreviewHandlers,
   type PlaygroundProps,
   whenBoolean,
   whenString,
@@ -164,10 +165,29 @@ const CONTROLS: PlaygroundControl[] = [
   },
 ];
 
-function renderPreview(props: PlaygroundProps): TemplateResult {
+function handleValueChange(
+  event: Event,
+  handlers?: PlaygroundPreviewHandlers,
+): void {
+  if (!handlers) {
+    return;
+  }
+
+  const detail = (event as CustomEvent<{ value?: string }>).detail;
+  if (!detail || typeof detail !== 'object' || !('value' in detail)) {
+    return;
+  }
+
+  handlers.onPropChange('value', String(detail.value ?? ''));
+}
+
+function renderPreview(
+  props: PlaygroundProps,
+  handlers?: PlaygroundPreviewHandlers,
+): TemplateResult {
   return html`
     <nui-textarea
-      value=${whenString(props.value)}
+      .value=${String(props.value ?? '')}
       placeholder=${whenString(props.placeholder)}
       name=${whenString(props.name)}
       textarea-id=${whenString(props.textareaId)}
@@ -189,6 +209,7 @@ function renderPreview(props: PlaygroundProps): TemplateResult {
       ?auto-resize=${whenBoolean(props.autoResize)}
       ?fluid=${whenBoolean(props.fluid)}
       ?unstyled=${whenBoolean(props.unstyled)}
+      @input=${(event: Event) => handleValueChange(event, handlers)}
     ></nui-textarea>
   `;
 }

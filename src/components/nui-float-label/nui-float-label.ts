@@ -98,7 +98,7 @@ export class NuiFloatLabel
 
   private syncInvalidAndDisabled(): void {
     const control = this.querySelector(
-      'nui-input-text, nui-textarea, nui-input-number, nui-input-mask',
+      'nui-input-text, nui-textarea, nui-input-number, nui-input-mask, nui-password, nui-auto-complete, nui-select, input, textarea, select',
     );
 
     if (!control) {

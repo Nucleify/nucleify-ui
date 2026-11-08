@@ -37,11 +37,13 @@ export function renderSelect(
 
   return html`
     <div
+      part="root"
       class="nui-select-wrapper"
       nui-type=${state.nuiType || nothing}
       aria-invalid=${state.invalid ? 'true' : nothing}
     >
       <button
+        part="trigger"
         type="button"
         class=${getTriggerClass()}
         ?disabled=${state.disabled}
@@ -50,10 +52,10 @@ export function renderSelect(
         @click=${handlers.onToggle}
         @keydown=${handlers.onKeydown}
       >
-        <span class="nui-select-label ${hasValue ? '' : 'nui-select-placeholder'}">
+        <span part="label" class="nui-select-label ${hasValue ? '' : 'nui-select-placeholder'}">
           ${selectedLabel || nothing}
         </span>
-        <span class="nui-select-arrow" aria-hidden="true">
+        <span part="arrow" class="nui-select-arrow" aria-hidden="true">
           <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
             <path d="M7 10l5 5 5-5z"/>
           </svg>
@@ -64,6 +66,7 @@ export function renderSelect(
         state.open
           ? html`
             <ul
+              part="panel"
               class="nui-select-panel"
               role="listbox"
               aria-label="Options"

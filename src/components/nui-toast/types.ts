@@ -21,6 +21,7 @@ export interface ToastProps {
   position?: ToastPosition;
   unstyled?: boolean;
   nuiType?: NuiType;
+  multiple?: boolean;
 }
 
 export interface NuiToastViewState extends ToastProps {

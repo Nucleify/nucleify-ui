@@ -34,6 +34,7 @@ export class NuiPassword extends LitElement implements NuiPasswordViewState {
   }
 
   private handleInput = (event: Event): void => {
+    event.stopPropagation();
     const input = event.target as HTMLInputElement;
     this.modelValue = input.value;
 
@@ -54,6 +55,7 @@ export class NuiPassword extends LitElement implements NuiPasswordViewState {
   };
 
   private handleChange = (event: Event): void => {
+    event.stopPropagation();
     const input = event.target as HTMLInputElement;
     this.modelValue = input.value;
 

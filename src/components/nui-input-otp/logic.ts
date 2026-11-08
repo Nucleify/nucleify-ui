@@ -1,4 +1,5 @@
 import { html, nothing, type TemplateResult } from 'lit';
+import { live } from 'lit/directives/live.js';
 import { repeat } from 'lit/directives/repeat.js';
 import type { NuiType } from '../../types/nui-type.js';
 import type { InputOtpSize, InputOtpVariant } from './types.js';
@@ -51,6 +52,7 @@ export function renderInputOtp(state: NuiInputOtpViewState): TemplateResult {
 
   return html`
     <div
+      part="root"
       class=${getOtpClass(state.otpClass)}
       nui-type=${state.nuiType || nothing}
       role="group"
@@ -62,11 +64,12 @@ export function renderInputOtp(state: NuiInputOtpViewState): TemplateResult {
         (_token, index) => index,
         (token, index) => html`
           <input
+            part="input"
             class=${getInputClass(state.inputClass)}
             type=${state.mask ? 'password' : 'text'}
             inputmode=${state.integerOnly ? 'numeric' : 'text'}
             maxlength="1"
-            .value=${token}
+            .value=${live(token)}
             data-index=${index}
             autocomplete="one-time-code"
             tabindex=${index === 0 ? (state.disabled ? -1 : state.tabindex) : -1}

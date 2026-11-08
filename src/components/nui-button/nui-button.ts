@@ -26,7 +26,7 @@ export class NuiButton extends LitElement implements NuiButtonViewState {
   @property({ type: String }) label = 'Button';
   @property({ type: String }) variant: ButtonVariant = 'primary';
   @property({ type: String }) severity: ButtonSeverity | '' = '';
-  @property({ type: Boolean }) disabled = false;
+  @property({ type: Boolean, reflect: true }) disabled = false;
   @property({ type: String }) type: ButtonType = 'button';
   @property({ type: String }) icon = '';
   @property({ type: String }) iconPos: ButtonIconPosition = 'left';

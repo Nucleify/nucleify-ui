@@ -1,5 +1,6 @@
 import '../nui-icon/nui-icon.js';
 import { html, nothing, type TemplateResult } from 'lit';
+import { live } from 'lit/directives/live.js';
 import type { NuiType } from '../../types/nui-type.js';
 import {
   isOptionDisabled,
@@ -89,7 +90,7 @@ export function renderAutoComplete(
           id=${state.inputId || nothing}
           name=${state.name || nothing}
           placeholder=${state.placeholder || nothing}
-          .value=${state.query}
+          .value=${live(state.query)}
           ?disabled=${state.disabled || nothing}
           ?readonly=${state.readonly || nothing}
           aria-label=${state.ariaLabel || nothing}
@@ -113,9 +114,8 @@ export function renderAutoComplete(
                   @click=${handlers.onDropdownClick}
                 >
                   <nui-icon
+                    class="nui-auto-complete-dropdown-icon"
                     icon=${state.dropdownIcon}
-                    width="1em"
-                    height="1em"
                     aria-hidden="true"
                   ></nui-icon>
                 </button>

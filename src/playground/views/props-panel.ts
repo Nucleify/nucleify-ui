@@ -44,6 +44,19 @@ export function renderPropsPanel(
   `;
 }
 
+function handleValueInput(
+  event: Event,
+  key: string,
+  onChange: (key: string, value: string | boolean) => void,
+): void {
+  const detail = (event as CustomEvent<{ value?: string }>).detail;
+  if (!detail || typeof detail !== 'object' || !('value' in detail)) {
+    return;
+  }
+
+  onChange(key, String(detail.value ?? ''));
+}
+
 function renderControlField(
   control: PlaygroundControl,
   value: string | boolean | undefined,
@@ -58,7 +71,7 @@ function renderControlField(
           aria-label=${control.label}
           .checked=${Boolean(value)}
           @change=${(event: CustomEvent<{ checked: boolean }>) =>
-            onChange(control.key, event.detail.checked)}
+            onChange(control.key, Boolean(event.detail?.checked))}
         ></nui-checkbox>
       </div>
     `;
@@ -75,7 +88,7 @@ function renderControlField(
           .value=${current}
           .options=${control.options ?? []}
           @nui-change=${(event: CustomEvent<{ value: string }>) =>
-            onChange(control.key, event.detail.value)}
+            onChange(control.key, String(event.detail?.value ?? ''))}
         ></nui-select>
       </div>
     `;
@@ -92,8 +105,7 @@ function renderControlField(
           rows=${control.rows ?? 4}
           .value=${String(value ?? '')}
           placeholder=${control.placeholder ?? ''}
-          @input=${(event: CustomEvent<{ value: string }>) =>
-            onChange(control.key, event.detail.value)}
+          @input=${(event: Event) => handleValueInput(event, control.key, onChange)}
         ></nui-textarea>
       </div>
     `;
@@ -108,8 +120,7 @@ function renderControlField(
         aria-label=${control.label}
         .value=${String(value ?? '')}
         placeholder=${control.placeholder ?? ''}
-        @input=${(event: CustomEvent<{ value: string }>) =>
-          onChange(control.key, event.detail.value)}
+        @input=${(event: Event) => handleValueInput(event, control.key, onChange)}
       ></nui-input-text>
     </div>
   `;

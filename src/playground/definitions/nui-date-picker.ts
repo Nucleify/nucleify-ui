@@ -191,8 +191,12 @@ function handleChange(
     return;
   }
 
-  const value = (event as CustomEvent<{ value: string }>).detail.value;
-  handlers.onPropChange('value', value);
+  const detail = (event as CustomEvent<{ value?: string }>).detail;
+  if (!detail || typeof detail !== 'object' || !('value' in detail)) {
+    return;
+  }
+
+  handlers.onPropChange('value', String(detail.value ?? ''));
 }
 
 function renderPreview(
@@ -202,7 +206,7 @@ function renderPreview(
   return html`
     <div class="date-picker-preview">
       <nui-date-picker
-        value=${whenString(props.value)}
+        .value=${String(props.value ?? '')}
         placeholder=${whenString(props.placeholder)}
         date-format=${whenString(props.dateFormat)}
         name=${whenString(props.name)}

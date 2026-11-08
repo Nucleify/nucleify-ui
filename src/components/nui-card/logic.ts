@@ -42,15 +42,16 @@ export function renderCard(
 
   return html`
     <div
+      part="card"
       class=${getCardClass(state.cardClass)}
       nui-type=${state.nuiType || nothing}
     >
-      <div class="nui-card-header" ?hidden=${!state.hasHeader}>
+      <div part="header" class="nui-card-header" ?hidden=${!state.hasHeader}>
         <slot name="header" @slotchange=${handlers.onHeaderSlotChange}></slot>
       </div>
-      <div class="nui-card-body">
-        <div class="nui-card-caption" ?hidden=${!showCaption}>
-          <div class="nui-card-title">
+      <div part="body" class="nui-card-body">
+        <div part="caption" class="nui-card-caption" ?hidden=${!showCaption}>
+          <div part="title" class="nui-card-title">
             <slot name="title" @slotchange=${handlers.onTitleSlotChange}>
               ${
                 state.title
@@ -67,7 +68,7 @@ export function renderCard(
               }
             </slot>
           </div>
-          <div class="nui-card-subtitle">
+          <div part="subtitle" class="nui-card-subtitle">
             <slot name="subtitle" @slotchange=${handlers.onSubtitleSlotChange}>
               ${
                 state.subtitle
@@ -84,11 +85,11 @@ export function renderCard(
             </slot>
           </div>
         </div>
-        <div class="nui-card-content">
+        <div part="content" class="nui-card-content">
           <slot></slot>
         </div>
       </div>
-      <div class="nui-card-footer" ?hidden=${!state.hasFooter}>
+      <div part="footer" class="nui-card-footer" ?hidden=${!state.hasFooter}>
         <slot name="footer" @slotchange=${handlers.onFooterSlotChange}></slot>
       </div>
     </div>

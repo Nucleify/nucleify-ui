@@ -2,6 +2,10 @@
   display: inline-block;
 }
 
+:host([disabled]) {
+  cursor: not-allowed;
+}
+
 :host([fluid]) {
   display: block;
   width: 100%;
@@ -42,7 +46,6 @@
 .nui-button[loading] {
   opacity: 0.65;
   cursor: not-allowed;
-  pointer-events: none;
 }
 
 .nui-button[fluid] {

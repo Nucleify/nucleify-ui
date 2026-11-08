@@ -152,6 +152,7 @@ export class NuiListbox extends LitElement implements NuiListboxViewState {
   }
 
   private handleFilterInput = (event: Event): void => {
+    event.stopPropagation();
     this.filterValue = (event.target as HTMLInputElement).value;
     this.focusedIndex = this.visibleOptions.length > 0 ? 0 : -1;
   };

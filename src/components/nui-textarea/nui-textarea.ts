@@ -125,6 +125,7 @@ export class NuiTextarea extends LitElement implements NuiTextareaViewState {
   }
 
   private handleInput = (event: Event): void => {
+    event.stopPropagation();
     const textarea = event.target as HTMLTextAreaElement;
     this.value = textarea.value;
 
@@ -142,6 +143,7 @@ export class NuiTextarea extends LitElement implements NuiTextareaViewState {
   };
 
   private handleChange = (event: Event): void => {
+    event.stopPropagation();
     const textarea = event.target as HTMLTextAreaElement;
     this.value = textarea.value;
 

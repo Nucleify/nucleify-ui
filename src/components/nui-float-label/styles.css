@@ -2,6 +2,7 @@
   display: inline-block;
   position: relative;
   vertical-align: middle;
+  --nui-label-font-size: var(--font-size-xs, 1rem);
 }
 
 :host([fluid]) {
@@ -17,16 +18,22 @@
 ::slotted(nui-input-text),
 ::slotted(nui-textarea),
 ::slotted(nui-input-number),
-::slotted(nui-input-mask) {
+::slotted(nui-input-mask),
+::slotted(nui-password),
+::slotted(nui-auto-complete),
+::slotted(nui-select) {
   display: block;
   width: 100%;
 }
 
-::slotted(nui-label) {
+::slotted(nui-label),
+::slotted(label) {
   position: absolute;
   left: calc(var(--spacing-sm) + var(--border-width));
   top: 50%;
   margin: 0;
+  font-size: var(--nui-label-font-size, var(--font-size-xs, 1rem));
+  line-height: 1.25;
   transform: translateY(-50%);
   transform-origin: left center;
   transition:
@@ -38,24 +45,31 @@
 }
 
 .nui-float-label[focused] ::slotted(nui-label),
-.nui-float-label[filled] ::slotted(nui-label) {
+.nui-float-label[filled] ::slotted(nui-label),
+.nui-float-label[focused] ::slotted(label),
+.nui-float-label[filled] ::slotted(label) {
   top: 0;
   transform: translateY(-50%) scale(0.85);
   color: var(--nui-primary-color);
 }
 
 .nui-float-label[variant="over"][focused] ::slotted(nui-label),
-.nui-float-label[variant="over"][filled] ::slotted(nui-label) {
+.nui-float-label[variant="over"][filled] ::slotted(nui-label),
+.nui-float-label[variant="over"][focused] ::slotted(label),
+.nui-float-label[variant="over"][filled] ::slotted(label) {
   transform: translateY(calc(-100% - var(--spacing-2xs) / 2)) scale(0.85);
   transform-origin: left bottom;
 }
 
-.nui-float-label[variant="in"] ::slotted(nui-label) {
+.nui-float-label[variant="in"] ::slotted(nui-label),
+.nui-float-label[variant="in"] ::slotted(label) {
   top: 50%;
 }
 
 .nui-float-label[variant="in"][focused] ::slotted(nui-label),
-.nui-float-label[variant="in"][filled] ::slotted(nui-label) {
+.nui-float-label[variant="in"][filled] ::slotted(nui-label),
+.nui-float-label[variant="in"][focused] ::slotted(label),
+.nui-float-label[variant="in"][filled] ::slotted(label) {
   top: var(--spacing-2xs);
   transform: scale(0.85);
   transform-origin: left top;
@@ -68,26 +82,37 @@
 .nui-float-label[variant="in"][focused] ::slotted(nui-input-number),
 .nui-float-label[variant="in"][filled] ::slotted(nui-input-number),
 .nui-float-label[variant="in"][focused] ::slotted(nui-input-mask),
-.nui-float-label[variant="in"][filled] ::slotted(nui-input-mask) {
+.nui-float-label[variant="in"][filled] ::slotted(nui-input-mask),
+.nui-float-label[variant="in"][focused] ::slotted(nui-password),
+.nui-float-label[variant="in"][filled] ::slotted(nui-password),
+.nui-float-label[variant="in"][focused] ::slotted(nui-auto-complete),
+.nui-float-label[variant="in"][filled] ::slotted(nui-auto-complete),
+.nui-float-label[variant="in"][focused] ::slotted(nui-select),
+.nui-float-label[variant="in"][filled] ::slotted(nui-select) {
   --nui-float-label-padding-top: var(--nui-float-label-in-padding-top);
 }
 
-.nui-float-label[variant="on"] ::slotted(nui-label) {
+.nui-float-label[variant="on"] ::slotted(nui-label),
+.nui-float-label[variant="on"] ::slotted(label) {
   top: 0;
-  transform: translateY(-50%);
+  transform: translateY(-50%) scale(0.85);
   padding: 0 var(--spacing-2xs);
   background: var(--nui-card-background);
 }
 
 .nui-float-label[variant="on"][focused] ::slotted(nui-label),
-.nui-float-label[variant="on"][filled] ::slotted(nui-label) {
+.nui-float-label[variant="on"][filled] ::slotted(nui-label),
+.nui-float-label[variant="on"][focused] ::slotted(label),
+.nui-float-label[variant="on"][filled] ::slotted(label) {
   color: var(--nui-primary-color);
 }
 
-:host([invalid]) ::slotted(nui-label) {
+:host([invalid]) ::slotted(nui-label),
+:host([invalid]) ::slotted(label) {
   color: var(--nui-danger-color);
 }
 
-:host([disabled]) ::slotted(nui-label) {
+:host([disabled]) ::slotted(nui-label),
+:host([disabled]) ::slotted(label) {
   opacity: 0.65;
 }

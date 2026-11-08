@@ -1,10 +1,13 @@
 import { html, nothing, type TemplateResult } from 'lit';
 import { unsafeSVG } from 'lit/directives/unsafe-svg.js';
 import type { NuiType } from '../../types/nui-type.js';
-import { LOGO_DARKER_PATH, LOGO_LIGHTER_PATH } from './logo-paths.js';
+import { DEFAULT_LOGO_COMBINED_SVG } from './logo-paths.js';
 
 export interface NuiLogoViewState {
   dimensions: number;
+  svg?: string;
+  mode?: 'dark' | 'light' | '';
+  activeMode?: 'dark' | 'light';
   useSymbol: boolean;
   lighterColorClass: string;
   darkerColorClass: string;
@@ -25,8 +28,8 @@ export function getLogoClass(logoClass: string): string {
   return ['nui-logo', logoClass].filter(Boolean).join(' ');
 }
 
-export function getLogoStyle(nuiType: string): string | undefined {
-  const type = nuiType.trim();
+export function getLogoStyle(nuiType?: string): string | undefined {
+  const type = nuiType?.trim() ?? '';
 
   if (!type) {
     return undefined;
@@ -38,65 +41,95 @@ export function getLogoStyle(nuiType: string): string | undefined {
   return `--logo-lighter-color:${lighter};--logo-darker-color:${darker}`;
 }
 
-function getPathFill(
-  varName: string,
-  fallback: string,
-  themed: boolean,
+function applyVariantClasses(
+  markup: string,
+  lighterClass?: string,
+  darkerClass?: string,
 ): string {
-  return themed ? `var(${varName}, ${fallback})` : fallback;
+  let result = markup;
+  const lighter = lighterClass?.trim();
+  const darker = darkerClass?.trim();
+
+  if (darker) {
+    result = result.replace(
+      /class=(["'])([^"']*\b(?:nui-logo--dark|nui-logo-darker)\b[^"']*)\1/g,
+      (_match, quote, existingClasses) => {
+        const classes = existingClasses.split(/\s+/).filter(Boolean);
+        if (!classes.includes(darker)) {
+          classes.push(darker);
+        }
+        return `class=${quote}${classes.join(' ')}${quote}`;
+      },
+    );
+  }
+
+  if (lighter) {
+    result = result.replace(
+      /class=(["'])([^"']*\b(?:nui-logo--light|nui-logo-lighter)\b[^"']*)\1/g,
+      (_match, quote, existingClasses) => {
+        const classes = existingClasses.split(/\s+/).filter(Boolean);
+        if (!classes.includes(lighter)) {
+          classes.push(lighter);
+        }
+        return `class=${quote}${classes.join(' ')}${quote}`;
+      },
+    );
+  }
+
+  return result;
+}
+
+function prepareCustomSvg(
+  svgString: string,
+  className: string,
+  size: number,
+  styleAttr: string,
+  typeAttr: string,
+): string {
+  const content = svgString.trim();
+
+  // If provided as multiple elements or container without single root <svg>
+  if (content.includes('<svg')) {
+    // Inject size and attributes onto all <svg> tags inside (e.g. for dark/light variants)
+    return content.replaceAll(
+      /<svg([^>]*)>/g,
+      `<svg$1 part="svg" class="${className}" width="${size}" height="${size}"${styleAttr}${typeAttr} aria-hidden="true">`,
+    );
+  }
+
+  // If provided as inner SVG paths/elements without <svg> tag:
+  return `<svg part="svg" class="${className}" width="${size}" height="${size}" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"${styleAttr}${typeAttr} aria-hidden="true">${content}</svg>`;
 }
 
 function renderInlineLogo(
   state: NuiLogoViewState,
   size: number,
 ): TemplateResult {
-  const themed = Boolean(state.nuiType.trim());
   const className = getLogoClass(state.logoClass);
   const style = getLogoStyle(state.nuiType);
-  const lighterClass = ['nui-logo-lighter', state.lighterColorClass]
-    .filter(Boolean)
-    .join(' ');
-  const darkerClass = ['nui-logo-darker', state.darkerColorClass]
-    .filter(Boolean)
-    .join(' ');
-  const lighterFill = getPathFill(
-    '--logo-lighter-color',
-    LOGO_LIGHTER_FALLBACK,
-    themed,
-  );
-  const darkerFill = getPathFill(
-    '--logo-darker-color',
-    LOGO_DARKER_FALLBACK,
-    themed,
-  );
   const styleAttr = style ? ` style="${style}"` : '';
   const typeAttr = state.nuiType ? ` nui-type="${state.nuiType}"` : '';
+  const activeMode = state.activeMode || state.mode || 'dark';
 
-  return html`${unsafeSVG(`
-    <svg
-      class="${className}"
-      width="${size}"
-      height="${size}"
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 2710 3140"${styleAttr}${typeAttr}
-      aria-hidden="true"
-    >
-      <path
-        class="${lighterClass}"
-        style="fill:${lighterFill}"
-        stroke="none"
-        fill-rule="evenodd"
-        d="${LOGO_LIGHTER_PATH}"
-      ></path>
-      <path
-        class="${darkerClass}"
-        style="fill:${darkerFill}"
-        stroke="none"
-        fill-rule="evenodd"
-        d="${LOGO_DARKER_PATH}"
-      ></path>
-    </svg>
-  `)}`;
+  const rawSvg = state.svg?.trim() || DEFAULT_LOGO_COMBINED_SVG;
+  const withVariantClasses = applyVariantClasses(
+    rawSvg,
+    state.lighterColorClass,
+    state.darkerColorClass,
+  );
+  const processedSvg = prepareCustomSvg(
+    withVariantClasses,
+    className,
+    size,
+    styleAttr,
+    typeAttr,
+  );
+
+  return html`
+    <div part="container" class="nui-logo-container" mode=${activeMode}>
+      ${unsafeSVG(processedSvg)}
+    </div>
+  `;
 }
 
 export function renderLogo(state: NuiLogoViewState): TemplateResult {
@@ -107,6 +140,7 @@ export function renderLogo(state: NuiLogoViewState): TemplateResult {
   if (state.useSymbol) {
     return html`
       <svg
+        part="svg"
         class=${className}
         width=${size}
         height=${size}

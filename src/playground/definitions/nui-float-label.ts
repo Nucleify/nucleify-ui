@@ -82,9 +82,12 @@ function handleInputChange(
     return;
   }
 
-  const value = (event as CustomEvent<{ value: string }>).detail.value;
+  const detail = (event as CustomEvent<{ value?: string }>).detail;
+  if (!detail || typeof detail !== 'object' || !('value' in detail)) {
+    return;
+  }
 
-  handlers.onPropChange('inputValue', value);
+  handlers.onPropChange('inputValue', String(detail.value ?? ''));
 }
 
 function renderPreview(

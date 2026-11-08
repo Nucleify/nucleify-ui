@@ -3,6 +3,7 @@ import {
   formatUsageFromDefaults,
   type PlaygroundControl,
   type PlaygroundDefinition,
+  type PlaygroundPreviewHandlers,
   type PlaygroundProps,
   whenBoolean,
   whenString,
@@ -103,7 +104,26 @@ const CONTROLS: PlaygroundControl[] = [
   },
 ];
 
-function renderPreview(props: PlaygroundProps): TemplateResult {
+function handleChange(
+  event: Event,
+  handlers?: PlaygroundPreviewHandlers,
+): void {
+  if (!handlers) {
+    return;
+  }
+
+  const detail = (event as CustomEvent<{ checked?: boolean }>).detail;
+  if (!detail || typeof detail !== 'object' || !('checked' in detail)) {
+    return;
+  }
+
+  handlers.onPropChange('checked', Boolean(detail.checked));
+}
+
+function renderPreview(
+  props: PlaygroundProps,
+  handlers?: PlaygroundPreviewHandlers,
+): TemplateResult {
   return html`
     <nui-checkbox
       value=${whenString(props.value)}
@@ -114,13 +134,14 @@ function renderPreview(props: PlaygroundProps): TemplateResult {
       aria-labelledby=${whenString(props.ariaLabelledby)}
       nui-type=${whenString(props.nuiType)}
       checkbox-class=${whenString(props.checkboxClass)}
-      ?checked=${whenBoolean(props.checked)}
+      .checked=${Boolean(props.checked)}
       ?disabled=${whenBoolean(props.disabled)}
       ?indeterminate=${whenBoolean(props.indeterminate)}
       ?invalid=${whenBoolean(props.invalid)}
       ?readonly=${whenBoolean(props.readonly)}
       ?required=${whenBoolean(props.required)}
       ?unstyled=${whenBoolean(props.unstyled)}
+      @change=${(event: Event) => handleChange(event, handlers)}
     ></nui-checkbox>
   `;
 }

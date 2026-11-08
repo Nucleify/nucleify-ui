@@ -62,6 +62,7 @@ export function renderSelectButton(
 ): TemplateResult {
   return html`
     <div
+      part="root"
       class=${getSelectButtonClass(state.selectButtonClass)}
       role="group"
       aria-labelledby=${state.ariaLabelledby || nothing}
@@ -85,6 +86,7 @@ export function renderSelectButton(
 
         return html`
           <button
+            part="option"
             type="button"
             class="nui-select-button-option"
             data-key=${getOptionKey(
@@ -103,6 +105,7 @@ export function renderSelectButton(
               icon
                 ? html`
                     <nui-icon
+                      part="icon"
                       class="nui-select-button-icon"
                       icon=${icon}
                       aria-hidden="true"
@@ -112,7 +115,7 @@ export function renderSelectButton(
             }
             ${
               label
-                ? html`<span class="nui-select-button-label">${label}</span>`
+                ? html`<span part="label" class="nui-select-button-label">${label}</span>`
                 : nothing
             }
           </button>

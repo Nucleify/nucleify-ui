@@ -134,8 +134,12 @@ function handleInputOtpChange(
     return;
   }
 
-  const value = (event as CustomEvent<{ value: string }>).detail.value;
-  handlers.onPropChange('value', value);
+  const detail = (event as CustomEvent<{ value?: string }>).detail;
+  if (!detail || typeof detail !== 'object' || !('value' in detail)) {
+    return;
+  }
+
+  handlers.onPropChange('value', String(detail.value ?? ''));
 }
 
 function renderPreview(
@@ -146,14 +150,14 @@ function renderPreview(
 
   return html`
     <nui-input-otp
-      value=${whenString(props.value)}
+      .value=${String(props.value ?? '')}
       length=${length}
       otp-class=${whenString(props.otpClass)}
       input-class=${whenString(props.inputClass)}
       aria-label=${whenString(props.ariaLabel)}
       aria-labelledby=${whenString(props.ariaLabelledby)}
       nui-type=${whenString(props.nuiType)}
-      tabindex=${Number(props.tabindex)}
+      .tabindex=${Number(props.tabindex)}
       .mask=${Boolean(props.mask)}
       .integerOnly=${Boolean(props.integerOnly)}
       ?disabled=${whenBoolean(props.disabled)}

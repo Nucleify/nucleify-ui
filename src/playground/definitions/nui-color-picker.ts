@@ -127,8 +127,15 @@ function handleInput(
     return;
   }
 
-  const detail = (event as CustomEvent<{ value: unknown }>).detail.value;
-  handlers.onPropChange('value', serializeValue(detail, String(props.format)));
+  const detail = (event as CustomEvent<{ value?: unknown }>).detail;
+  if (!detail || typeof detail !== 'object' || !('value' in detail)) {
+    return;
+  }
+
+  handlers.onPropChange(
+    'value',
+    serializeValue(detail.value, String(props.format)),
+  );
 }
 
 function renderPreview(
@@ -138,7 +145,7 @@ function renderPreview(
   return html`
     <div class="color-picker-preview">
       <nui-color-picker
-        .value=${whenString(props.value)}
+        .value=${String(props.value ?? '')}
         default-color=${whenString(props.defaultColor)}
         format=${whenString(props.format) as ColorFormat}
         name=${whenString(props.name)}

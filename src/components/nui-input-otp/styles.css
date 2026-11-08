@@ -1,6 +1,7 @@
 :host {
   display: inline-block;
   vertical-align: middle;
+  outline: none;
 }
 
 :host([fluid]) {
@@ -8,10 +9,23 @@
   width: 100%;
 }
 
+:host(:focus),
+:host(:focus-visible),
+:host(:focus-within) {
+  outline: none;
+}
+
 .nui-input-otp {
   display: inline-flex;
   align-items: center;
   gap: var(--spacing-xs);
+  outline: none;
+}
+
+.nui-input-otp:focus,
+.nui-input-otp:focus-visible,
+.nui-input-otp:focus-within {
+  outline: none;
 }
 
 :host([fluid]) .nui-input-otp {

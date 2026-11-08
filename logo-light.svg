@@ -1,0 +1,105 @@
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="20 22 160 160"
+  fill="none"
+  overflow="visible"
+  role="img"
+  aria-label="Nucleify holographic cube"
+>
+  <defs>
+    <linearGradient id="face-top" x1="50%" y1="0%" x2="50%" y2="100%">
+      <stop offset="0%" stop-color="#f1f8f3" />
+      <stop offset="100%" stop-color="#e8eef4" />
+    </linearGradient>
+    <linearGradient id="face-left" x1="0%" y1="20%" x2="100%" y2="90%">
+      <stop offset="0%" stop-color="#e8f4f8" />
+      <stop offset="100%" stop-color="#e2e8f0" />
+    </linearGradient>
+    <linearGradient id="face-right" x1="100%" y1="20%" x2="0%" y2="90%">
+      <stop offset="0%" stop-color="#f0e8f8" />
+      <stop offset="100%" stop-color="#e6e4f0" />
+    </linearGradient>
+
+    <linearGradient id="g-ring-left" x1="38" y1="68" x2="100" y2="170" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#22d3ee" />
+      <stop offset="55%" stop-color="#06b6d4" />
+      <stop offset="100%" stop-color="#818cf8" />
+    </linearGradient>
+    <linearGradient id="g-ring-right" x1="162" y1="68" x2="100" y2="170" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#c084fc" />
+      <stop offset="55%" stop-color="#a855f7" />
+      <stop offset="100%" stop-color="#6366f1" />
+    </linearGradient>
+
+    <linearGradient id="g-back-t" x1="100" y1="34" x2="100" y2="102" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#4ade80" />
+      <stop offset="100%" stop-color="#2dd4bf" />
+    </linearGradient>
+    <linearGradient id="g-back-bl" x1="38" y1="136" x2="100" y2="102" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#22d3ee" />
+      <stop offset="100%" stop-color="#67e8f9" />
+    </linearGradient>
+    <linearGradient id="g-back-br" x1="162" y1="136" x2="100" y2="102" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#c084fc" />
+      <stop offset="100%" stop-color="#a5b4fc" />
+    </linearGradient>
+  </defs>
+
+  <rect x="20" y="22" width="160" height="160" fill="#000000" fill-opacity="0" />
+
+  <g>
+    <path d="M100 34 L162 68 L100 102 L38 68 Z" fill="url(#face-top)" />
+    <path d="M38 68 L100 102 L100 170 L38 136 Z" fill="url(#face-left)" />
+    <path d="M162 68 L100 102 L100 170 L162 136 Z" fill="url(#face-right)" />
+  </g>
+
+  <!-- BACK spokes: soft tint, NO glow -->
+  <g stroke-linecap="butt" stroke-linejoin="miter" stroke-width="1.5" opacity="0.85">
+    <path d="M100 34 L100 102" stroke="url(#g-back-t)" />
+    <path d="M38 136 L100 102" stroke="url(#g-back-bl)" />
+    <path d="M162 136 L100 102" stroke="url(#g-back-br)" />
+  </g>
+
+  <!--
+    Neon via layered wider strokes (same technique as dark logo).
+    Slightly stronger bloom opacity so glow reads on light surfaces.
+  -->
+  <g fill="none" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="8">
+    <path
+      d="M100 34 L162 68 L162 136 L100 170 L38 136 L38 68 Z"
+      stroke="#22d3ee"
+      stroke-width="7"
+      opacity="0.22"
+    />
+    <path
+      d="M100 34 L162 68 L162 136 L100 170 L38 136 L38 68 Z"
+      stroke="#22d3ee"
+      stroke-width="4.4"
+      opacity="0.38"
+    />
+    <path d="M38 68 L100 102" stroke="#0891b2" stroke-width="7" opacity="0.2" />
+    <path d="M38 68 L100 102" stroke="#0891b2" stroke-width="4.4" opacity="0.36" />
+    <path d="M162 68 L100 102" stroke="#9333ea" stroke-width="7" opacity="0.2" />
+    <path d="M162 68 L100 102" stroke="#9333ea" stroke-width="4.4" opacity="0.36" />
+    <path d="M100 170 L100 102" stroke="#22d3ee" stroke-width="7" opacity="0.2" />
+    <path d="M100 170 L100 102" stroke="#22d3ee" stroke-width="4.4" opacity="0.36" />
+
+    <!-- Crisp neon core -->
+    <path
+      d="M100 34 L162 68 L162 136 L100 170 L38 136 L38 68 Z"
+      stroke="#06b6d4"
+      stroke-width="2.8"
+      opacity="0.95"
+    />
+    <path d="M38 68 L100 34" stroke="#16a34a" stroke-width="2.8" />
+    <path d="M100 34 L162 68" stroke="#a855f7" stroke-width="2.8" />
+    <path d="M162 68 L162 136" stroke="#9333ea" stroke-width="2.8" />
+    <path d="M162 136 L100 170" stroke="#6366f1" stroke-width="2.8" />
+    <path d="M100 170 L38 136" stroke="#0891b2" stroke-width="2.8" />
+    <path d="M38 136 L38 68" stroke="#0891b2" stroke-width="2.8" />
+
+    <path d="M38 68 L100 102" stroke="url(#g-ring-left)" stroke-width="2.8" />
+    <path d="M162 68 L100 102" stroke="url(#g-ring-right)" stroke-width="2.8" />
+    <path d="M100 170 L100 102" stroke="#06b6d4" stroke-width="2.8" />
+  </g>
+</svg>

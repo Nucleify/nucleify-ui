@@ -32,6 +32,7 @@ export function renderTagIcon(icon: string): TemplateResult | typeof nothing {
 
   return html`
     <nui-icon
+      part="icon"
       class="nui-tag-icon"
       icon=${icon}
       aria-hidden="true"
@@ -46,7 +47,7 @@ export function renderTagLabel(
     return nothing;
   }
 
-  return html`<span class="nui-tag-label">${state.value}</span>`;
+  return html`<span part="label" class="nui-tag-label">${state.value}</span>`;
 }
 
 export function renderTag(state: NuiTagViewState): TemplateResult {
@@ -55,6 +56,7 @@ export function renderTag(state: NuiTagViewState): TemplateResult {
 
   return html`
     <span
+      part="tag"
       class=${getTagClass(state.tagClass)}
       severity=${showSeverity ? severity : nothing}
       nui-type=${state.nuiType || nothing}

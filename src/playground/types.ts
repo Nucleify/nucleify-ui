@@ -37,6 +37,7 @@ export interface PlaygroundDefinition {
     props: PlaygroundProps,
   ) => Partial<Record<string, string | boolean | undefined>> | undefined;
   getPreviewClass?: (props: PlaygroundProps) => string;
+  parts?: string[];
 }
 
 import type { PresetName } from '../themes/types/preset.js';
@@ -104,8 +105,26 @@ export function formatUsageFromDefaults(
   const parts: string[] = [];
 
   for (const [key, value] of Object.entries(props)) {
+    // 1. Omit null, undefined, empty string, or false boolean attributes
+    if (
+      value === undefined ||
+      value === null ||
+      value === '' ||
+      value === false
+    ) {
+      continue;
+    }
+
     const defaultValue = defaults[key];
-    if (value === defaultValue) {
+
+    // 2. Omit attributes that match the default value, unless they are key content props
+    const isContentProp =
+      key === 'label' ||
+      key === 'placeholder' ||
+      key === 'text' ||
+      key === 'header' ||
+      key === 'title';
+    if (!isContentProp && value === defaultValue) {
       continue;
     }
 
@@ -113,16 +132,8 @@ export function formatUsageFromDefaults(
 
     if (typeof value === 'boolean') {
       if (value) {
-        if (defaultValue === false) {
-          parts.push(attr);
-        }
-      } else if (defaultValue === true) {
-        parts.push(`${attr}="false"`);
+        parts.push(attr);
       }
-      continue;
-    }
-
-    if (value === '') {
       continue;
     }
 

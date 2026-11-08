@@ -1,4 +1,5 @@
 import { html, nothing, type TemplateResult } from 'lit';
+import { live } from 'lit/directives/live.js';
 import type { NuiType } from '../../types/nui-type.js';
 import {
   isOptionDisabled,
@@ -127,7 +128,7 @@ export function renderListbox(
                   class="nui-listbox-filter-input"
                   type="search"
                   placeholder=${state.filterPlaceholder || nothing}
-                  .value=${state.filterValue}
+                  .value=${live(state.filterValue)}
                   ?disabled=${state.disabled || nothing}
                   autocomplete="off"
                   @input=${handlers.onFilterInput}

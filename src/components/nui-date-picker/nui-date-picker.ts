@@ -15,8 +15,13 @@ import {
   type NuiDatePickerViewState,
   renderDatePicker,
   shiftVisibleMonth,
+  shiftVisibleYear,
 } from './logic.js';
-import type { DatePickerSize, DatePickerVariant } from './types.js';
+import type {
+  DatePickerCalendarView,
+  DatePickerSize,
+  DatePickerVariant,
+} from './types.js';
 
 const styles = createComponentStyles(
   'nui-date-picker',
@@ -56,11 +61,13 @@ export class NuiDatePicker
   datePickerClass = '';
 
   @state() overlayVisible = false;
+  @state() currentView: DatePickerCalendarView = 'date';
   @state() visibleMonth = getVisibleMonth('');
   @state() displayValue = '';
 
   private blurTimer: ReturnType<typeof setTimeout> | null = null;
   private skipBlurClose = false;
+  private yearReturnView: 'date' | 'month' = 'date';
   private readonly today = getToday();
 
   protected createRenderRoot() {
@@ -77,6 +84,7 @@ export class NuiDatePicker
   disconnectedCallback() {
     super.disconnectedCallback();
     this.clearBlurTimer();
+    this.unbindOutsideListeners();
   }
 
   protected updated(changed: PropertyValues) {
@@ -104,20 +112,52 @@ export class NuiDatePicker
     }
   }
 
+  private handleDocumentMouseDown = (event: MouseEvent): void => {
+    if (!this.overlayVisible) {
+      return;
+    }
+
+    if (!event.composedPath().includes(this)) {
+      this.closeOverlay();
+    }
+  };
+
+  private handleDocumentKeyDown = (event: KeyboardEvent): void => {
+    if (event.key === 'Escape' && this.overlayVisible) {
+      this.closeOverlay();
+    }
+  };
+
+  private bindOutsideListeners(): void {
+    document.addEventListener('mousedown', this.handleDocumentMouseDown);
+    document.addEventListener('keydown', this.handleDocumentKeyDown);
+  }
+
+  private unbindOutsideListeners(): void {
+    document.removeEventListener('mousedown', this.handleDocumentMouseDown);
+    document.removeEventListener('keydown', this.handleDocumentKeyDown);
+  }
+
   private openOverlay(): void {
     if (this.disabled || this.readonly) {
       return;
     }
 
+    const wasOpen = this.overlayVisible;
     this.overlayVisible = true;
+    this.currentView = 'date';
+    this.yearReturnView = 'date';
     this.visibleMonth = getVisibleMonth(this.value, this.today);
 
-    this.dispatchEvent(
-      new CustomEvent('show', {
-        bubbles: true,
-        composed: true,
-      }),
-    );
+    if (!wasOpen) {
+      this.bindOutsideListeners();
+      this.dispatchEvent(
+        new CustomEvent('show', {
+          bubbles: true,
+          composed: true,
+        }),
+      );
+    }
   }
 
   private closeOverlay(): void {
@@ -126,6 +166,9 @@ export class NuiDatePicker
     }
 
     this.overlayVisible = false;
+    this.currentView = 'date';
+    this.yearReturnView = 'date';
+    this.unbindOutsideListeners();
 
     this.dispatchEvent(
       new CustomEvent('hide', {
@@ -157,6 +200,8 @@ export class NuiDatePicker
   }
 
   private handleInput = (event: Event): void => {
+    event.stopPropagation();
+
     if (!this.manualInput) {
       return;
     }
@@ -174,6 +219,8 @@ export class NuiDatePicker
   };
 
   private handleChange = (event: Event): void => {
+    event.stopPropagation();
+
     if (!this.manualInput) {
       return;
     }
@@ -222,14 +269,69 @@ export class NuiDatePicker
     this.skipBlurClose = true;
   };
 
-  private handlePrevMonth = (event: Event): void => {
+  private handlePrev = (event: Event): void => {
     event.preventDefault();
+
+    if (this.currentView === 'year') {
+      this.visibleMonth = shiftVisibleYear(this.visibleMonth, -10);
+      return;
+    }
+
+    if (this.currentView === 'month') {
+      this.visibleMonth = shiftVisibleYear(this.visibleMonth, -1);
+      return;
+    }
+
     this.visibleMonth = shiftVisibleMonth(this.visibleMonth, -1);
   };
 
-  private handleNextMonth = (event: Event): void => {
+  private handleNext = (event: Event): void => {
     event.preventDefault();
+
+    if (this.currentView === 'year') {
+      this.visibleMonth = shiftVisibleYear(this.visibleMonth, 10);
+      return;
+    }
+
+    if (this.currentView === 'month') {
+      this.visibleMonth = shiftVisibleYear(this.visibleMonth, 1);
+      return;
+    }
+
     this.visibleMonth = shiftVisibleMonth(this.visibleMonth, 1);
+  };
+
+  private handleToggleMonthView = (event: Event): void => {
+    event.preventDefault();
+    this.currentView = this.currentView === 'month' ? 'date' : 'month';
+  };
+
+  private handleToggleYearView = (event: Event): void => {
+    event.preventDefault();
+
+    if (this.currentView === 'year') {
+      this.currentView = this.yearReturnView;
+      return;
+    }
+
+    this.yearReturnView = this.currentView === 'month' ? 'month' : 'date';
+    this.currentView = 'year';
+  };
+
+  private handleMonthSelect = (monthIndex: number, event: Event): void => {
+    event.preventDefault();
+    this.visibleMonth = new Date(
+      this.visibleMonth.getFullYear(),
+      monthIndex,
+      1,
+    );
+    this.currentView = 'date';
+  };
+
+  private handleYearSelect = (year: number, event: Event): void => {
+    event.preventDefault();
+    this.visibleMonth = new Date(year, this.visibleMonth.getMonth(), 1);
+    this.currentView = this.yearReturnView;
   };
 
   private handleDayClick = (iso: string, event: Event): void => {
@@ -259,6 +361,7 @@ export class NuiDatePicker
         ariaLabel: this.ariaLabel,
         ariaLabelledby: this.ariaLabelledby,
         overlayVisible: this.overlayVisible,
+        currentView: this.currentView,
         visibleMonth: this.visibleMonth,
         selectedDate: getSelectedDate(this.value),
         today: this.today,
@@ -272,9 +375,13 @@ export class NuiDatePicker
         onBlur: this.handleBlur,
         onIconClick: this.handleIconClick,
         onIconMouseDown: this.handleIconMouseDown,
-        onPrevMonth: this.handlePrevMonth,
-        onNextMonth: this.handleNextMonth,
+        onPrev: this.handlePrev,
+        onNext: this.handleNext,
+        onToggleMonthView: this.handleToggleMonthView,
+        onToggleYearView: this.handleToggleYearView,
         onDayClick: this.handleDayClick,
+        onMonthSelect: this.handleMonthSelect,
+        onYearSelect: this.handleYearSelect,
         onPanelMouseDown: this.handlePanelMouseDown,
       },
     );

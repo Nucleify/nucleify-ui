@@ -42,6 +42,7 @@ export function renderBadge(state: NuiBadgeViewState): TemplateResult {
 
   return html`
     <span
+      part="badge"
       class=${getBadgeClass(state.badgeClass)}
       severity=${showSeverity ? severity : nothing}
       size=${state.size || nothing}

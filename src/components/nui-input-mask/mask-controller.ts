@@ -134,6 +134,8 @@ export class MaskController {
   }
 
   private handleInput = (event: Event): void => {
+    event.stopPropagation();
+
     if (!this.mask) {
       this.updateModelValue(this.input.value);
       return;

@@ -10,10 +10,16 @@ import { formatUsageFromDefaults, whenBoolean, whenString } from '../types.js';
 export const NUI_TOAST_DEFAULTS: PlaygroundProps = {
   position: 'top-right',
   unstyled: false,
+  multiple: false,
   nuiType: '',
 };
 
-export const ATTRIBUTE_NAMES: string[] = ['position', 'unstyled', 'nui-type'];
+export const ATTRIBUTE_NAMES: string[] = [
+  'position',
+  'unstyled',
+  'multiple',
+  'nui-type',
+];
 
 export const CONTROLS: PlaygroundControl[] = [
   {
@@ -29,6 +35,12 @@ export const CONTROLS: PlaygroundControl[] = [
       { value: 'bottom-center', label: 'bottom-center' },
     ],
     section: 'Layout',
+  },
+  {
+    key: 'multiple',
+    label: 'multiple',
+    type: 'boolean',
+    section: 'Behavior',
   },
   {
     key: 'unstyled',
@@ -67,6 +79,7 @@ function renderPreview(
         style="--nui-toast-top: 80px;"
         position=${props.position || 'top-right'}
         ?unstyled=${whenBoolean(props.unstyled)}
+        ?multiple=${whenBoolean(props.multiple)}
         nui-type=${whenString(props.nuiType)}
       ></nui-toast>
 

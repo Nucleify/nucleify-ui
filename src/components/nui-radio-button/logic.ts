@@ -1,4 +1,5 @@
 import { html, nothing, type TemplateResult } from 'lit';
+import { live } from 'lit/directives/live.js';
 import type { NuiType } from '../../types/nui-type.js';
 import type { RadioButtonSize, RadioButtonVariant } from './types.js';
 
@@ -34,6 +35,7 @@ export function renderRadioButton(
 ): TemplateResult {
   return html`
     <label
+      part="root"
       class=${getRadioButtonClass(state.radioButtonClass)}
       size=${state.size || nothing}
       variant=${state.variant || nothing}
@@ -41,12 +43,13 @@ export function renderRadioButton(
       ?disabled=${state.disabled || nothing}
     >
       <input
+        part="input"
         class="nui-radio-button-input"
         type="radio"
         id=${state.inputId || nothing}
         name=${state.name || nothing}
         value=${state.value || nothing}
-        .checked=${state.checked}
+        .checked=${live(state.checked)}
         ?disabled=${state.disabled || nothing}
         ?readonly=${state.readonly || nothing}
         tabindex=${state.tabindex ?? nothing}
@@ -57,12 +60,13 @@ export function renderRadioButton(
         @click=${handlers.onClick}
       />
       <span
+        part="box"
         class="nui-radio-button-box"
         ?checked=${state.checked || nothing}
         ?invalid=${state.invalid || nothing}
         ?disabled=${state.disabled || nothing}
       >
-        <span class="nui-radio-button-icon"></span>
+        <span part="icon" class="nui-radio-button-icon"></span>
       </span>
     </label>
   `;

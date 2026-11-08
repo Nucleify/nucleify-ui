@@ -17,6 +17,8 @@ const styles = createComponentStyles(
   () => import('./styles.css', { with: { type: 'css' } }),
 );
 
+let activeTooltipInstance: NuiTooltip | null = null;
+
 @customElement('nui-tooltip')
 export class NuiTooltip extends LitElement implements NuiTooltipViewState {
   @property({ type: String }) value = '';
@@ -55,6 +57,9 @@ export class NuiTooltip extends LitElement implements NuiTooltipViewState {
   disconnectedCallback() {
     super.disconnectedCallback();
     this.clearTimers();
+    if (activeTooltipInstance === this) {
+      activeTooltipInstance = null;
+    }
     window.removeEventListener('scroll', this.boundReposition, true);
     window.removeEventListener('resize', this.boundReposition);
   }
@@ -115,6 +120,12 @@ export class NuiTooltip extends LitElement implements NuiTooltipViewState {
       return;
     }
 
+    // Dismiss any active tooltip before showing a new one
+    if (activeTooltipInstance && activeTooltipInstance !== this) {
+      activeTooltipInstance.hide(true);
+      activeTooltipInstance = null;
+    }
+
     if (this.showDelay > 0) {
       this.showTimer = setTimeout(() => {
         this.showTimer = null;
@@ -152,6 +163,10 @@ export class NuiTooltip extends LitElement implements NuiTooltipViewState {
   };
 
   private show(): void {
+    if (activeTooltipInstance && activeTooltipInstance !== this) {
+      activeTooltipInstance.hide(true);
+    }
+    activeTooltipInstance = this;
     this.visible = true;
     this.updatePosition();
     requestAnimationFrame(() => this.updatePosition());
@@ -164,6 +179,9 @@ export class NuiTooltip extends LitElement implements NuiTooltipViewState {
     }
 
     this.visible = false;
+    if (activeTooltipInstance === this) {
+      activeTooltipInstance = null;
+    }
   }
 
   private getTriggerRect(): DOMRect | null {

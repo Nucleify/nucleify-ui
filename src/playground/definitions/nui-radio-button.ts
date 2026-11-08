@@ -125,8 +125,12 @@ function handleChange(
     return;
   }
 
-  const { checked } = (event as CustomEvent<{ checked: boolean }>).detail;
-  handlers.onPropChange('checked', checked);
+  const detail = (event as CustomEvent<{ checked?: boolean }>).detail;
+  if (!detail || typeof detail !== 'object' || !('checked' in detail)) {
+    return;
+  }
+
+  handlers.onPropChange('checked', Boolean(detail.checked));
 }
 
 function renderPreview(
@@ -145,7 +149,7 @@ function renderPreview(
       tabindex=${props.tabindex !== '' && props.tabindex != null ? Number(props.tabindex) : nothing}
       nui-type=${whenString(props.nuiType)}
       radio-button-class=${whenString(props.radioButtonClass)}
-      ?checked=${whenBoolean(props.checked)}
+      .checked=${Boolean(props.checked)}
       ?binary=${whenBoolean(props.binary)}
       ?disabled=${whenBoolean(props.disabled)}
       ?invalid=${whenBoolean(props.invalid)}

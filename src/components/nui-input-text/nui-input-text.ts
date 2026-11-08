@@ -55,6 +55,7 @@ export class NuiInputText extends LitElement implements NuiInputTextViewState {
   }
 
   private handleInput = (event: Event): void => {
+    event.stopPropagation();
     const input = event.target as HTMLInputElement;
     this.value = input.value;
 
@@ -68,6 +69,7 @@ export class NuiInputText extends LitElement implements NuiInputTextViewState {
   };
 
   private handleChange = (event: Event): void => {
+    event.stopPropagation();
     const input = event.target as HTMLInputElement;
     this.value = input.value;
 

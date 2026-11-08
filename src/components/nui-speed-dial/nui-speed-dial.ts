@@ -89,7 +89,6 @@ export class NuiSpeedDial extends LitElement implements NuiSpeedDialViewState {
 
   private handleOutsideClick = (event: MouseEvent) => {
     if (!this.hideOnClickOutside || !this.open || this.suppressOutsideClick) {
-      this.suppressOutsideClick = false;
       return;
     }
 
@@ -138,7 +137,12 @@ export class NuiSpeedDial extends LitElement implements NuiSpeedDialViewState {
   }
 
   private toggle(event: Event) {
+    // Ignore the same gesture in the document click listener (native bubble +
+    // our composed "click" event), then clear after this turn.
     this.suppressOutsideClick = true;
+    requestAnimationFrame(() => {
+      this.suppressOutsideClick = false;
+    });
 
     if (this.open) {
       this.close(event);
@@ -264,6 +268,9 @@ export class NuiSpeedDial extends LitElement implements NuiSpeedDialViewState {
   private handleItemClick(item: SpeedDialMenuItem, event: MouseEvent) {
     event.stopPropagation();
     this.suppressOutsideClick = true;
+    requestAnimationFrame(() => {
+      this.suppressOutsideClick = false;
+    });
 
     if (item.disabled || this.disabled) {
       return;

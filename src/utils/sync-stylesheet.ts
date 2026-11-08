@@ -19,6 +19,9 @@ function getPendingHostSheet(): CSSStyleSheet {
   return pendingHostSheet;
 }
 
+const isUnbundledDevServer =
+  import.meta.url.startsWith('http') && /\.ts(\?|$)/.test(import.meta.url);
+
 async function resolveStylesheet(
   componentTag: string,
   defaultLoad: StylesheetLoader,
@@ -32,6 +35,24 @@ async function resolveStylesheet(
 
     const module = await override();
     return module.default;
+  }
+
+  if (isUnbundledDevServer) {
+    try {
+      const cssUrl = new URL(
+        `../components/${componentTag}/styles.css`,
+        import.meta.url,
+      ).href;
+      const response = await fetch(cssUrl, { cache: 'no-cache' });
+
+      if (response.ok) {
+        const sheet = new CSSStyleSheet();
+        sheet.replaceSync(await response.text());
+        return sheet;
+      }
+    } catch {
+      // Fall back to constructable CSS module import below.
+    }
   }
 
   const module = await defaultLoad();
@@ -99,19 +120,36 @@ export function createComponentStyles(
       return;
     }
 
+    const pending = getPendingHostSheet();
+
     if (options.unstyled) {
-      renderRoot.adoptedStyleSheets = [];
+      renderRoot.adoptedStyleSheets = renderRoot.adoptedStyleSheets.filter(
+        (s) => s !== pending && s !== stylesheet,
+      );
       return;
     }
 
     if (!needsReload() && stylesheet) {
-      renderRoot.adoptedStyleSheets = [stylesheet];
+      if (!renderRoot.adoptedStyleSheets.includes(stylesheet)) {
+        const others = renderRoot.adoptedStyleSheets.filter(
+          (s) => s !== pending && s !== stylesheet,
+        );
+        renderRoot.adoptedStyleSheets = [stylesheet, ...others];
+      }
       return;
     }
 
-    renderRoot.adoptedStyleSheets = [getPendingHostSheet()];
+    const currentSheet = stylesheet;
+    const others = renderRoot.adoptedStyleSheets.filter(
+      (s) => s !== currentSheet && s !== pending,
+    );
+    renderRoot.adoptedStyleSheets = [pending, ...others];
+
     const sheet = await ensureLoaded();
-    renderRoot.adoptedStyleSheets = [sheet];
+    const finalOthers = renderRoot.adoptedStyleSheets.filter(
+      (s) => s !== pending && s !== currentSheet && s !== sheet,
+    );
+    renderRoot.adoptedStyleSheets = [sheet, ...finalOthers];
   }
 
   return { sync, preload: ensureLoaded };

@@ -1,4 +1,5 @@
 import { html, nothing, type TemplateResult } from 'lit';
+import { live } from 'lit/directives/live.js';
 import type { NuiType } from '../../types/nui-type.js';
 import type {
   InputTextSize,
@@ -41,12 +42,13 @@ export function renderInputText(
 ): TemplateResult {
   return html`
     <input
+      part="input"
       class=${getInputClass(state.inputClass)}
       type=${state.type}
       id=${state.inputId || nothing}
       name=${state.name || nothing}
       placeholder=${state.placeholder || nothing}
-      .value=${state.value}
+      .value=${live(state.value)}
       autocomplete=${state.autocomplete || nothing}
       maxlength=${state.maxlength > 0 ? state.maxlength : nothing}
       minlength=${state.minlength > 0 ? state.minlength : nothing}

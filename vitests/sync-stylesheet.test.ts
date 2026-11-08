@@ -141,4 +141,22 @@ describe('createComponentStyles', () => {
     }
     expect(sheets.length).toBe(0);
   });
+
+  it('preserves externally adopted stylesheets during sync', async () => {
+    const defaultSheet = sheetWith('.host { color: red; }');
+    const customSheet = sheetWith('.custom { color: purple; }');
+    const styles = createComponentStyles('nui-test-preserve', async () => ({
+      default: defaultSheet,
+    }));
+
+    const host = document.createElement('div');
+    const root = host.attachShadow({ mode: 'open' });
+    document.body.appendChild(host);
+
+    root.adoptedStyleSheets = [customSheet];
+    await styles.sync(root);
+
+    expect(root.adoptedStyleSheets).toContain(defaultSheet);
+    expect(root.adoptedStyleSheets).toContain(customSheet);
+  });
 });

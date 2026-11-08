@@ -1,4 +1,5 @@
 import { html, type TemplateResult } from 'lit';
+import { clampNumber } from '../../components/nui-input-number/number-format.js';
 import {
   formatUsageFromDefaults,
   type PlaygroundControl,
@@ -280,8 +281,41 @@ function handleInputNumberChange(
     return;
   }
 
-  const value = (event as CustomEvent<{ value: number | null }>).detail.value;
-  handlers.onPropChange('value', value === null ? '' : String(value));
+  const detail = (event as CustomEvent<{ value?: number | null }>).detail;
+  if (!detail || typeof detail !== 'object' || !('value' in detail)) {
+    return;
+  }
+
+  const value = detail.value;
+  handlers.onPropChange(
+    'value',
+    value === null || value === undefined ? '' : String(value),
+  );
+}
+
+function handlePropChange(
+  key: string,
+  value: string | boolean,
+  props: PlaygroundProps,
+): Partial<Record<string, string | boolean | undefined>> | undefined {
+  if (key !== 'value' && key !== 'min' && key !== 'max') {
+    return undefined;
+  }
+
+  const min = parseOptionalNumber(key === 'min' ? value : props.min);
+  const max = parseOptionalNumber(key === 'max' ? value : props.max);
+  const current = parseOptionalNumber(key === 'value' ? value : props.value);
+
+  if (current === null) {
+    return undefined;
+  }
+
+  const clamped = clampNumber(current, min, max);
+  if (clamped === current) {
+    return undefined;
+  }
+
+  return { value: String(clamped) };
 }
 
 function renderPreview(
@@ -338,6 +372,7 @@ export const nuiInputNumberPlayground: PlaygroundDefinition = {
   defaults: NUI_INPUT_NUMBER_DEFAULTS,
   controls: CONTROLS,
   renderPreview,
+  onPropChange: handlePropChange,
   formatUsage: (props) =>
     formatUsageFromDefaults(
       'nui-input-number',

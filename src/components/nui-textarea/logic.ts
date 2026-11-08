@@ -1,4 +1,5 @@
 import { html, nothing, type TemplateResult } from 'lit';
+import { live } from 'lit/directives/live.js';
 import type { NuiType } from '../../types/nui-type.js';
 import type { TextareaSize, TextareaVariant } from './types.js';
 
@@ -39,11 +40,12 @@ export function renderTextarea(
 ): TemplateResult {
   return html`
     <textarea
+      part="textarea"
       class=${getTextareaClass(state.textareaClass)}
       id=${state.textareaId || nothing}
       name=${state.name || nothing}
       placeholder=${state.placeholder || nothing}
-      .value=${state.value}
+      .value=${live(state.value)}
       autocomplete=${state.autocomplete || nothing}
       maxlength=${state.maxlength > 0 ? state.maxlength : nothing}
       minlength=${state.minlength > 0 ? state.minlength : nothing}
