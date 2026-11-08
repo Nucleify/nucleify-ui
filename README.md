@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="https://github.com/Nucleify/Nucleify/blob/prod/public/img/logo.svg" width="70" alt="Nucleify logo">
+  <img src="https://github.com/Nucleify/Nucleify/blob/prod/public/img/logo-transparent.webp" width="70" alt="Nucleify logo">
   <h1>nucleify-ui</h1>
 </div>
 
